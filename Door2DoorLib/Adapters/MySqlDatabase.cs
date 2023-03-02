@@ -13,7 +13,7 @@ namespace Door2DoorLib.Adapters
         public MySqlDatabase(IConfiguration configuration, string databaseName) : base(configuration, databaseName)
         {
             // Creating our database connection
-            _sqlConnection = new MySqlConnection(configuration.GetConnectionString(databaseName));
+            _sqlConnection = new MySqlConnection(configuration.GetConnectionString("DefaultConnection"));
         }
         #endregion
 
