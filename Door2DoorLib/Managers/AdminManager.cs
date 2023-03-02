@@ -1,13 +1,6 @@
-﻿using Door2DoorLib.Adapters;
-using Door2DoorLib.DataModels;
+﻿using Door2DoorLib.DataModels;
 using Door2DoorLib.Interfaces;
 using Door2DoorLib.Repositories;
-using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Door2DoorLib.Managers
 {
