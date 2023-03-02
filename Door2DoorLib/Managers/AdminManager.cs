@@ -2,7 +2,6 @@
 using Door2DoorLib.Factories;
 using Door2DoorLib.Interfaces;
 using Door2DoorLib.Repositories;
-using Org.BouncyCastle.Bcpg;
 
 namespace Door2DoorLib.Managers
 {

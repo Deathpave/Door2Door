@@ -2,6 +2,8 @@
 {
     public interface ILog
     {
+        #region Methods
         public void WriteLog();
+        #endregion
     }
 }
