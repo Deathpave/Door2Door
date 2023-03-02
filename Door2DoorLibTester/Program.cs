@@ -1,5 +1,4 @@
 ﻿using Door2DoorLib;
-
 namespace Door2DoorLibTester
 {
     internal class Program

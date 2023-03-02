@@ -36,8 +36,8 @@ namespace Door2DoorLib.Repositories
         {
             string query = $"DELETE FROM routes WHERE id='{deleteEntity.Id}'";
             MySqlCommand sqlCommand = new MySqlCommand(query);
-
-            return _database.ExecuteCommandAsync(sqlCommand);
+            var result = _database.ExecuteCommandAsync(sqlCommand);
+            return Task.FromResult(true);
 
         }
         #endregion
@@ -74,13 +74,13 @@ namespace Door2DoorLib.Repositories
         }
 
         // Updates route row 
-        public Task<bool> UpdateAsync(Route updateEntity)
-        {
-            string query = $"UPDATE routes SET text = '{updateEntity.Description}',videoId='{updateEntity.Id}' WHERE id='{updateEntity.Id}'";
-            MySqlCommand sqlCommand = new MySqlCommand(query);
+        //public Task<bool> UpdateAsync(Route updateEntity)
+        //{
+        //    string query = $"UPDATE routes SET text = '{updateEntity.Description}',videoId='{updateEntity.Id}' WHERE id='{updateEntity.Id}'";
+        //    MySqlCommand sqlCommand = new MySqlCommand(query);
 
-            return _database.ExecuteCommandAsync(sqlCommand);
-        }
+        //    return _database.ExecuteCommandAsync(sqlCommand);
+        //}
         #endregion
     }
 }
