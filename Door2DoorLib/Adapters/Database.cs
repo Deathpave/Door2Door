@@ -4,7 +4,7 @@ using MySql.Data.MySqlClient;
 
 namespace Door2DoorLib.Adapters
 {
-    public abstract class Database : IDatabase
+    internal abstract class Database : IDatabase
     {
         #region Fields
         private IConfiguration _configuration;
