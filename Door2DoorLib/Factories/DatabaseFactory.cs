@@ -1,20 +1,23 @@
 ﻿using Door2DoorLib.Adapters;
 using Door2DoorLib.Interfaces;
 using Microsoft.Extensions.Configuration;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Xsl;
 
 namespace Door2DoorLib.Factories
 {
     public class DatabaseFactory
     {
-        public static IDatabase CreateMySqlDatabase(IConfiguration configuration, string databaseName)
+        #region Create Database
+        public static IDatabase CreateDatabase(IConfiguration configuration, string databaseName, DatabaseTypes databaseType)
         {
-            return new MySqlDatabase(configuration, databaseName);
+            IDatabase database = null;
+            switch (databaseType)
+            {
+                case DatabaseTypes.MySql:
+                    database = new MySqlDatabase(configuration, databaseName);
+                    break;
+            }
+            return database;
         }
+        #endregion
     }
 }
