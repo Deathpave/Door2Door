@@ -14,8 +14,8 @@ namespace Door2DoorLib.Security
             if (string.IsNullOrEmpty(encodingPassword))
                 throw new Exception("Encoding password was empty");
 
-            // Hardcoded salt
-            byte[] salt = new byte[] { 1, 2, 3, 4, 5, 6, 7, 8, 9, 0 };
+            // input bytes as salt
+            byte[] salt = Encoding.UTF8.GetBytes(input);
             // Key and vector generator
             Rfc2898DeriveBytes rfc = new Rfc2898DeriveBytes(encodingPassword, salt);
 
@@ -29,8 +29,8 @@ namespace Door2DoorLib.Security
             CryptoStream cryptoStream = new CryptoStream(memoryStream, aes.CreateEncryptor(), CryptoStreamMode.Write);
 
             // Encrypt input as bytes
-            byte[] inputByes = Encoding.UTF8.GetBytes(input);
-            cryptoStream.Write(inputByes, 0, inputByes.Length);
+            byte[] inputBytes = Encoding.UTF8.GetBytes(input);
+            cryptoStream.Write(inputBytes, 0, inputBytes.Length);
             cryptoStream.FlushFinalBlock();
             cryptoStream.Close();
 

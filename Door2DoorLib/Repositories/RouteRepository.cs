@@ -71,7 +71,7 @@ namespace Door2DoorLib.Repositories
         // Updates route row 
         public Task<bool> UpdateAsync(Route updateEntity)
         {
-            string query = $"UPDATE FROM routes (text,videoId) VALUES ({updateEntity.Description},{updateEntity.Id}) WHERE id='{updateEntity.Id}'";
+            string query = $"UPDATE routes SET text = '{updateEntity.Description}',videoId='{updateEntity.Id}' WHERE id='{updateEntity.Id}'";
             MySqlCommand sqlCommand = new MySqlCommand(query);
 
             return _database.ExecuteCommandAsync(sqlCommand);
