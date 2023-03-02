@@ -21,7 +21,7 @@ namespace Door2DoorLib.Repositories
         // Creates new route row
         public Task<> CreateAsync(Route createEntity)
         {
-            string query = $"INSERT INTO routes (text,videoid) VALUES ({createEntity.Description},{createEntity.VideoId})";
+            string query = $"INSERT INTO routes (text,videoId) VALUES ({createEntity.Description},{createEntity.VideoId})";
             MySqlCommand sqlCommand = new MySqlCommand(query);
 
             return _database.ExecuteCommandAsync(sqlCommand);
@@ -71,7 +71,7 @@ namespace Door2DoorLib.Repositories
         // Updates route row 
         public Task<bool> UpdateAsync(Route updateEntity)
         {
-            string query = $"UPDATE FROM routes (text,videoid) VALUES ({updateEntity.Description},{updateEntity.Id}) WHERE id='{updateEntity.Id}'";
+            string query = $"UPDATE FROM routes (text,videoId) VALUES ({updateEntity.Description},{updateEntity.Id}) WHERE id='{updateEntity.Id}'";
             MySqlCommand sqlCommand = new MySqlCommand(query);
 
             return _database.ExecuteCommandAsync(sqlCommand);
