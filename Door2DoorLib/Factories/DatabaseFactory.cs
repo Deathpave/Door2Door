@@ -6,16 +6,18 @@ namespace Door2DoorLib.Factories
 {
     public class DatabaseFactory
     {
-        public static IDatabase CreateDatabase(IConfiguration configuration, string databaseName, DatabaseEnums databaseType)
+        #region Create Database
+        public static IDatabase CreateDatabase(IConfiguration configuration, string databaseName, DatabaseTypes databaseType)
         {
             IDatabase database = null;
             switch (databaseType)
             {
-                case DatabaseEnums.MySql:
+                case DatabaseTypes.MySql:
                     database = new MySqlDatabase(configuration, databaseName);
                     break;
             }
             return database;
         }
+        #endregion
     }
 }

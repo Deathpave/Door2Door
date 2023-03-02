@@ -1,6 +1,6 @@
 ﻿namespace Door2DoorLib.Factories
 {
-    public enum DatabaseEnums
+    public enum DatabaseTypes
     {
         MySql,
     }
