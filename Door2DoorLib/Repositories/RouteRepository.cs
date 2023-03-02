@@ -1,7 +1,6 @@
 ﻿using Door2DoorLib.DataModels;
 using Door2DoorLib.Interfaces;
 using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI.Common;
 
 namespace Door2DoorLib.Repositories
 {
@@ -18,6 +17,7 @@ namespace Door2DoorLib.Repositories
         }
         #endregion
 
+        #region Methods
         // Creates new route row
         public Task<> CreateAsync(Route createEntity)
         {
@@ -76,5 +76,6 @@ namespace Door2DoorLib.Repositories
 
             return _database.ExecuteCommandAsync(sqlCommand);
         }
+        #endregion
     }
 }

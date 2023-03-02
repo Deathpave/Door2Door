@@ -27,6 +27,8 @@ namespace Door2DoorLib.Managers
         #region Check Login Async
         public Task<bool> CheckLoginAsync(Admin admin)
         {
+            // Need encryption
+            // Test encrypted data with database?
             return Task.FromResult(true);
         }
         #endregion
