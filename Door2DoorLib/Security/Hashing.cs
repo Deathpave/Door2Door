@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using Door2DoorLib.Factories;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Door2DoorLib.Security
@@ -10,7 +11,7 @@ namespace Door2DoorLib.Security
         {
             // Check for null or empty input
             if (string.IsNullOrEmpty(input))
-                throw new Exception("Input string was empty");
+                ErrorLogFactory.CreateLog(LogTypes.Console, "Input for hashing was null or empty").WriteLog();
 
             // Convert input to bytes
             byte[] inputBytes = Encoding.UTF8.GetBytes(input);

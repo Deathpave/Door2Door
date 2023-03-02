@@ -1,4 +1,5 @@
-﻿using Door2DoorLib.Interfaces;
+﻿using Door2DoorLib.Factories;
+using Door2DoorLib.Interfaces;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 
@@ -36,7 +37,7 @@ namespace Door2DoorLib.Adapters
         // Default close connection method (not in use when overriding from other classes)
         public virtual void CloseConnection()
         {
-            throw new Exception("Template dont hold a datebase connection");
+            ErrorLogFactory.CreateLog(LogTypes.Console, "Tried to close connection via abstract database class").WriteLog();
         }
         #endregion
 
@@ -44,7 +45,8 @@ namespace Door2DoorLib.Adapters
         // Default open connection method (not in use when overriding from other classes)
         public virtual Task<bool> OpenConnectionAsync()
         {
-            throw new Exception("Template dont hold a datebase connection");
+            ErrorLogFactory.CreateLog(LogTypes.Console, "Tried to open connection via abstract database class").WriteLog();
+            return Task.FromResult(false);
         }
         #endregion
 
@@ -52,7 +54,7 @@ namespace Door2DoorLib.Adapters
         // Default execute sql command (not in use when overriding from other classes)
         public virtual Task<MySqlDataReader> ExecuteCommandAsync(MySqlCommand sqlCommand)
         {
-            throw new Exception("Template dont hold a database connection");
+            ErrorLogFactory.CreateLog(LogTypes.Console, "Triede to execute sql command via abstract database class").WriteLog();
         }
         #endregion
         #endregion
