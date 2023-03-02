@@ -21,7 +21,7 @@ namespace Door2DoorLib.Managers
         #region Add Route Async
         public Task<bool> AddRouteAsync(Route route)
         {
-            return Task.FromResult(true);
+            return _routeRepository.CreateAsync(route);
         }
         #endregion
 
