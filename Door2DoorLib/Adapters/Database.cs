@@ -55,6 +55,7 @@ namespace Door2DoorLib.Adapters
         public virtual Task<MySqlDataReader> ExecuteCommandAsync(MySqlCommand sqlCommand)
         {
             ErrorLogFactory.CreateLog(LogTypes.Console, "Triede to execute sql command via abstract database class").WriteLog();
+            return Task.FromResult<MySqlDataReader>(null);
         }
         #endregion
         #endregion
