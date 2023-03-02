@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Door2DoorLib", "Door2DoorLib\Door2DoorLib.csproj", "{94D395FD-1F49-444A-BD6F-176DA511B20F}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{94D395FD-1F49-444A-BD6F-176DA511B20F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94D395FD-1F49-444A-BD6F-176DA511B20F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94D395FD-1F49-444A-BD6F-176DA511B20F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94D395FD-1F49-444A-BD6F-176DA511B20F}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9F2C93FB-218F-45C8-9E2C-D5EDAC6B1A8E}
+	EndGlobalSection
+EndGlobal

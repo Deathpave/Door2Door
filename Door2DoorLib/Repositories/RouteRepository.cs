@@ -1,0 +1,80 @@
+﻿using Door2DoorLib.DataModels;
+using Door2DoorLib.Interfaces;
+using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
+
+namespace Door2DoorLib.Repositories
+{
+    internal class RouteRepository : IRouteRepository
+    {
+        #region Fields
+        private IDatabase _database;
+        #endregion
+
+        #region Constructor
+        RouteRepository(IDatabase database)
+        {
+            _database = database;
+        }
+        #endregion
+
+        // Creates new route row
+        public Task<> CreateAsync(Route createEntity)
+        {
+            string query = $"INSERT INTO routes (text,videoid) VALUES ({createEntity.Description},{createEntity.VideoId})";
+            MySqlCommand sqlCommand = new MySqlCommand(query);
+
+            return _database.ExecuteCommandAsync(sqlCommand);
+        }
+
+        // Deletes route row from id
+        public Task<bool> DeleteAsync(Route deleteEntity)
+        {
+            string query = $"DELETE FROM routes WHERE id='{deleteEntity.Id}'";
+            MySqlCommand sqlCommand = new MySqlCommand(query);
+
+            return _database.ExecuteCommandAsync(sqlCommand);
+
+        }
+
+        // TODO need name as well / instead of id
+        public Task<Route> GetByIdAsync(long id)
+        {
+            string query = $"SELECT FROM routes WHERE id='{id}'";
+            MySqlCommand sqlCommand = new MySqlCommand(query);
+            Route result;
+            using (var streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
+            {
+                // Create a new route from the datastream
+                result = new Route(streamReader.GetInt64("id"), streamReader.GetInt64("videoId"), streamReader.GetString("text"));
+            }
+            return Task.FromResult(result);
+        }
+
+        public Task<IEnumerable<Route>> GetAllAsync()
+        {
+            string query = $"SELECT * FROM routes";
+            MySqlCommand sqlCommand = new MySqlCommand(query);
+            IEnumerable<Route> result = new List<Route>();
+            using (var streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
+            {
+                // Create a new route from the datastream
+                while (streamReader.HasRows)
+                {
+                    result.Append(new Route(streamReader.GetInt64("id"), streamReader.GetInt64("videoId"), streamReader.GetString("text")));
+                    streamReader.Read();
+                }
+            }
+            return Task.FromResult(result);
+        }
+
+        // Updates route row 
+        public Task<bool> UpdateAsync(Route updateEntity)
+        {
+            string query = $"UPDATE FROM routes (text,videoid) VALUES ({updateEntity.Description},{updateEntity.Id}) WHERE id='{updateEntity.Id}'";
+            MySqlCommand sqlCommand = new MySqlCommand(query);
+
+            return _database.ExecuteCommandAsync(sqlCommand);
+        }
+    }
+}
