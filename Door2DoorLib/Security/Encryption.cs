@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using Door2DoorLib.Factories;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Door2DoorLib.Security
@@ -10,9 +11,11 @@ namespace Door2DoorLib.Security
         {
             // Check for null or empty inputs
             if (string.IsNullOrEmpty(input))
-                throw new Exception("Input string was empty");
+            {
+                ErrorLogFactory.CreateLog(LogTypes.Console, "Input string was null or empty").WriteLog();
+            }
             if (string.IsNullOrEmpty(encodingPassword))
-                throw new Exception("Encoding password was empty");
+                ErrorLogFactory.CreateLog(LogTypes.Console, "Encoding password was null or empty").WriteLog();
 
             // input bytes as salt
             byte[] salt = Encoding.UTF8.GetBytes(input);
