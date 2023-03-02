@@ -18,15 +18,19 @@ namespace Door2DoorLib.Repositories
         #endregion
 
         #region Methods
+        #region Create Async
         // Creates new route row
-        public Task<> CreateAsync(Route createEntity)
+        public Task<bool> CreateAsync(Route createEntity)
         {
             string query = $"INSERT INTO routes (text,videoId) VALUES ({createEntity.Description},{createEntity.VideoId})";
             MySqlCommand sqlCommand = new MySqlCommand(query);
 
-            return _database.ExecuteCommandAsync(sqlCommand);
+            var result = _database.ExecuteCommandAsync(sqlCommand);
+            return Task.FromResult(false);
         }
+        #endregion
 
+        #region Delete Async
         // Deletes route row from id
         public Task<bool> DeleteAsync(Route deleteEntity)
         {
@@ -36,6 +40,7 @@ namespace Door2DoorLib.Repositories
             return _database.ExecuteCommandAsync(sqlCommand);
 
         }
+        #endregion
 
         // TODO need name as well / instead of id
         public Task<Route> GetByIdAsync(long id)
