@@ -1,5 +1,6 @@
 ﻿using Door2DoorLib.Adapters;
 using Door2DoorLib.DataModels;
+using Door2DoorLib.Interfaces;
 using Door2DoorLib.Repositories;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -17,9 +18,9 @@ namespace Door2DoorLib.Managers
         #endregion
 
         #region Constructor
-        public AdminManager()
+        public AdminManager(IDatabase database)
         {
-            _adminRepository = new AdminRepository();
+            _adminRepository = new AdminRepository(database);
         }
         #endregion
 

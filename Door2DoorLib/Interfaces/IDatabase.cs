@@ -2,7 +2,7 @@
 
 namespace Door2DoorLib.Interfaces
 {
-    internal interface IDatabase
+    public interface IDatabase
     {
         #region Methods
         Task<MySqlDataReader> ExecuteCommandAsync(MySqlCommand sqlCommand);

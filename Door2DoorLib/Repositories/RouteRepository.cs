@@ -11,7 +11,7 @@ namespace Door2DoorLib.Repositories
         #endregion
 
         #region Constructor
-        RouteRepository(IDatabase database)
+        public RouteRepository(IDatabase database)
         {
             _database = database;
         }

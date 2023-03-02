@@ -1,4 +1,5 @@
 ﻿using Door2DoorLib.DataModels;
+using Door2DoorLib.Interfaces;
 using Door2DoorLib.Repositories;
 
 namespace Door2DoorLib.Managers
@@ -10,9 +11,9 @@ namespace Door2DoorLib.Managers
         #endregion
 
         #region Constructor
-        public RouteManager()
+        public RouteManager(IDatabase database)
         {
-            _routeRepository = new RouteRepository();
+            _routeRepository = new RouteRepository(database);
         }
         #endregion
 
