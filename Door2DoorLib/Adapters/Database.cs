@@ -54,7 +54,7 @@ namespace Door2DoorLib.Adapters
         // Default execute sql command (not in use when overriding from other classes)
         public virtual Task<MySqlDataReader> ExecuteCommandAsync(MySqlCommand sqlCommand)
         {
-            ErrorLogFactory.CreateLog(LogTypes.Console, "Triede to execute sql command via abstract database class").WriteLog();
+            ErrorLogFactory.CreateLog(LogTypes.Console, "Tried to execute sql command via abstract database class").WriteLog();
             return Task.FromResult<MySqlDataReader>(null);
         }
         #endregion
