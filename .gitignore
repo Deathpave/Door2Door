@@ -363,3 +363,4 @@ MigrationBackup/
 FodyWeavers.xsd
 /Door2DoorLibTester/appsettings.json
 /d2dfrontend/appsettings.json
+/d2dfrontend/appsettings.Development.json
