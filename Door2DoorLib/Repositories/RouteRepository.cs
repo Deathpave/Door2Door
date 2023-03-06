@@ -42,7 +42,7 @@ namespace Door2DoorLib.Repositories
         }
         #endregion
 
-        // TODO need name as well / instead of id
+        #region Get By Id Async
         public Task<Route> GetByIdAsync(long id)
         {
             string query = $"SELECT FROM routes WHERE id='{id}'";
@@ -55,7 +55,24 @@ namespace Door2DoorLib.Repositories
             }
             return Task.FromResult(result);
         }
+        #endregion
 
+        #region Get By Name Async
+        public Task<Route> GetByNameAsync(string name)
+        {
+            string query = $"SELECT FROM routes WHERE name='{name}'";
+            MySqlCommand sqlCommand = new MySqlCommand(query);
+            Route result;
+            using (var streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
+            {
+                // Create a new route from the datastream
+                result = new Route(streamReader.GetInt64("id"), streamReader.GetInt64("videoId"), streamReader.GetString("text"), streamReader.GetString("name"));
+            }
+            return Task.FromResult(result);
+        }
+        #endregion
+
+        #region Get All Async
         public Task<IEnumerable<Route>> GetAllAsync()
         {
             string query = $"SELECT * FROM routes";
@@ -72,7 +89,9 @@ namespace Door2DoorLib.Repositories
             }
             return Task.FromResult(result);
         }
+        #endregion
 
+        #region Udate Async
         // Updates route row 
         public Task<bool> UpdateAsync(Route updateEntity)
         {
@@ -83,6 +102,7 @@ namespace Door2DoorLib.Repositories
             _database.ExecuteCommandAsync(sqlCommand);
             return Task.FromResult(true);
         }
+        #endregion
         #endregion
     }
 }
