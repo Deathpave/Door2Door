@@ -19,7 +19,7 @@ namespace Door2DoorLib.Factories
         #endregion
 
         #region Create Log
-        public static ILog CreateLog(LogTypes type, string messsage, MessageType messageType)
+        public static ILog CreateLog(LogTypes type, string messsage, MessageTypes messageType)
         {
             ILog log = null;
             switch (type)

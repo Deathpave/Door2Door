@@ -9,11 +9,11 @@ namespace Door2DoorLib.Logs
         private string _logLocation;
         private string _message;
         private DateTime _date;
-        private MessageType _messageType;
+        private MessageTypes _messageType;
         #endregion
 
         #region Constructor
-        public FileLog(string message, DateTime date, MessageType messageType, string logLocation)
+        public FileLog(string message, DateTime date, MessageTypes messageType, string logLocation)
         {
             _logLocation = logLocation;
             _message = message;

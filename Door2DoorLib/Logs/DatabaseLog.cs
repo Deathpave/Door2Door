@@ -9,11 +9,11 @@ namespace Door2DoorLib.Logs
         #region Fields
         private string _message;
         private IDatabase _database;
-        private MessageType _messageType;
+        private MessageTypes _messageType;
         #endregion
 
         #region Constructor
-        public DatabaseLog(string message, DateTime date, MessageType messageType, IDatabase database)
+        public DatabaseLog(string message, DateTime date, MessageTypes messageType, IDatabase database)
         {
             _message = message;
             _database = database;
