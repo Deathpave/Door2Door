@@ -37,7 +37,7 @@ namespace Door2DoorLib.Adapters
         // Default close connection method (not in use when overriding from other classes)
         public virtual void CloseConnection()
         {
-            LogFactory.CreateLog(LogTypes.Console, "Tried to close connection via abstract database class").WriteLog();
+            LogFactory.CreateLog(LogTypes.Console, "Tried to close connection via abstract database class", MessageTypes.Error).WriteLog();
         }
         #endregion
 
@@ -45,7 +45,7 @@ namespace Door2DoorLib.Adapters
         // Default open connection method (not in use when overriding from other classes)
         public virtual Task<bool> OpenConnectionAsync()
         {
-            LogFactory.CreateLog(LogTypes.Console, "Tried to open connection via abstract database class").WriteLog();
+            LogFactory.CreateLog(LogTypes.Console, "Tried to open connection via abstract database class", MessageTypes.Error).WriteLog();
             return Task.FromResult(false);
         }
         #endregion
@@ -54,7 +54,7 @@ namespace Door2DoorLib.Adapters
         // Default execute sql command (not in use when overriding from other classes)
         public virtual Task<MySqlDataReader> ExecuteCommandAsync(MySqlCommand sqlCommand)
         {
-            LogFactory.CreateLog(LogTypes.Console, "Tried to execute sql command via abstract database class").WriteLog();
+            LogFactory.CreateLog(LogTypes.Console, "Tried to execute sql command via abstract database class", MessageTypes.Error).WriteLog();
             return Task.FromResult<MySqlDataReader>(null);
         }
         #endregion
