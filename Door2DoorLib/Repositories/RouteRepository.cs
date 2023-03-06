@@ -25,8 +25,14 @@ namespace Door2DoorLib.Repositories
             string query = $"INSERT INTO routes (text,videoId) VALUES ({createEntity.Description},{createEntity.VideoId})";
             MySqlCommand sqlCommand = new MySqlCommand(query);
 
-            var result = _database.ExecuteCommandAsync(sqlCommand);
-            return Task.FromResult(false);
+            if (_database.ExecuteCommandAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
+            {
+                return Task.FromResult(true);
+            }
+            else
+            {
+                return Task.FromResult(false);
+            }
         }
         #endregion
 
@@ -36,9 +42,14 @@ namespace Door2DoorLib.Repositories
         {
             string query = $"DELETE FROM routes WHERE id='{deleteEntity.Id}'";
             MySqlCommand sqlCommand = new MySqlCommand(query);
-            var result = _database.ExecuteCommandAsync(sqlCommand);
-            return Task.FromResult(true);
-
+            if (_database.ExecuteCommandAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
+            {
+                return Task.FromResult(true);
+            }
+            else
+            {
+                return Task.FromResult(false);
+            }
         }
         #endregion
 
@@ -101,9 +112,14 @@ namespace Door2DoorLib.Repositories
             string query = $"UPDATE routes SET text = '{updateEntity.Description}',videoId='{updateEntity.Id}' WHERE id='{updateEntity.Id}'";
             MySqlCommand sqlCommand = new MySqlCommand(query);
 
-            // TODO if return sqlreader != null?
-            _database.ExecuteCommandAsync(sqlCommand);
-            return Task.FromResult(true);
+            if (_database.ExecuteCommandAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
+            {
+                return Task.FromResult(true);
+            }
+            else
+            {
+                return Task.FromResult(false);
+            }
         }
         #endregion
         #endregion
