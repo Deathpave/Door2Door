@@ -22,16 +22,15 @@ namespace Door2DoorLib.Managers
         #region Check Login Async
         public Task<bool> CheckLoginAsync(Admin admin)
         {
+            // TODO
             // Need encryption
             // Test encrypted data with database?
             bool result = false;
             if (result)
             {
-
             }
             else
             {
-
                 LogFactory.CreateLog(LogTypes.Database, $"Failed login with username {admin.UserName}", MessageTypes.Error);
             }
 
@@ -40,19 +39,18 @@ namespace Door2DoorLib.Managers
         #endregion
 
         #region Add Admin Async
-        public Task<bool> AddAdminAsync(Admin admin)
+        public Task<bool> AddAdminAsync(Admin admin, Admin newAdmin)
         {
             // TODO Replace with loggedin user
             Admin user = null;
             bool result = false;
             if (result)
             {
-                LogFactory.CreateLog(LogTypes.Database, $"{user.UserName} created a new admin user {admin.UserName}", MessageTypes.Added).WriteLog();
+                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} created a new admin user {newAdmin.UserName}", MessageTypes.Added).WriteLog();
             }
             else
             {
-                // TODO Due to?
-                LogFactory.CreateLog(LogTypes.Database, $"{user.UserName} failed to create new admin user {admin.UserName}", MessageTypes.Error).WriteLog();
+                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} failed to create new admin user {newAdmin.UserName}", MessageTypes.Error).WriteLog();
             }
 
             return Task.FromResult(true);
@@ -60,21 +58,19 @@ namespace Door2DoorLib.Managers
         #endregion
 
         #region Delete Admin Async
-        public Task<bool> DeleteAdminAsync(Admin admin)
+        public Task<bool> DeleteAdminAsync(Admin admin, Admin deleteAdmin)
         {
             bool result = false;
-            // TODO Replace with loggedin user
-            Admin user = null;
             if (result)
             {
-                LogFactory.CreateLog(LogTypes.Database, $"{user.UserName} deleted admin user {admin.UserName}", MessageTypes.Deleted).WriteLog();
+                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} deleted admin user {deleteAdmin.UserName}", MessageTypes.Deleted).WriteLog();
+                return Task.FromResult(true);
             }
             else
             {
-                // TODO Due to?
-                LogFactory.CreateLog(LogTypes.Database, $"{user.UserName} failed to delete admin user {admin.UserName}", MessageTypes.Error).WriteLog();
+                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} failed to delete admin user {deleteAdmin.UserName}", MessageTypes.Error).WriteLog();
+                return Task.FromResult(false);
             }
-            return Task.FromResult(true);
         }
         #endregion
         #endregion
