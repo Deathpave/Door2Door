@@ -20,6 +20,12 @@ namespace Door2DoorLib.Managers
 
         #region Methods
         #region Add Route Async
+        /// <summary>
+        /// Adds a new route to the database
+        /// </summary>
+        /// <param name="route"></param>
+        /// <param name="admin"></param>
+        /// <returns></returns>
         public Task<bool> AddRouteAsync(Route route, Admin admin)
         {
             if (_routeRepository.CreateAsync(route).Result)
@@ -36,6 +42,12 @@ namespace Door2DoorLib.Managers
         #endregion
 
         #region Delete Route Async
+        /// <summary>
+        /// Deletes a route from the database
+        /// </summary>
+        /// <param name="route"></param>
+        /// <param name="admin"></param>
+        /// <returns></returns>
         public Task<bool> DeleteRouteAsync(Route route, Admin admin)
         {
             if (_routeRepository.DeleteAsync(route).Result)
