@@ -11,7 +11,7 @@ namespace Door2DoorLib.Security
         {
             // Check for null or empty input
             if (string.IsNullOrEmpty(input))
-                LogFactory.CreateLog(LogTypes.Console, "Input for hashing was null or empty").WriteLog();
+                LogFactory.CreateLog(LogTypes.Console, "Input for hashing was null or empty", MessageTypes.Error).WriteLog();
 
             // Convert input to bytes
             byte[] inputBytes = Encoding.UTF8.GetBytes(input);
