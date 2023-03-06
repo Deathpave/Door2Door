@@ -23,11 +23,11 @@ namespace Door2DoorLib.Logs
         #endregion
 
         #region Writelog
-        public void WriteLog(MessageTypes type, string description)
+        public void WriteLog()
         {
             DateTime date = DateTime.Now;
-            
-            string query = $"INSERT INTO log(type, description, timestamp) VALUES ({type},{description},{date.ToTimestamp()})";
+
+            string query = $"INSERT INTO log(type, description, timestamp) VALUES ({(int)_messageType},{_message},{date.ToTimestamp()})";
             MySqlCommand mySqlCommand = new MySqlCommand(query);
             _database.ExecuteCommandAsync(mySqlCommand);
         }
