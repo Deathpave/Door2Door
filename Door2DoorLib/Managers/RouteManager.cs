@@ -24,12 +24,12 @@ namespace Door2DoorLib.Managers
         {
             if (_routeRepository.CreateAsync(route).Result)
             {
-                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} created {route.Name}", MessageTypes.Added);
+                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} created {route.Name}", MessageTypes.Added).WriteLog();
                 return Task.FromResult(true);
             }
             else
             {
-                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} failed to create route {route.Name}", MessageTypes.Error);
+                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} failed to create route {route.Name}", MessageTypes.Error).WriteLog();
                 return Task.FromResult(false);
             }
         }
@@ -40,12 +40,12 @@ namespace Door2DoorLib.Managers
         {
             if (_routeRepository.DeleteAsync(route).Result)
             {
-                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} deleted route {route.Name}", MessageTypes.Deleted);
+                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} deleted route {route.Name}", MessageTypes.Deleted).WriteLog();
                 return Task.FromResult(true);
             }
             else
             {
-                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} failed deleted route {route.Name}", MessageTypes.Error);
+                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} failed deleted route {route.Name}", MessageTypes.Error).WriteLog();
                 return Task.FromResult(false);
             }
         }
