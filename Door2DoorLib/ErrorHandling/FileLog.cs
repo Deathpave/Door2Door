@@ -1,4 +1,5 @@
-﻿using Door2DoorLib.Interfaces;
+﻿using Door2DoorLib.Factories;
+using Door2DoorLib.Interfaces;
 
 namespace Door2DoorLib.ErrorHandling
 {
@@ -6,21 +7,23 @@ namespace Door2DoorLib.ErrorHandling
     {
         #region Fields
         private string _logLocation;
-        private string _error;
+        private string _message;
+        private MessageType _messageType;
         #endregion
 
         #region Constructor
-        public FileLog(string error, string logLocation)
+        public FileLog(string message, DateTime date, MessageType messageType, string logLocation)
         {
             _logLocation = logLocation;
-            _error = error;
+            _message = message;
+            _messageType = messageType;
         }
         #endregion
 
         #region Write Log
         public void WriteLog()
         {
-            File.AppendAllText(_logLocation, _error + "\n");
+            File.AppendAllText(_logLocation, _message + "\n");
         }
         #endregion
     }

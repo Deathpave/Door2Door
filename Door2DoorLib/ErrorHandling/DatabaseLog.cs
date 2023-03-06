@@ -1,4 +1,5 @@
-﻿using Door2DoorLib.Interfaces;
+﻿using Door2DoorLib.Factories;
+using Door2DoorLib.Interfaces;
 using MySql.Data.MySqlClient;
 
 namespace Door2DoorLib.ErrorHandling
@@ -6,22 +7,24 @@ namespace Door2DoorLib.ErrorHandling
     internal class DatabaseLog : ILog
     {
         #region Fields
-        private string _error;
+        private string _message;
         private IDatabase _database;
+        private MessageType _messageType;
         #endregion
 
         #region Constructor
-        public DatabaseLog(string error, IDatabase database)
+        public DatabaseLog(string message, DateTime date, MessageType messageType, IDatabase database)
         {
-            _error = error;
+            _message = message;
             _database = database;
+            _messageType = messageType;
         }
         #endregion
 
         #region Writelog
         public void WriteLog()
         {
-            string query = $"{_error}";
+            string query = $"{_message}";
             MySqlCommand mySqlCommand = new MySqlCommand(query);
             _database.ExecuteCommandAsync(mySqlCommand);
         }

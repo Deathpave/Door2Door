@@ -12,10 +12,10 @@ namespace Door2DoorLib.Security
             // Check for null or empty inputs
             if (string.IsNullOrEmpty(input))
             {
-                ErrorLogFactory.CreateLog(LogTypes.Console, "Input string was null or empty").WriteLog();
+                LogFactory.CreateLog(LogTypes.Console, "Input string was null or empty").WriteLog();
             }
             if (string.IsNullOrEmpty(encodingPassword))
-                ErrorLogFactory.CreateLog(LogTypes.Console, "Encoding password was null or empty").WriteLog();
+                LogFactory.CreateLog(LogTypes.Console, "Encoding password was null or empty").WriteLog();
 
             // input bytes as salt
             byte[] salt = Encoding.UTF8.GetBytes(input);

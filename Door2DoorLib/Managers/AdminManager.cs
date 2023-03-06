@@ -32,7 +32,7 @@ namespace Door2DoorLib.Managers
             else
             {
 
-                ErrorLogFactory.CreateLog(LogTypes.Database, $"Failed login with username {admin.UserName}");
+                LogFactory.CreateLog(LogTypes.Database, $"Failed login with username {admin.UserName}");
             }
 
             return Task.FromResult(true);
@@ -47,12 +47,12 @@ namespace Door2DoorLib.Managers
             bool result = false;
             if (result)
             {
-                ErrorLogFactory.CreateLog(LogTypes.Database, $"{user.UserName} created a new admin user {admin.UserName}");
+                LogFactory.CreateLog(LogTypes.Database, $"{user.UserName} created a new admin user {admin.UserName}");
             }
             else
             {
                 // TODO Due to?
-                ErrorLogFactory.CreateLog(LogTypes.Database, $"{user.UserName} failed to create new admin user {admin.UserName}");
+                LogFactory.CreateLog(LogTypes.Database, $"{user.UserName} failed to create new admin user {admin.UserName}");
             }
 
             return Task.FromResult(true);
@@ -67,12 +67,12 @@ namespace Door2DoorLib.Managers
             Admin user = null;
             if (result)
             {
-                ErrorLogFactory.CreateLog(LogTypes.Database, $"{user.UserName} deleted admin user {admin.UserName}");
+                LogFactory.CreateLog(LogTypes.Database, $"{user.UserName} deleted admin user {admin.UserName}");
             }
             else
             {
                 // TODO Due to?
-                ErrorLogFactory.CreateLog(LogTypes.Database, $"{user.UserName} failed to delete admin user {admin.UserName}");
+                LogFactory.CreateLog(LogTypes.Database, $"{user.UserName} failed to delete admin user {admin.UserName}");
             }
             return Task.FromResult(true);
         }

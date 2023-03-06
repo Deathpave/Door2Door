@@ -3,7 +3,7 @@ using Door2DoorLib.Interfaces;
 
 namespace Door2DoorLib.Factories
 {
-    public static class ErrorLogFactory
+    public static class LogFactory
     {
         #region Fields
         private static string _errorLogLocation;
@@ -19,19 +19,19 @@ namespace Door2DoorLib.Factories
         #endregion
 
         #region Create Log
-        public static ILog CreateLog(LogTypes type, string error)
+        public static ILog CreateLog(LogTypes type, string messsage, MessageType messageType)
         {
             ILog log = null;
             switch (type)
             {
                 case LogTypes.Database:
-                    log = new DatabaseLog(error, _database);
+                    log = new DatabaseLog(messsage, DateTime.Now, messageType, _database);
                     break;
                 case LogTypes.File:
-                    log = new FileLog(error, _errorLogLocation);
+                    log = new FileLog(messsage, DateTime.Now, messageType, _errorLogLocation);
                     break;
                 case LogTypes.Console:
-                    log = new ConsoleLog(error);
+                    log = new ConsoleLog(messsage);
                     break;
             }
             return log;
