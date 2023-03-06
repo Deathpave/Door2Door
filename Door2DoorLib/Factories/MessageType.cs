@@ -2,7 +2,9 @@
 {
     public enum MessageType
     {
-        Change = 1,
-        Error = 2,
+        Error = 1,
+        Change = 2,
+        Added = 3,
+        Deleted = 4,
     }
 }
