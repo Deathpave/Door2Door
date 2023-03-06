@@ -1,5 +1,6 @@
 ﻿using Door2DoorLib.Factories;
 using Door2DoorLib.Interfaces;
+using Google.Protobuf.WellKnownTypes;
 using MySql.Data.MySqlClient;
 
 namespace Door2DoorLib.Logs
@@ -22,9 +23,11 @@ namespace Door2DoorLib.Logs
         #endregion
 
         #region Writelog
-        public void WriteLog()
+        public void WriteLog(MessageType type, string description)
         {
-            string query = $"";
+            DateTime date = DateTime.Now;
+            
+            string query = $"INSERT INTO log(type, description, timestamp) VALUES ({type},{description},{date.ToTimestamp()})";
             MySqlCommand mySqlCommand = new MySqlCommand(query);
             _database.ExecuteCommandAsync(mySqlCommand);
         }
