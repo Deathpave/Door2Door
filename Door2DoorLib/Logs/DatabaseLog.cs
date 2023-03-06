@@ -23,7 +23,7 @@ namespace Door2DoorLib.Logs
         #endregion
 
         #region Writelog
-        public void WriteLog(MessageType type, string description)
+        public void WriteLog(MessageTypes type, string description)
         {
             DateTime date = DateTime.Now;
             
