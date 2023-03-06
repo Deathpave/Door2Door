@@ -43,6 +43,7 @@ namespace Door2DoorLib.Repositories
         #endregion
 
         #region Get By Id Async
+        // Gets route by id
         public Task<Route> GetByIdAsync(long id)
         {
             string query = $"SELECT FROM routes WHERE id='{id}'";
@@ -58,6 +59,7 @@ namespace Door2DoorLib.Repositories
         #endregion
 
         #region Get By Name Async
+        // Gets route by name
         public Task<Route> GetByNameAsync(string name)
         {
             string query = $"SELECT FROM routes WHERE name='{name}'";
@@ -73,6 +75,7 @@ namespace Door2DoorLib.Repositories
         #endregion
 
         #region Get All Async
+        // Gets all routes
         public Task<IEnumerable<Route>> GetAllAsync()
         {
             string query = $"SELECT * FROM routes";
@@ -92,7 +95,7 @@ namespace Door2DoorLib.Repositories
         #endregion
 
         #region Udate Async
-        // Updates route row 
+        // Updates route
         public Task<bool> UpdateAsync(Route updateEntity)
         {
             string query = $"UPDATE routes SET text = '{updateEntity.Description}',videoId='{updateEntity.Id}' WHERE id='{updateEntity.Id}'";

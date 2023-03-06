@@ -20,6 +20,7 @@ namespace Door2DoorLib.Managers
 
         #region Methods
         #region Check Login Async
+        // Validates admin login
         public Task<bool> CheckLoginAsync(Admin admin)
         {
             // TODO
@@ -39,6 +40,7 @@ namespace Door2DoorLib.Managers
         #endregion
 
         #region Add Admin Async
+        // Adds new admin, and logs the admin who did it
         public Task<bool> AddAdminAsync(Admin admin, Admin newAdmin)
         {
             // TODO Replace with loggedin user
@@ -58,6 +60,7 @@ namespace Door2DoorLib.Managers
         #endregion
 
         #region Delete Admin Async
+        // deletes the delete admin, and logs the admin who did it
         public Task<bool> DeleteAdminAsync(Admin admin, Admin deleteAdmin)
         {
             bool result = false;

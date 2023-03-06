@@ -11,6 +11,7 @@ namespace Door2DoorLib.Factories
         #endregion
 
         #region Initialize
+        // Sets needed data for factory
         public static void Initialize(string errorLogLocation, IDatabase database)
         {
             _errorLogLocation = errorLogLocation;
@@ -19,6 +20,7 @@ namespace Door2DoorLib.Factories
         #endregion
 
         #region Create Log
+        // Returns a log depending on log type
         public static ILog CreateLog(LogTypes type, string messsage, MessageTypes messageType)
         {
             ILog log = null;
