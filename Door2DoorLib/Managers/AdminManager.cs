@@ -47,12 +47,12 @@ namespace Door2DoorLib.Managers
             bool result = false;
             if (result)
             {
-                LogFactory.CreateLog(LogTypes.Database, $"{user.UserName} created a new admin user {admin.UserName}", MessageTypes.Added);
+                LogFactory.CreateLog(LogTypes.Database, $"{user.UserName} created a new admin user {admin.UserName}", MessageTypes.Added).WriteLog();
             }
             else
             {
                 // TODO Due to?
-                LogFactory.CreateLog(LogTypes.Database, $"{user.UserName} failed to create new admin user {admin.UserName}", MessageTypes.Error);
+                LogFactory.CreateLog(LogTypes.Database, $"{user.UserName} failed to create new admin user {admin.UserName}", MessageTypes.Error).WriteLog();
             }
 
             return Task.FromResult(true);
@@ -67,12 +67,12 @@ namespace Door2DoorLib.Managers
             Admin user = null;
             if (result)
             {
-                LogFactory.CreateLog(LogTypes.Database, $"{user.UserName} deleted admin user {admin.UserName}", MessageTypes.Deleted);
+                LogFactory.CreateLog(LogTypes.Database, $"{user.UserName} deleted admin user {admin.UserName}", MessageTypes.Deleted).WriteLog();
             }
             else
             {
                 // TODO Due to?
-                LogFactory.CreateLog(LogTypes.Database, $"{user.UserName} failed to delete admin user {admin.UserName}", MessageTypes.Error);
+                LogFactory.CreateLog(LogTypes.Database, $"{user.UserName} failed to delete admin user {admin.UserName}", MessageTypes.Error).WriteLog();
             }
             return Task.FromResult(true);
         }
