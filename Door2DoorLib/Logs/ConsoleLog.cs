@@ -7,12 +7,12 @@ namespace Door2DoorLib.Logs
     {
         #region Fields
         private string _message;
-        private MessageType _messageType;
+        private MessageTypes _messageType;
         private DateTime _date;
         #endregion
 
         #region Constructor
-        public ConsoleLog(string message, DateTime date, MessageType messageType)
+        public ConsoleLog(string message, DateTime date, MessageTypes messageType)
         {
             _message = message;
             _date = date;

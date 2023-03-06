@@ -32,7 +32,7 @@ namespace Door2DoorLib.Managers
             else
             {
 
-                LogFactory.CreateLog(LogTypes.Database, $"Failed login with username {admin.UserName}", MessageType.Error);
+                LogFactory.CreateLog(LogTypes.Database, $"Failed login with username {admin.UserName}", MessageTypes.Error);
             }
 
             return Task.FromResult(true);
@@ -47,12 +47,12 @@ namespace Door2DoorLib.Managers
             bool result = false;
             if (result)
             {
-                LogFactory.CreateLog(LogTypes.Database, $"{user.UserName} created a new admin user {admin.UserName}", MessageType.Added);
+                LogFactory.CreateLog(LogTypes.Database, $"{user.UserName} created a new admin user {admin.UserName}", MessageTypes.Added);
             }
             else
             {
                 // TODO Due to?
-                LogFactory.CreateLog(LogTypes.Database, $"{user.UserName} failed to create new admin user {admin.UserName}", MessageType.Error);
+                LogFactory.CreateLog(LogTypes.Database, $"{user.UserName} failed to create new admin user {admin.UserName}", MessageTypes.Error);
             }
 
             return Task.FromResult(true);
@@ -67,12 +67,12 @@ namespace Door2DoorLib.Managers
             Admin user = null;
             if (result)
             {
-                LogFactory.CreateLog(LogTypes.Database, $"{user.UserName} deleted admin user {admin.UserName}", MessageType.Deleted);
+                LogFactory.CreateLog(LogTypes.Database, $"{user.UserName} deleted admin user {admin.UserName}", MessageTypes.Deleted);
             }
             else
             {
                 // TODO Due to?
-                LogFactory.CreateLog(LogTypes.Database, $"{user.UserName} failed to delete admin user {admin.UserName}", MessageType.Error);
+                LogFactory.CreateLog(LogTypes.Database, $"{user.UserName} failed to delete admin user {admin.UserName}", MessageTypes.Error);
             }
             return Task.FromResult(true);
         }

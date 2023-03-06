@@ -51,7 +51,7 @@ namespace Door2DoorLib.Repositories
             using (var streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
             {
                 // Create a new route from the datastream
-                result = new Route(streamReader.GetInt64("id"), streamReader.GetInt64("videoId"), streamReader.GetString("text"));
+                result = new Route(streamReader.GetInt64("id"), streamReader.GetInt64("videoId"), streamReader.GetString("text"), streamReader.GetString("name"));
             }
             return Task.FromResult(result);
         }
@@ -66,7 +66,7 @@ namespace Door2DoorLib.Repositories
                 // Create a new route from the datastream
                 while (streamReader.HasRows)
                 {
-                    result.Append(new Route(streamReader.GetInt64("id"), streamReader.GetInt64("videoId"), streamReader.GetString("text")));
+                    result.Append(new Route(streamReader.GetInt64("id"), streamReader.GetInt64("videoId"), streamReader.GetString("text"), streamReader.GetString("name")));
                     streamReader.Read();
                 }
             }

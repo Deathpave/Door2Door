@@ -1,5 +1,5 @@
-﻿using Door2DoorLib.ErrorHandling;
-using Door2DoorLib.Interfaces;
+﻿using Door2DoorLib.Interfaces;
+using Door2DoorLib.Logs;
 
 namespace Door2DoorLib.Factories
 {
@@ -19,7 +19,7 @@ namespace Door2DoorLib.Factories
         #endregion
 
         #region Create Log
-        public static ILog CreateLog(LogTypes type, string messsage, MessageType messageType)
+        public static ILog CreateLog(LogTypes type, string messsage, MessageTypes messageType)
         {
             ILog log = null;
             switch (type)
@@ -31,7 +31,7 @@ namespace Door2DoorLib.Factories
                     log = new FileLog(messsage, DateTime.Now, messageType, _errorLogLocation);
                     break;
                 case LogTypes.Console:
-                    log = new ConsoleLog(messsage);
+                    log = new ConsoleLog(messsage, DateTime.Now, messageType);
                     break;
             }
             return log;

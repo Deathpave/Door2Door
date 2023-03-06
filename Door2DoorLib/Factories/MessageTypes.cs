@@ -1,6 +1,6 @@
 ﻿namespace Door2DoorLib.Factories
 {
-    public enum MessageType
+    public enum MessageTypes
     {
         Error = 1,
         Change = 2,
