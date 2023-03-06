@@ -30,7 +30,7 @@ namespace Door2DoorLib.Adapters
             }
             catch (Exception e)
             {
-                LogFactory.CreateLog(LogTypes.File, $"Failed to open database connection due to {e.Message}", MessageTypes.Error);
+                LogFactory.CreateLog(LogTypes.File, $"Failed to open database connection due to {e.Message}", MessageTypes.Error).WriteLog();
                 return Task.FromResult(false);
             }
 
@@ -47,7 +47,7 @@ namespace Door2DoorLib.Adapters
             }
             catch (Exception e)
             {
-                LogFactory.CreateLog(LogTypes.File, $"Failed to close database connection due to {e.Message}", MessageTypes.Error);
+                LogFactory.CreateLog(LogTypes.File, $"Failed to close database connection due to {e.Message}", MessageTypes.Error).WriteLog();
             }
         }
         #endregion
@@ -63,7 +63,7 @@ namespace Door2DoorLib.Adapters
             }
             catch (Exception e)
             {
-                LogFactory.CreateLog(LogTypes.File, $"Failed to execute sql command due to {e.Message}", MessageTypes.Error);
+                LogFactory.CreateLog(LogTypes.File, $"Failed to execute sql command due to {e.Message}", MessageTypes.Error).WriteLog();
                 return Task.FromResult<MySqlDataReader?>(null);
             }
         }
