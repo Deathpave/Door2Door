@@ -1,4 +1,5 @@
 using d2dfrontend.Data;
+using Door2DoorLib.DataModels;
 using Door2DoorLib.Factories;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -15,8 +16,8 @@ var db = Door2DoorLib.Factories.DatabaseFactory.CreateDatabase(config, "d2ddatab
 db.OpenConnectionAsync().Wait();
 
 Door2DoorLib.Managers.RouteManager routeManager = new Door2DoorLib.Managers.RouteManager(db);
-Door2DoorLib.DataModels.Route route = new Door2DoorLib.DataModels.Route(5, 1, "hello tester");
-routeManager.AddRouteAsync(route);
+Door2DoorLib.DataModels.Route route = new Door2DoorLib.DataModels.Route(5, 1, "hello tester", "Route 01");
+routeManager.AddRouteAsync(route, new Admin(0, "test", ""));
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");

@@ -9,45 +9,43 @@ namespace Door2DoorLib.Managers
     {
         #region Fields
         private RouteRepository _routeRepository;
-        private Admin _admin;
         #endregion
 
         #region Constructor
-        public RouteManager(IDatabase database, Admin admin)
+        public RouteManager(IDatabase database)
         {
             _routeRepository = new RouteRepository(database);
-            _admin = admin;
         }
         #endregion
 
         #region Methods
         #region Add Route Async
-        public Task<bool> AddRouteAsync(Route route)
+        public Task<bool> AddRouteAsync(Route route, Admin admin)
         {
             if (_routeRepository.CreateAsync(route).Result)
             {
-                LogFactory.CreateLog(LogTypes.Database, $"{_admin.UserName} created {route.Name}", MessageTypes.Added);
+                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} created {route.Name}", MessageTypes.Added);
                 return Task.FromResult(true);
             }
             else
             {
-                LogFactory.CreateLog(LogTypes.Database, $"{_admin.UserName} failed to create route {route.Name}", MessageTypes.Error);
+                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} failed to create route {route.Name}", MessageTypes.Error);
                 return Task.FromResult(false);
             }
         }
         #endregion
 
         #region Delete Route Async
-        public Task<bool> DeleteRouteAsync(Route route)
+        public Task<bool> DeleteRouteAsync(Route route, Admin admin)
         {
             if (_routeRepository.DeleteAsync(route).Result)
             {
-                LogFactory.CreateLog(LogTypes.Database, $"{_admin.UserName} deleted route {route.Name}", MessageTypes.Deleted);
+                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} deleted route {route.Name}", MessageTypes.Deleted);
                 return Task.FromResult(true);
             }
             else
             {
-                LogFactory.CreateLog(LogTypes.Database, $"{_admin.UserName} failed deleted route {route.Name}", MessageTypes.Error);
+                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} failed deleted route {route.Name}", MessageTypes.Error);
                 return Task.FromResult(false);
             }
         }

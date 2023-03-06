@@ -12,7 +12,7 @@ namespace Door2DoorLibTester
             var db = DatabaseFactory.CreateDatabase(config, "localdb", Door2DoorLib.Factories.DatabaseTypes.MySql);
             Door2DoorLib.Managers.RouteManager routeManager = new Door2DoorLib.Managers.RouteManager(db);
             LogFactory.Initialize("", db);
-            LogFactory.CreateLog(Door2DoorLib.Factories.LogTypes.Database, "Something horrible went wrong").WriteLog();
+            LogFactory.CreateLog(LogTypes.Database, "Something horrible went wrong", MessageTypes.Error).WriteLog();
         }
     }
 }
