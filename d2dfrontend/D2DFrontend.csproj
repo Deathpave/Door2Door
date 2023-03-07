@@ -4,7 +4,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>aspnet-d2dfrontend-bd6d62b1-e490-437f-8279-dad651886620</UserSecretsId>
+    <UserSecretsId>aspnet-D2DFrontend-bd6d62b1-e490-437f-8279-dad651886620</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>

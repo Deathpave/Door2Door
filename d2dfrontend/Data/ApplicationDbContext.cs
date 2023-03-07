@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace d2dfrontend.Data
+namespace D2DFrontend.Data
 {
     public class ApplicationDbContext : IdentityDbContext
     {

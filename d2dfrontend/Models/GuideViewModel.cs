@@ -1,4 +1,4 @@
-﻿namespace d2dfrontend.Models
+﻿namespace D2DFrontend.Models
 {
     public class GuideViewModel
     {

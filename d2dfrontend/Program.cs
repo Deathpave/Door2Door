@@ -1,6 +1,8 @@
-using d2dfrontend.Data;
+using D2DFrontend.Data;
 using Door2DoorLib.DataModels;
 using Door2DoorLib.Factories;
+using Door2DoorLib.Managers;
+using Door2DoorLib.Interfaces;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
@@ -14,6 +16,7 @@ IConfiguration config = build.Build();
 
 config["d2ddatabase-353031351df8"] = config.GetConnectionString("DefaultConnection");
 var db = Door2DoorLib.Factories.DatabaseFactory.CreateDatabase(config, "d2ddatabase-353031351df8", DatabaseTypes.MySql);
+
 
 LogFactory.Initialize(Environment.CurrentDirectory + "\\TestLogs.txt", db);
 
