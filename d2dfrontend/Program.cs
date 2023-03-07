@@ -6,6 +6,7 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
+
 var build = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
     .AddJsonFile("appSettings.json", optional: true, reloadOnChange: true);
@@ -13,6 +14,9 @@ IConfiguration config = build.Build();
 
 config["d2ddatabase-353031351df8"] = config.GetConnectionString("DefaultConnection");
 var db = Door2DoorLib.Factories.DatabaseFactory.CreateDatabase(config, "d2ddatabase-353031351df8", DatabaseTypes.MySql);
+
+LogFactory.Initialize(Environment.CurrentDirectory + "\\TestLogs.txt", db);
+
 db.OpenConnectionAsync().Wait();
 
 Door2DoorLib.Managers.RouteManager routeManager = new Door2DoorLib.Managers.RouteManager(db);
