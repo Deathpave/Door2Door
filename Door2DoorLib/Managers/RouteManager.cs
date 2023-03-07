@@ -62,6 +62,7 @@ namespace Door2DoorLib.Managers
             }
         }
         #endregion
+
         #region Update Route Async
         public Task<bool> UpdateRouteAsync(Route route, Admin admin)
         {
@@ -75,6 +76,13 @@ namespace Door2DoorLib.Managers
                 LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} failed to create route {route.Name}", MessageTypes.Error);
                 return Task.FromResult(false);
             }
+        }
+        #endregion
+
+        #region Get Route Async
+        public Task<Route> GetRouteAsync(string routename)
+        {
+          return _routeRepository.GetByNameAsync(routename);
         }
         #endregion
         #endregion

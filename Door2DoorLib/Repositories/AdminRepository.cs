@@ -18,22 +18,72 @@ namespace Door2DoorLib.Repositories
         #endregion
 
         #region Methods
-        #region Get By User Name
-        public Task<Admin> GetByUserName(string userName)
+        #region Create Async
+        // Creates new admin row
+        public Task<bool> CreateAsync(Admin createEntity)
         {
-            string query = $"";
+            string query = $"INSERT INTO admins (username,password) VALUES ({createEntity.UserName},{createEntity.Password})";
             MySqlCommand sqlCommand = new MySqlCommand(query);
-            Admin result = null;
+
+            if (_database.ExecuteCommandAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
+            {
+                return Task.FromResult(true);
+            }
+            else
+            {
+                return Task.FromResult(false);
+            }
+        }
+        #endregion
+
+        #region Delete Async
+        // Deletes admin row from id
+        public Task<bool> DeleteAsync(Admin deleteEntity)
+        {
+            string query = $"DELETE FROM admins WHERE id='{deleteEntity.Id}'";
+            MySqlCommand sqlCommand = new MySqlCommand(query);
+            if (_database.ExecuteCommandAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
+            {
+                return Task.FromResult(true);
+            }
+            else
+            {
+                return Task.FromResult(false);
+            }
+        }
+        #endregion
+
+        #region Get By Name Async
+        // Gets admin by name
+        public Task<Admin> GetByNameAsync(string name)
+        {
+            string query = $"SELECT * FROM admis WHERE name='{name}'";
+            MySqlCommand sqlCommand = new MySqlCommand(query);
+            Admin result;
             using (var streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
             {
                 // Create a new admin from the datastream
-                while (streamReader.HasRows)
-                {
-                    result = new Admin(0, streamReader.GetString("username"), streamReader.GetString("password"));
-                    streamReader.Read();
-                }
+                result = new Admin(streamReader.GetInt64("id"), streamReader.GetString("username"), streamReader.GetString("password"));
             }
             return Task.FromResult(result);
+        }
+        #endregion
+
+        #region Udate Async
+        // Updates admin
+        public Task<bool> UpdateAsync(Admin updateEntity)
+        {
+            string query = $"UPDATE admins SET username = '{updateEntity.UserName}',password='{updateEntity.Password}' WHERE id='{updateEntity.Id}'";
+            MySqlCommand sqlCommand = new MySqlCommand(query);
+
+            if (_database.ExecuteCommandAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
+            {
+                return Task.FromResult(true);
+            }
+            else
+            {
+                return Task.FromResult(false);
+            }
         }
         #endregion
         #endregion

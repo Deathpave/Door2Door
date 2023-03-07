@@ -2,6 +2,7 @@
 using Door2DoorLib.Factories;
 using Door2DoorLib.Interfaces;
 using Door2DoorLib.Repositories;
+using Door2DoorLib.Security;
 
 namespace Door2DoorLib.Managers
 {
@@ -20,51 +21,59 @@ namespace Door2DoorLib.Managers
 
         #region Methods
         #region Check Login Async
-        // Validates admin login
-        public Task<bool> CheckLoginAsync(Admin admin)
+        /// <summary>
+        /// Validates admin login
+        /// </summary>
+        /// <param name="username"></param>
+        /// <param name="pswd"></param>
+        /// <returns></returns>
+        public Task<bool> CheckLoginAsync(string username,string pswd)
         {
-            // TODO
-            // Need encryption
-            // Test encrypted data with database?
-            bool result = false;
-            if (result)
+            Admin admin = _adminRepository.GetByNameAsync(new Encryption().EncryptString(username, username)).Result;
+            if (admin.Password == new Hashing().Sha256Hash(new Encryption().EncryptString(pswd, pswd)))
             {
+                return Task.FromResult(true);
             }
             else
             {
-                LogFactory.CreateLog(LogTypes.Database, $"Failed login with username {admin.UserName}", MessageTypes.Error);
+                LogFactory.CreateLog(LogTypes.Database, $"Failed login with username {username}", MessageTypes.Error);
+                return Task.FromResult(false);
             }
-
-            return Task.FromResult(true);
         }
         #endregion
 
         #region Add Admin Async
-        // Adds new admin, and logs the admin who did it
+        /// <summary>
+        /// Adds new admin, and logs the admin who did it
+        /// </summary>
+        /// <param name="admin"></param>
+        /// <param name="newAdmin"></param>
+        /// <returns></returns>
         public Task<bool> AddAdminAsync(Admin admin, Admin newAdmin)
         {
-            // TODO Replace with loggedin user
-            Admin user = null;
-            bool result = false;
-            if (result)
+            if (_adminRepository.CreateAsync(newAdmin).Result)
             {
                 LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} created a new admin user {newAdmin.UserName}", MessageTypes.Added).WriteLog();
+                return Task.FromResult(true);
             }
             else
             {
                 LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} failed to create new admin user {newAdmin.UserName}", MessageTypes.Error).WriteLog();
+                return Task.FromResult(false);
             }
-
-            return Task.FromResult(true);
         }
         #endregion
 
         #region Delete Admin Async
-        // deletes the delete admin, and logs the admin who did it
+        /// <summary>
+        /// deletes the delete admin, and logs the admin who did it
+        /// </summary>
+        /// <param name="admin"></param>
+        /// <param name="deleteAdmin"></param>
+        /// <returns></returns>
         public Task<bool> DeleteAdminAsync(Admin admin, Admin deleteAdmin)
         {
-            bool result = false;
-            if (result)
+            if (_adminRepository.DeleteAsync(deleteAdmin).Result)
             {
                 LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} deleted admin user {deleteAdmin.UserName}", MessageTypes.Deleted).WriteLog();
                 return Task.FromResult(true);
@@ -72,6 +81,28 @@ namespace Door2DoorLib.Managers
             else
             {
                 LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} failed to delete admin user {deleteAdmin.UserName}", MessageTypes.Error).WriteLog();
+                return Task.FromResult(false);
+            }
+        }
+        #endregion
+
+        #region Update Admin Async
+        /// <summary>
+        /// Update admin
+        /// </summary>
+        /// <param name="admin"></param>
+        /// <param name="updateadmin"></param>
+        /// <returns></returns>
+        public Task<bool> UpdateAdminAsync(Admin updateadmin, Admin admin)
+        {
+            if (_adminRepository.UpdateAsync(updateadmin).Result)
+            {
+                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} updated {updateadmin.UserName}", MessageTypes.Change);
+                return Task.FromResult(true);
+            }
+            else
+            {
+                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} failed to update admin {updateadmin.UserName}", MessageTypes.Error);
                 return Task.FromResult(false);
             }
         }
