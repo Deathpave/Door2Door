@@ -5,7 +5,7 @@ using Door2DoorLib.Repositories;
 
 namespace Door2DoorLib.Managers
 {
-    public class RouteManager : IRouteManager
+    public class RouteManager
     {
         #region Fields
         private RouteRepository _routeRepository;

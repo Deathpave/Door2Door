@@ -20,7 +20,7 @@ LogFactory.Initialize(Environment.CurrentDirectory + "\\TestLogs.txt", db);
 db.OpenConnectionAsync().Wait();
 
 Door2DoorLib.Managers.RouteManager routeManager = new Door2DoorLib.Managers.RouteManager(db);
-Door2DoorLib.DataModels.Route route = new Door2DoorLib.DataModels.Route(5, 1, "hello tester123", "Route 01");
+Door2DoorLib.DataModels.Route route = new Door2DoorLib.DataModels.Route(5, "1", "hello tester123", "Route 01");
 Admin account = new Admin(0, "test", "");
 routeManager.UpdateRouteAsync(route, account);
 
