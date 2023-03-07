@@ -50,6 +50,21 @@ namespace Door2DoorLib.Managers
             }
         }
         #endregion
+        #region Update Route Async
+        public Task<bool> UpdateRouteAsync(Route route, Admin admin)
+        {
+            if (_routeRepository.UpdateAsync(route).Result)
+            {
+                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} created {route.Name}", MessageTypes.Added);
+                return Task.FromResult(true);
+            }
+            else
+            {
+                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} failed to create route {route.Name}", MessageTypes.Error);
+                return Task.FromResult(false);
+            }
+        }
+        #endregion
         #endregion
     }
 }

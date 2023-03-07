@@ -16,8 +16,9 @@ var db = Door2DoorLib.Factories.DatabaseFactory.CreateDatabase(config, "d2ddatab
 db.OpenConnectionAsync().Wait();
 
 Door2DoorLib.Managers.RouteManager routeManager = new Door2DoorLib.Managers.RouteManager(db);
-Door2DoorLib.DataModels.Route route = new Door2DoorLib.DataModels.Route(5, 1, "hello tester", "Route 01");
-routeManager.AddRouteAsync(route, new Admin(0, "test", ""));
+Door2DoorLib.DataModels.Route route = new Door2DoorLib.DataModels.Route(5, 1, "hello tester123", "Route 01");
+Admin account = new Admin(0, "test", "");
+routeManager.UpdateRouteAsync(route, account);
 
 // Add services to the container.
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
