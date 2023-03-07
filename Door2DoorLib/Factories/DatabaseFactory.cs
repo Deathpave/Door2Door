@@ -7,6 +7,7 @@ namespace Door2DoorLib.Factories
     public class DatabaseFactory
     {
         #region Create Database
+        // Creates a database instance
         public static IDatabase CreateDatabase(IConfiguration configuration, string databaseName, DatabaseTypes databaseType)
         {
             IDatabase database = null;

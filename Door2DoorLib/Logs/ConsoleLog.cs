@@ -21,6 +21,7 @@ namespace Door2DoorLib.Logs
         #endregion
 
         #region Write Log
+        // Prints log to console
         public void WriteLog()
         {
             Console.WriteLine($"{_date.ToString("dd-MM-yyyy hh:mm")} - {_messageType.ToString()} - {_message}");

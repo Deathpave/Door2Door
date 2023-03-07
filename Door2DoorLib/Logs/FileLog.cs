@@ -23,6 +23,7 @@ namespace Door2DoorLib.Logs
         #endregion
 
         #region Write Log
+        // Writes the file log
         public void WriteLog()
         {
             File.AppendAllText(_logLocation, $"{_date.ToString("dd-MM-yyyy hh:mm")} - {_messageType.ToString()} - {_message}\n");

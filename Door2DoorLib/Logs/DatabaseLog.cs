@@ -23,6 +23,7 @@ namespace Door2DoorLib.Logs
         #endregion
 
         #region Writelog
+        // Adds a entry to log table
         public void WriteLog()
         {
             DateTime date = DateTime.Now;

@@ -7,6 +7,7 @@ namespace Door2DoorLib.Security
     internal class Encryption
     {
         #region Encrypt String
+        // Encrypts input string
         public string EncryptString(string input, string encodingPassword)
         {
             // Check for null or empty inputs
