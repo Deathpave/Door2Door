@@ -3,21 +3,21 @@
     public class Route : BaseEntity
     {
         #region Fields
-        private long _videoId;
+        private string _videoUrl;
         private string _description;
         private string _name;
         #endregion
 
         #region Properties
-        public long VideoId { get { return _videoId; } }
+        public string VideoUrl { get { return _videoUrl; } }
         public string Description { get { return _description; } }
         public string Name { get { return _name; } }
         #endregion
 
         #region Constructor
-        public Route(long id, long videoId, string description, string name) : base(id)
+        public Route(long id, string videoUrl, string description, string name) : base(id)
         {
-            _videoId = videoId;
+            _videoUrl = videoUrl;
             _description = description;
             _name = name;
         }

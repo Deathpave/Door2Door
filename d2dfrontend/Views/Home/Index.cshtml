@@ -4,5 +4,28 @@
 
 <div class="text-center">
     <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <p>Din mor.</p>
 </div>
+
+
+<div class="dropdown">
+    <select id="routesDropDown">
+        
+    </select>
+</div>
+
+
+<script>
+    const routesDropDown = document.getElementById("routesDropDown");
+    const routes = ViewData["routes"];
+
+    for (let route in routes) {
+        let option = document.createElement("option");
+        option.setAttribute('value', data[route]);
+
+        let optionText = document.createTextNode(route);
+        option.appendChild(optionText);
+
+        countriesDropDown.appendChild(option);
+    }
+</script>

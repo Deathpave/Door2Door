@@ -5,7 +5,7 @@ using Door2DoorLib.Repositories;
 
 namespace Door2DoorLib.Managers
 {
-    public class RouteManager
+    public class RouteManager : IRouteManager
     {
         #region Fields
         private RouteRepository _routeRepository;
@@ -94,6 +94,11 @@ namespace Door2DoorLib.Managers
         public Task<Route> GetRouteAsync(string routename)
         {
           return _routeRepository.GetByNameAsync(routename);
+        }
+        
+        public Task<IEnumerable<Route>> GetRoutesAsync()
+        {
+            return _routeRepository.GetAllAsync();
         }
         #endregion
         #endregion

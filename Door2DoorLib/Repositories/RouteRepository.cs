@@ -22,7 +22,7 @@ namespace Door2DoorLib.Repositories
         // Creates new route row
         public Task<bool> CreateAsync(Route createEntity)
         {
-            string query = $"INSERT INTO routes (text,videoId) VALUES ({createEntity.Description},{createEntity.VideoId})";
+            string query = $"INSERT INTO routes (text,videoUrl) VALUES ({createEntity.Description},{createEntity.VideoUrl})";
             MySqlCommand sqlCommand = new MySqlCommand(query);
 
             if (_database.ExecuteCommandAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
@@ -63,7 +63,7 @@ namespace Door2DoorLib.Repositories
             using (var streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
             {
                 // Create a new route from the datastream
-                result = new Route(streamReader.GetInt64("id"), streamReader.GetInt64("videoId"), streamReader.GetString("text"), streamReader.GetString("name"));
+                result = new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetString("name"));
             }
             return Task.FromResult(result);
         }
@@ -79,7 +79,7 @@ namespace Door2DoorLib.Repositories
             using (var streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
             {
                 // Create a new route from the datastream
-                result = new Route(streamReader.GetInt64("id"), streamReader.GetInt64("videoId"), streamReader.GetString("text"), streamReader.GetString("name"));
+                result = new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetString("name"));
             }
             return Task.FromResult(result);
         }
@@ -97,7 +97,7 @@ namespace Door2DoorLib.Repositories
                 // Create a new route from the datastream
                 while (streamReader.HasRows)
                 {
-                    result.Append(new Route(streamReader.GetInt64("id"), streamReader.GetInt64("videoId"), streamReader.GetString("text"), streamReader.GetString("name")));
+                    result.Append(new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetString("name")));
                     streamReader.Read();
                 }
             }
@@ -109,7 +109,7 @@ namespace Door2DoorLib.Repositories
         // Updates route
         public Task<bool> UpdateAsync(Route updateEntity)
         {
-            string query = $"UPDATE routes SET text = '{updateEntity.Description}',videoId='{updateEntity.Id}' WHERE id='{updateEntity.Id}'";
+            string query = $"UPDATE routes SET text = '{updateEntity.Description}',videoUrl='{updateEntity.Id}' WHERE id='{updateEntity.Id}'";
             MySqlCommand sqlCommand = new MySqlCommand(query);
 
             if (_database.ExecuteCommandAsync(sqlCommand).Status == TaskStatus.RanToCompletion)

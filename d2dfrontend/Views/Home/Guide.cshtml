@@ -1,0 +1,55 @@
+﻿@model d2dfrontend.Models.GuideViewModel
+
+@{
+    ViewData["Title"] = "Guide Page";
+}
+
+<html>
+<head>
+    <title>Video Player with Custom Slider</title>
+</head>
+<body>
+    <div id="video-container">
+        <video id="video-player">
+            <source src=@Model.Url type="video/mp4">
+            Your browser does not support the video tag.
+        </video>
+    </div>
+    <div id="slider-container">
+        <input type="range" id="slider"value="0"/>
+    </div>
+</body>
+</html>
+
+<script runat="server">
+    // Get the video player and slider elements
+    const video = document.getElementById("video-player");
+    const slider = document.getElementById("slider");
+
+    // Update the slider position when the video is played or seeked
+    video.addEventListener("play", updateSlider);
+    video.addEventListener("seeked", updateSlider);
+
+    // Update the video position when the slider is moved
+    slider.addEventListener("input", updateVideo);
+
+    function updateSlider() {
+        // Calculate the current time and duration as percentages
+        const currentTime = (video.currentTime / video.duration) * 100;
+        const duration = (video.duration / video.duration) * 100;
+
+        // Update the slider value and thumb position
+        slider.value = currentTime;
+
+        // Set the slider max value to the duration
+        slider.max = duration;
+    }
+
+    function updateVideo() {
+        // Calculate the new time based on the slider value
+        const time = (slider.value / 100) * video.duration;
+
+        // Set the video current time
+        video.currentTime = time;
+    }
+</script>
