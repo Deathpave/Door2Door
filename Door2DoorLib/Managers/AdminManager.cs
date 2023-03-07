@@ -49,7 +49,7 @@ namespace Door2DoorLib.Managers
         /// <param name="admin"></param>
         /// <param name="newAdmin"></param>
         /// <returns></returns>
-        public Task<bool> AddAdminAsync(Admin admin, Admin newAdmin)
+        public Task<bool> AddAdminAsync(Admin newAdmin, Admin admin)
         {
             if (_adminRepository.CreateAsync(newAdmin).Result)
             {
@@ -71,7 +71,7 @@ namespace Door2DoorLib.Managers
         /// <param name="admin"></param>
         /// <param name="deleteAdmin"></param>
         /// <returns></returns>
-        public Task<bool> DeleteAdminAsync(Admin admin, Admin deleteAdmin)
+        public Task<bool> DeleteAdminAsync(Admin deleteAdmin, Admin admin)
         {
             if (_adminRepository.DeleteAsync(deleteAdmin).Result)
             {
