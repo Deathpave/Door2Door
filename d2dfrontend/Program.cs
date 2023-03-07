@@ -18,6 +18,7 @@ config["d2ddatabase-353031351df8"] = config.GetConnectionString("DefaultConnecti
 var db = Door2DoorLib.Factories.DatabaseFactory.CreateDatabase(config, "d2ddatabase-353031351df8", DatabaseTypes.MySql);
 
 builder.Services.AddScoped<IRouteManager, RouteManager>(manager => new RouteManager(db));
+builder.Services.AddScoped<IAdminManager, AdminManager>(manager => new AdminManager(db));
 
 LogFactory.Initialize(Environment.CurrentDirectory + "\\TestLogs.txt", db);
 

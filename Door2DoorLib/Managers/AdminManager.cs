@@ -6,7 +6,7 @@ using Door2DoorLib.Security;
 
 namespace Door2DoorLib.Managers
 {
-    public class AdminManager
+    public class AdminManager : IAdminManager
     {
         #region Fields
         private AdminRepository _adminRepository;
