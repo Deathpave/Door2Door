@@ -97,8 +97,8 @@ namespace Door2DoorLib.Repositories
                 // Create a new route from the datastream
                 while (streamReader.HasRows)
                 {
-                    result.Append(new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetString("name")));
                     streamReader.Read();
+                    result.Append(new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetString("name")));
                 }
             }
             return Task.FromResult(result);
