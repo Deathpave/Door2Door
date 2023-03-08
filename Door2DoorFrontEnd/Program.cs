@@ -1,13 +1,8 @@
-using D2DFrontend.Data;
-using Door2DoorLib.DataModels;
 using Door2DoorLib.Factories;
-using Door2DoorLib.Managers;
 using Door2DoorLib.Interfaces;
-using Microsoft.AspNetCore.Identity;
-using Microsoft.EntityFrameworkCore;
+using Door2DoorLib.Managers;
 
 var builder = WebApplication.CreateBuilder(args);
-
 
 var build = new ConfigurationBuilder()
     .SetBasePath(Directory.GetCurrentDirectory())
@@ -24,31 +19,13 @@ LogFactory.Initialize(Environment.CurrentDirectory + "\\TestLogs.txt", db);
 
 db.OpenConnectionAsync().Wait();
 
-Door2DoorLib.Managers.RouteManager routeManager = new Door2DoorLib.Managers.RouteManager(db);
-Door2DoorLib.DataModels.Route route = new Door2DoorLib.DataModels.Route(5, "1", "hello tester123", "Route 01");
-Admin account = new Admin(0, "test", "");
-routeManager.UpdateRouteAsync(route, account);
-
 // Add services to the container.
-var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
-
-builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlServer(connectionString));
-
-builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-
-builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-    .AddEntityFrameworkStores<ApplicationDbContext>();
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
-{
-    app.UseMigrationsEndPoint();
-}
-else
+if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
@@ -65,6 +42,5 @@ app.UseAuthorization();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Home}/{action=Index}/{id?}");
-app.MapRazorPages();
 
 app.Run();

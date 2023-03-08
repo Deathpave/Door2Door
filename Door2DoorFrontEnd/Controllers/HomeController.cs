@@ -1,20 +1,16 @@
-﻿using D2DFrontend.Models;
-using D2DFrontend.Data;
-using Door2DoorLib.Factories;
+﻿using Door2DoorFrontEnd.Models;
 using Door2DoorLib.Interfaces;
-using Door2DoorLib.Managers;
-using Microsoft.AspNetCore.Components;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
 
-namespace D2DFrontend.Controllers
+namespace Door2DoorFrontEnd.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
 
-        private IEnumerable<Door2DoorLib.DataModels.Route> _routes = new List<Door2DoorLib.DataModels.Route>();
-        private IRouteManager _routeManager;
+        private readonly IEnumerable<Door2DoorLib.DataModels.Route> _routes = new List<Door2DoorLib.DataModels.Route>();
+        private readonly IRouteManager _routeManager;
 
         public HomeController(ILogger<HomeController> logger, IRouteManager routeManager)
         {

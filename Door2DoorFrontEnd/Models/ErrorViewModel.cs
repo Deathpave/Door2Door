@@ -1,4 +1,4 @@
-namespace D2DFrontend.Models
+namespace Door2DoorFrontEnd.Models
 {
     public class ErrorViewModel
     {

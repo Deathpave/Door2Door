@@ -1,0 +1,4 @@
+08-03-2023 09:09 - Error - Failed to open database connection due to Unable to connect to any of the specified MySQL hosts.
+08-03-2023 09:13 - Error - Failed to open database connection due to Unable to connect to any of the specified MySQL hosts.
+08-03-2023 09:14 - Error - Failed to open database connection due to Unable to connect to any of the specified MySQL hosts.
+08-03-2023 09:15 - Error - Failed to open database connection due to Unable to connect to any of the specified MySQL hosts.
