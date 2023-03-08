@@ -2,3 +2,18 @@
 08-03-2023 09:13 - Error - Failed to open database connection due to Unable to connect to any of the specified MySQL hosts.
 08-03-2023 09:14 - Error - Failed to open database connection due to Unable to connect to any of the specified MySQL hosts.
 08-03-2023 09:15 - Error - Failed to open database connection due to Unable to connect to any of the specified MySQL hosts.
+08-03-2023 10:04 - Error - Failed to open database connection due to Reading from the stream has failed.
+08-03-2023 10:04 - Error - Failed to execute sql command due to Connection must be valid and open.
+08-03-2023 10:08 - Error - Failed to open database connection due to Reading from the stream has failed.
+08-03-2023 10:08 - Error - Failed to execute sql command due to Connection must be valid and open.
+08-03-2023 10:10 - Error - Failed to open database connection due to Reading from the stream has failed.
+08-03-2023 10:10 - Error - Failed to execute sql command due to Connection must be valid and open.
+08-03-2023 10:13 - Error - Failed to open database connection due to Reading from the stream has failed.
+08-03-2023 10:14 - Error - Failed to open database connection due to Reading from the stream has failed.
+08-03-2023 10:14 - Error - Failed to execute sql command due to Connection must be valid and open.
+08-03-2023 10:15 - Error - Failed to open database connection due to Reading from the stream has failed.
+08-03-2023 10:15 - Error - Failed to execute sql command due to Connection must be valid and open.
+08-03-2023 10:41 - Error - Failed to open database connection due to Reading from the stream has failed.
+08-03-2023 10:41 - Error - Failed to execute sql command due to Connection must be valid and open.
+08-03-2023 01:45 - Error - Failed to open database connection due to Reading from the stream has failed.
+08-03-2023 01:45 - Error - Failed to execute sql command due to Connection must be valid and open.

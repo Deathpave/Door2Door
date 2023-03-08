@@ -87,26 +87,27 @@ namespace Door2DoorLib.Repositories
 
         #region Get All Async
         // Gets all routes
-        public Task<IEnumerable<Route>> GetAllAsync()
+        public async Task<IEnumerable<Route>> GetAllAsync()
         {
             string query = $"SELECT * FROM routes";
             MySqlCommand sqlCommand = new MySqlCommand(query);
-            IEnumerable<Route> result = new List<Route>();
-            _database.OpenConnectionAsync();
-            using (var streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
+            List<Route> result = new List<Route>();
+            await _database.OpenConnectionAsync();
+            using (MySqlDataReader streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
             {
                 // Create a new route from the datastream
-                while (streamReader.HasRows)
+                while (streamReader.Read())
                 {
-                    streamReader.Read();
-                    result.Append(new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetString("name")));
+                    Route newroute = new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetString("name"));
+                    result.Add(newroute);
                 }
             }
-            return Task.FromResult(result);
+            _database.CloseConnection();
+            return await Task.FromResult(result);
         }
         #endregion
 
-        #region Udate Async
+        #region Update Async
         // Updates route
         public Task<bool> UpdateAsync(Route updateEntity)
         {

@@ -21,17 +21,17 @@ namespace Door2DoorLib.Adapters
         #region Methods
         #region Open Connection Async
         // Opens the database connection
-        public override Task<bool> OpenConnectionAsync()
+        public override async Task<bool> OpenConnectionAsync()
         {
             try
             {
                 _sqlConnection.Open();
-                return Task.FromResult(true);
+                return await Task.FromResult(true);
             }
             catch (Exception e)
             {
                 LogFactory.CreateLog(LogTypes.File, $"Failed to open database connection due to {e.Message}", MessageTypes.Error).WriteLog();
-                return Task.FromResult(false);
+                return await Task.FromResult(false);
             }
 
         }
