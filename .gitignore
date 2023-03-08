@@ -362,5 +362,5 @@ MigrationBackup/
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
 /Door2DoorLibTester/appsettings.json
-/d2dfrontend/appsettings.json
-/d2dfrontend/appsettings.Development.json
+Door2DoorFrontEnd/appsettings.json
+Door2DoorFrontEnd/appsettings.Development.json
