@@ -92,6 +92,7 @@ namespace Door2DoorLib.Repositories
             string query = $"SELECT * FROM routes";
             MySqlCommand sqlCommand = new MySqlCommand(query);
             IEnumerable<Route> result = new List<Route>();
+            _database.OpenConnectionAsync();
             using (var streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
             {
                 // Create a new route from the datastream
