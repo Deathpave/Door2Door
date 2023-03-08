@@ -9,15 +9,16 @@ var build = new ConfigurationBuilder()
     .AddJsonFile("appSettings.json", optional: true, reloadOnChange: true);
 IConfiguration config = build.Build();
 
+//Initialize an instance of an IDatabase for manager injections
 config["d2ddatabase-353031351df8"] = config.GetConnectionString("DefaultConnection");
 var db = Door2DoorLib.Factories.DatabaseFactory.CreateDatabase(config, "d2ddatabase-353031351df8", DatabaseTypes.MySql);
 
+//Manager dependency injections
 builder.Services.AddScoped<IRouteManager, RouteManager>(manager => new RouteManager(db));
 builder.Services.AddScoped<IAdminManager, AdminManager>(manager => new AdminManager(db));
 
+//Initialize the log that handles errors if database can not be reached
 LogFactory.Initialize(Environment.CurrentDirectory + "\\TestLogs.txt", db);
-
-db.OpenConnectionAsync().Wait();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
