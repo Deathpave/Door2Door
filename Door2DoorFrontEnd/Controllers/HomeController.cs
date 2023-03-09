@@ -9,7 +9,7 @@ namespace Door2DoorFrontEnd.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        private readonly IEnumerable<Door2DoorLib.DataModels.Route> _routes = new List<Door2DoorLib.DataModels.Route>();
+        private IEnumerable<Door2DoorLib.DataModels.Route> _routes = new List<Door2DoorLib.DataModels.Route>();
         private readonly IRouteManager _routeManager;
 
         public HomeController(ILogger<HomeController> logger, IRouteManager routeManager)
@@ -20,11 +20,13 @@ namespace Door2DoorFrontEnd.Controllers
 
         public IActionResult Index()
         {
-            //_routes = _routeManager.GetRoutesAsync().Result;
+            _routes = _routeManager.GetRoutesAsync().Result;
 
-            //ViewData["routes"] = _routes;
+            ViewData["routes"] = _routes;
 
-            return View();
+            RouteModel model = new RouteModel();
+            model.RouteList = _routes.ToList();
+            return View(model);
         }
 
         public IActionResult Privacy()
