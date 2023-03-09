@@ -76,11 +76,18 @@ namespace Door2DoorLib.Repositories
         {
             string query = $"SELECT FROM routes WHERE name='{name}'";
             MySqlCommand sqlCommand = new MySqlCommand(query);
-            Route result;
+            Route result = null;
             using (var streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
             {
-                // Create a new route from the datastream
-                result = new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetString("name"));
+                if (streamReader != null)
+                {
+                    // Create a new route from the datastream
+                    result = new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetString("name"));
+                }
+                else
+                {
+                    LogFactory.CreateLog(LogTypes.File, $"Could not get route by name {name}", MessageTypes.Error);
+                }
             }
             return Task.FromResult(result);
         }
