@@ -85,7 +85,8 @@ namespace Door2DoorLib.Managers
         }
         #endregion
 
-        #region Get Route Async
+        #region Get Routes
+        #region Get Route By Name
         /// <summary>
         /// Get route by name 
         /// </summary>
@@ -93,13 +94,32 @@ namespace Door2DoorLib.Managers
         /// <returns></returns>
         public Task<Route> GetRouteAsync(string routename)
         {
-          return _routeRepository.GetByNameAsync(routename);
+            return _routeRepository.GetByNameAsync(routename);
         }
-        
-        public Task<IEnumerable<Route>> GetRoutesAsync()
+        #endregion
+
+        #region Get Route Async
+        /// <summary>
+        /// Get all routes
+        /// </summary>
+        /// <returns></returns>
+        public Task<IEnumerable<Route>> GetAllRoutesAsync()
         {
             return _routeRepository.GetAllAsync();
         }
+        #endregion
+
+        #region Get Route By Id
+        /// <summary>
+        /// Get route by id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public Task<Route> GetRouteById(int id)
+        {
+            return _routeRepository.GetByIdAsync(id);
+        }
+        #endregion
         #endregion
         #endregion
     }
