@@ -1,6 +1,6 @@
 ﻿@model Door2DoorFrontEnd.Models.RouteModel
 @{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Navigation";
 }
 
 <style>
@@ -12,22 +12,23 @@
 
     .dropdownitems {
         max-width: 30px;
-        background-color: green;
+        background-color: white;
         color: black;
         font-weight: bold;
     }
 
     #button {
-        min-height: 30px;
+        min-height: 35px;
         min-width: 60px;
-        background-color: blue;
+        background-color: #598392;
         color: white;
         font-weight: bold;
-        border: none;
+        border-radius:10px;
+        border:black;
     }
 
     #button:hover {
-        color: red;
+            color: #AEC3B0;
     }
 
     #searchwrapper{
@@ -39,37 +40,43 @@
     }
 
     #searchicon {
+        border-right:1px black solid;
         width: 30px;
-        background-color: cornflowerblue;
+        /*background-color: cornflowerblue;*/
     }
     #searchbar{
         outline:none;
         border:none;
     }
+    .items{
+        width:100%;
+        cursor:pointer;
+    }
 
 </style>
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-</div>
 
 
 @*<div class="dropdown">
     <select id="routesDropDown">
     </select>
 </div>*@
-
-<div class="dropdown">
-    <button onclick="toggleDropDown()" id="button">
-        DropDown
-    </button>
-    <div id="itemlist" class="dropdownitems" style="display:none;">
-        <div id="searchwrapper"> <img id="searchicon" src="~/assets/loupe.png" /><input type="text" id="searchbar" /></div>
-            @foreach (var item in Model.RouteList)
-            {
-                <div class="items" id="@item.Name" onclick="itemClicked(@item.Id)">@item.Name</div>
-            }
+<div>
+    <div class="imagewrapper">
+        <img <img src="~/assets/skoleplan.png" />
     </div>
+    <div class="dropdown">
+        <button onclick="toggleDropDown()" id="button">
+            Søg
+        </button>
+        <div id="itemlist" class="dropdownitems" style="display:none;">
+            <div id="searchwrapper"> <img id="searchicon" src="~/assets/loupe.png" /><input type="text" id="searchbar" /></div>
+                @foreach (var item in Model.RouteList)
+                {
+                    <div class="items" id="@item.Name" onclick="itemClicked(@item.Id)">@item.Name</div>
+                }
+        </div>
 
+    </div>
 </div>
 
 <script>
@@ -82,7 +89,8 @@
         }
     }
     function itemClicked(item) {
-        console.log(item);
+        //window.history.pushState({}, document.title, "?route="+item);
+        window.location.href = "/navigation?route="+item;
     }
     document.getElementById('searchbar').addEventListener('keyup', search);
     function search(evt) {

@@ -18,6 +18,7 @@ namespace Door2DoorFrontEnd.Controllers
             _routeManager = routeManager;
         }
 
+        [HttpGet("~/")]
         public IActionResult Index()
         {
             _routes = _routeManager.GetRoutesAsync().Result;
