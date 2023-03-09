@@ -36,6 +36,7 @@ namespace Door2DoorFrontEnd.Controllers
             if (routeid != null)
             {
                 Route route = _routeManager.GetRouteById(routeid);
+                return View("");
             }
             return View();
         }
