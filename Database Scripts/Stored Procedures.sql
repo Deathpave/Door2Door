@@ -148,7 +148,7 @@ END //
 DELIMITER ;
 
 /*####################################################
-			## Admin Section ##
+			## Log Section ##
 ####################################################*/
 DROP PROCEDURE IF EXISTS `d2d.spCreateLogType`;
 DROP PROCEDURE IF EXISTS `d2d.spUpdateLogType`;
