@@ -66,7 +66,7 @@ namespace Door2DoorLib.Repositories
         // Gets route by id
         public async Task<Route> GetByIdAsync(long id)
         {
-            string query = $"SELECT FROM routes WHERE id='{id}'";
+            string query = $"SELECT * FROM routes WHERE id='{id}'";
             MySqlCommand sqlCommand = new MySqlCommand(query);
             Route result = null;
             await _database.OpenConnectionAsync();
@@ -75,6 +75,7 @@ namespace Door2DoorLib.Repositories
                 if (streamReader != null)
                 {
                     // Create a new route from the datastream
+                    streamReader.Read();
                     result = new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetString("name"));
                 }
                 else
