@@ -2,6 +2,7 @@
 using Door2DoorLib.Factories;
 using Door2DoorLib.Interfaces;
 using MySql.Data.MySqlClient;
+using System.ComponentModel.DataAnnotations;
 using System.Xml.Linq;
 
 namespace Door2DoorLib.Repositories
@@ -22,35 +23,41 @@ namespace Door2DoorLib.Repositories
         #region Methods
         #region Create Async
         // Creates new route row
-        public Task<bool> CreateAsync(Route createEntity)
+        public async Task<bool> CreateAsync(Route createEntity)
         {
             string query = $"INSERT INTO routes (text,videoUrl) VALUES ({createEntity.Description},{createEntity.VideoUrl})";
             MySqlCommand sqlCommand = new MySqlCommand(query);
 
-            if (_database.ExecuteCommandAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
+            await _database.OpenConnectionAsync();
+            var result = _database.ExecuteCommandAsync(sqlCommand).Status;
+            _database.CloseConnection();
+            if (result == TaskStatus.RanToCompletion)
             {
-                return Task.FromResult(true);
+                return await Task.FromResult(true);
             }
             else
             {
-                return Task.FromResult(false);
+                return await Task.FromResult(false);
             }
         }
         #endregion
 
         #region Delete Async
         // Deletes route row from id
-        public Task<bool> DeleteAsync(Route deleteEntity)
+        public async Task<bool> DeleteAsync(Route deleteEntity)
         {
             string query = $"DELETE FROM routes WHERE id='{deleteEntity.Id}'";
             MySqlCommand sqlCommand = new MySqlCommand(query);
-            if (_database.ExecuteCommandAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
+            await _database.OpenConnectionAsync();
+            var result = _database.ExecuteCommandAsync(sqlCommand).Status;
+            _database.CloseConnection();
+            if (result == TaskStatus.RanToCompletion)
             {
-                return Task.FromResult(true);
+                return await Task.FromResult(true);
             }
             else
             {
-                return Task.FromResult(false);
+                return await Task.FromResult(false);
             }
         }
         #endregion
