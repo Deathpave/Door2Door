@@ -57,11 +57,12 @@ namespace Door2DoorLib.Repositories
 
         #region Get By Id Async
         // Gets route by id
-        public Task<Route> GetByIdAsync(long id)
+        public async Task<Route> GetByIdAsync(long id)
         {
             string query = $"SELECT FROM routes WHERE id='{id}'";
             MySqlCommand sqlCommand = new MySqlCommand(query);
             Route result = null;
+            await _database.OpenConnectionAsync();
             using (var streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
             {
                 if (streamReader != null)
@@ -74,17 +75,19 @@ namespace Door2DoorLib.Repositories
                     LogFactory.CreateLog(LogTypes.File, $"Could not get route by id {id}", MessageTypes.Error);
                 }
             }
-            return Task.FromResult(result);
+            _database.CloseConnection();
+            return await Task.FromResult(result);
         }
         #endregion
 
         #region Get By Name Async
         // Gets route by name
-        public Task<Route> GetByNameAsync(string name)
+        public async Task<Route> GetByNameAsync(string name)
         {
             string query = $"SELECT FROM routes WHERE name='{name}'";
             MySqlCommand sqlCommand = new MySqlCommand(query);
             Route result = null;
+            await _database.OpenConnectionAsync();
             using (var streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
             {
                 if (streamReader != null)
@@ -97,7 +100,8 @@ namespace Door2DoorLib.Repositories
                     LogFactory.CreateLog(LogTypes.File, $"Could not get route by name {name}", MessageTypes.Error);
                 }
             }
-            return Task.FromResult(result);
+            _database.CloseConnection();
+            return await Task.FromResult(result);
         }
         #endregion
 
