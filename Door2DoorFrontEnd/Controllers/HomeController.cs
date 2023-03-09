@@ -31,12 +31,14 @@ namespace Door2DoorFrontEnd.Controllers
         }
 
         [HttpGet("~/navigation")]
-        public IActionResult Navigation(long routeid)
+        public IActionResult Navigation(int routeid)
         {
-            if (routeid != null)
+            if (routeid > -1)
             {
-                Route route = _routeManager.GetRouteById(routeid);
-                return View("");
+                Door2DoorLib.DataModels.Route route = _routeManager.GetRouteById(routeid).Result;
+                RouteModel model = new RouteModel();
+                model.RouteList.Add(route);
+                return View("Route",model);
             }
             return View();
         }
