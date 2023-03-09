@@ -1,9 +1,6 @@
-USE master;
-
+USE sys;
 DROP DATABASE IF EXISTS door2doordb;
-
 CREATE DATABASE door2doordb;
-
 USE door2doordb;
 
 /*####################################################
