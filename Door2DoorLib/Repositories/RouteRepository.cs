@@ -2,6 +2,7 @@
 using Door2DoorLib.Factories;
 using Door2DoorLib.Interfaces;
 using MySql.Data.MySqlClient;
+using System.Xml.Linq;
 
 namespace Door2DoorLib.Repositories
 {
@@ -60,11 +61,18 @@ namespace Door2DoorLib.Repositories
         {
             string query = $"SELECT FROM routes WHERE id='{id}'";
             MySqlCommand sqlCommand = new MySqlCommand(query);
-            Route result;
+            Route result = null;
             using (var streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
             {
-                // Create a new route from the datastream
-                result = new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetString("name"));
+                if (streamReader != null)
+                {
+                    // Create a new route from the datastream
+                    result = new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetString("name"));
+                }
+                else
+                {
+                    LogFactory.CreateLog(LogTypes.File, $"Could not get route by id {id}", MessageTypes.Error);
+                }
             }
             return Task.FromResult(result);
         }
