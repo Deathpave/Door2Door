@@ -30,6 +30,15 @@ namespace Door2DoorFrontEnd.Controllers
             return View(model);
         }
 
+        [HttpGet("~/navigation")]
+        public IActionResult Navigation(long routeid)
+        {
+            if (routeid != null)
+            {
+                Route route = _routeManager.GetRouteById(routeid);
+            }
+            return View();
+        }
         public IActionResult Privacy()
         {
             return View();

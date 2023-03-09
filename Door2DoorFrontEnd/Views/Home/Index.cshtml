@@ -90,7 +90,7 @@
     }
     function itemClicked(item) {
         //window.history.pushState({}, document.title, "?route="+item);
-        window.location.href = "/navigation?route="+item;
+        window.location.href = "/navigation?routeid="+item;
     }
     document.getElementById('searchbar').addEventListener('keyup', search);
     function search(evt) {
