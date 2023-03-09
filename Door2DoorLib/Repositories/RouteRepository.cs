@@ -1,4 +1,5 @@
 ﻿using Door2DoorLib.DataModels;
+using Door2DoorLib.Factories;
 using Door2DoorLib.Interfaces;
 using MySql.Data.MySqlClient;
 
@@ -95,11 +96,18 @@ namespace Door2DoorLib.Repositories
             _database.OpenConnectionAsync();
             using (var streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
             {
-                // Create a new route from the datastream
-                while (streamReader.HasRows)
+                if (streamReader != null)
                 {
-                    streamReader.Read();
-                    result.Append(new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetString("name")));
+                    // Create a new route from the datastream
+                    while (streamReader.HasRows)
+                    {
+                        streamReader.Read();
+                        result.Append(new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetString("name")));
+                    }
+                }
+                else
+                {
+                    LogFactory.CreateLog(LogTypes.File, "Could not get routes async", MessageTypes.Error).WriteLog();
                 }
             }
             return Task.FromResult(result);
