@@ -53,6 +53,20 @@ namespace Door2DoorLib.Repositories
         }
         #endregion
 
+        #region Get By Id
+        public Task<Admin> GetByIdAsync(long id)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+        #region Get All
+        public Task<IEnumerable<Admin>> GetAllAsync()
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
         #region Get By Name Async
         // Gets admin by name
         public Task<Admin> GetByNameAsync(string name)
@@ -69,7 +83,7 @@ namespace Door2DoorLib.Repositories
         }
         #endregion
 
-        #region Udate Async
+        #region Update Async
         // Updates admin
         public Task<bool> UpdateAsync(Admin updateEntity)
         {
