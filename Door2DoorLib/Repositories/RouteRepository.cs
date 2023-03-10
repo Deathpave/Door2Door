@@ -101,8 +101,6 @@ namespace Door2DoorLib.Repositories
             MySqlCommand sqlCommand = new MySqlCommand("d2d.spGetAllRoutes");
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-            //string query = $"SELECT * FROM routes";
-            //MySqlCommand sqlCommand = new MySqlCommand(query);
             List<Route> result = new List<Route>();
             await _database.OpenConnectionAsync();
             using (MySqlDataReader streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
