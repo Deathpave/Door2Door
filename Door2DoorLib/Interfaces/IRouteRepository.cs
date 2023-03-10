@@ -10,6 +10,6 @@ namespace Door2DoorLib.Interfaces
         /// <param name="startLocation"></param>
         /// <param name="endLocation"></param>
         /// <returns></returns>
-        Task<Route> GetRouteByLocations(long startLocation, long endLocation);
+        Task<Route> GetByLocationsAsync(long startLocation, long endLocation);
     }
 }

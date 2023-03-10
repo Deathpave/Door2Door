@@ -175,7 +175,7 @@ namespace Door2DoorLib.Repositories
         /// <param name="startLocation"></param>
         /// <param name="endLocation"></param>
         /// <returns></returns>
-        public async Task<Route> GetByLocations(long startLocation, long endLocation)
+        public async Task<Route> GetByLocationsAsync(long startLocation, long endLocation)
         {
             MySqlCommand sqlCommand = new MySqlCommand("spGetRouteByLocations");
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
