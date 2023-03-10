@@ -1,4 +1,12 @@
 /*####################################################
+			## Insert Test data ##
+####################################################*/
+INSERT INTO `locations` (name) VALUES ('Test1');
+INSERT INTO `locations` (name) VALUES ('Test2');
+CALL `door2doordb`.`spCreateRoute`(1, 2, 'Kør til Cph', 'https://www.Dinmor.dk');
+
+
+/*####################################################
 			## Insert dummy/static data ##
 ####################################################*/
 INSERT INTO `locations` (name) VALUES ('A1.17');
