@@ -10,5 +10,6 @@ namespace Door2DoorLib.Interfaces
         //public Task<Route> GetByNameAsync(string name);
         public Task<IEnumerable<Route>> GetAllAsync();
         public Task<bool> UpdateAsync(Route updateEntity);
+        public Task<Route> GetByLocations(long startLocation, long endLocation);
     }
 }

@@ -2,6 +2,7 @@
 using Door2DoorLib.Factories;
 using Door2DoorLib.Interfaces;
 using MySql.Data.MySqlClient;
+using MySqlX.XDevAPI.Common;
 
 namespace Door2DoorLib.Repositories
 {
@@ -27,8 +28,8 @@ namespace Door2DoorLib.Repositories
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
             sqlCommand.Parameters.Add(new MySqlParameter("@newText", createEntity.Description));
             sqlCommand.Parameters.Add(new MySqlParameter("@videourl", createEntity.VideoUrl));
-            sqlCommand.Parameters.Add(new MySqlParameter("@startLocation", createEntity.StartLocation));
-            sqlCommand.Parameters.Add(new MySqlParameter("@endLocation", createEntity.EndLocation));
+            sqlCommand.Parameters.Add(new MySqlParameter("@startId", createEntity.StartLocation));
+            sqlCommand.Parameters.Add(new MySqlParameter("@endId", createEntity.EndLocation));
 
             await _database.OpenConnectionAsync();
             var result = _database.ExecuteCommandAsync(sqlCommand).Status;
@@ -134,8 +135,8 @@ namespace Door2DoorLib.Repositories
             sqlCommand.Parameters.Add(new MySqlParameter("@routeId", updateEntity.Id));
             sqlCommand.Parameters.Add(new MySqlParameter("@newText", updateEntity.Description));
             sqlCommand.Parameters.Add(new MySqlParameter("@videourl", updateEntity.VideoUrl));
-            sqlCommand.Parameters.Add(new MySqlParameter("@startLocation", updateEntity.StartLocation));
-            sqlCommand.Parameters.Add(new MySqlParameter("@endLocation", updateEntity.EndLocation));
+            sqlCommand.Parameters.Add(new MySqlParameter("@startId", updateEntity.StartLocation));
+            sqlCommand.Parameters.Add(new MySqlParameter("@endId", updateEntity.EndLocation));
 
             if (_database.ExecuteCommandAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
             {
@@ -145,6 +146,31 @@ namespace Door2DoorLib.Repositories
             {
                 return Task.FromResult(false);
             }
+        }
+
+        public async Task<Route> GetByLocations(long startLocation, long endLocation)
+        {
+            MySqlCommand sqlCommand = new MySqlCommand("d2d.spGetRouteByLocations");
+            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sqlCommand.Parameters.Add(new MySqlParameter("@startId", startLocation));
+            sqlCommand.Parameters.Add(new MySqlParameter("@endId", endLocation));
+
+            Route result = null;
+            await _database.OpenConnectionAsync();
+            using (var streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
+            {
+                if (streamReader != null)
+                {
+                    // Create a new route from the datastream
+                    result = new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetInt64("startLocation"), streamReader.GetInt64("endLocation"));
+                }
+                else
+                {
+                    LogFactory.CreateLog(LogTypes.File, $"Could not get route by ids {startLocation}-{endLocation}", MessageTypes.Error);
+                }
+            }
+            _database.CloseConnection();
+            return await Task.FromResult(result);
         }
         #endregion
         #endregion
