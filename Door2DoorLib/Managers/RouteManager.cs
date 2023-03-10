@@ -26,7 +26,7 @@ namespace Door2DoorLib.Managers
         /// <param name="route"></param>
         /// <param name="admin"></param>
         /// <returns></returns>
-        public async Task<bool> AddRouteAsync(Route route, Admin admin)
+        public async Task<bool> CreateAsync(Route route, Admin admin)
         {
             if (_repository.CreateAsync(route).Result)
             {
@@ -48,7 +48,7 @@ namespace Door2DoorLib.Managers
         /// <param name="route"></param>
         /// <param name="admin"></param>
         /// <returns></returns>
-        public async Task<bool> DeleteRouteAsync(Route route, Admin admin)
+        public async Task<bool> DeleteAsync(Route route, Admin admin)
         {
             if (_repository.DeleteAsync(route).Result)
             {
@@ -69,7 +69,7 @@ namespace Door2DoorLib.Managers
         /// Get all routes
         /// </summary>
         /// <returns></returns>
-        public async Task<IEnumerable<Route>> GetAllRoutesAsync()
+        public async Task<IEnumerable<Route>> GetAllAsync()
         {
             return await _repository.GetAllAsync();
         }
@@ -81,7 +81,7 @@ namespace Door2DoorLib.Managers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<Route> GetRouteByIdAsync(int id)
+        public async Task<Route> GetByIdAsync(int id)
         {
             return await _repository.GetByIdAsync(id);
         }
@@ -94,9 +94,9 @@ namespace Door2DoorLib.Managers
         /// <param name="startLocation"></param>
         /// <param name="endLocation"></param>
         /// <returns></returns>
-        public async Task<Route> GetRouteByLocationIdsAsync(int startLocation, int endLocation)
+        public async Task<Route> GetByLocationIdsAsync(int startLocation, int endLocation)
         {
-            return await _repository.GetByLocations(startLocation, endLocation);
+            return await _repository.GetRouteByLocations(startLocation, endLocation);
         }
         #endregion
         #endregion
@@ -109,7 +109,7 @@ namespace Door2DoorLib.Managers
         /// <param name="route"></param>
         /// <param name="admin"></param>
         /// <returns></returns>
-        public async Task<bool> UpdateRouteAsync(Route route, Admin admin)
+        public async Task<bool> UpdateAsync(Route route, Admin admin)
         {
             if (_repository.UpdateAsync(route).Result)
             {

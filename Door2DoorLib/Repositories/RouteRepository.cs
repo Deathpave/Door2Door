@@ -20,7 +20,12 @@ namespace Door2DoorLib.Repositories
 
         #region Methods
         #region Create Async
-        // Creates new route row
+
+        /// <summary>
+        /// Creates a route entity in the database
+        /// </summary>
+        /// <param name="createEntity"></param>
+        /// <returns></returns>
         public async Task<bool> CreateAsync(Route createEntity)
         {
             MySqlCommand sqlCommand = new MySqlCommand("d2d.spCreateRoute");
@@ -45,7 +50,11 @@ namespace Door2DoorLib.Repositories
         #endregion
 
         #region Delete Async
-        // Deletes route row from id
+        /// <summary>
+        /// Deletes a route entity in the database
+        /// </summary>
+        /// <param name="deleteEntity"></param>
+        /// <returns></returns>
         public async Task<bool> DeleteAsync(Route deleteEntity)
         {
             MySqlCommand sqlCommand = new MySqlCommand("d2d.spDeleteRoute");
@@ -68,7 +77,10 @@ namespace Door2DoorLib.Repositories
 
 
         #region Get All Async
-        // Gets all routes
+        /// <summary>
+        /// Returns all Route entities from database
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<Route>> GetAllAsync()
         {
             MySqlCommand sqlCommand = new MySqlCommand("d2d.spGetAllRoutes");
@@ -99,7 +111,11 @@ namespace Door2DoorLib.Repositories
 
 
         #region Get By Id Async
-        // Gets route by id
+        /// <summary>
+        /// Returns a Route entity matching the given id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<Route> GetByIdAsync(long id)
         {
             MySqlCommand sqlCommand = new MySqlCommand("d2d.spGetRouteById");
@@ -126,8 +142,12 @@ namespace Door2DoorLib.Repositories
         #endregion
 
         #region Update Async
-        // Updates route
-        public Task<bool> UpdateAsync(Route updateEntity)
+        /// <summary>
+        /// Updates a route entity in the database
+        /// </summary>
+        /// <param name="updateEntity"></param>
+        /// <returns></returns>
+        public async Task<bool> UpdateAsync(Route updateEntity)
         {
             MySqlCommand sqlCommand = new MySqlCommand("d2d.spUpdateRoute");
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
@@ -139,18 +159,23 @@ namespace Door2DoorLib.Repositories
 
             if (_database.ExecuteCommandAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
             {
-                return Task.FromResult(true);
+                return await Task.FromResult(true);
             }
             else
             {
-                return Task.FromResult(false);
+                return await Task.FromResult(false);
             }
         }
         #endregion
 
         #region Get by Locations
-        // Get route by location ids
-        public async Task<Route> GetByLocations(long startLocation, long endLocation)
+        /// <summary>
+        /// Get a route entity with matching location ids
+        /// </summary>
+        /// <param name="startLocation"></param>
+        /// <param name="endLocation"></param>
+        /// <returns></returns>
+        public async Task<Route> GetRouteByLocations(long startLocation, long endLocation)
         {
             MySqlCommand sqlCommand = new MySqlCommand("d2d.spGetRouteByLocations");
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;

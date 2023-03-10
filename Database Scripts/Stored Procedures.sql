@@ -170,11 +170,11 @@ DELIMITER ;
 
 -- Update operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spUpdateAdmin` (IN adminId INT, IN username VARCHAR(255), IN password VARCHAR(255))
+CREATE PROCEDURE `d2d.spUpdateAdmin` (IN adminId INT, IN newUsername VARCHAR(255), IN newPassword VARCHAR(255))
 BEGIN
 	UPDATE admin SET 
-    username = username, 
-    password = password 
+    username = newUsername, 
+    password = newPassword 
     WHERE id = adminId;
 END //
 DELIMITER ;

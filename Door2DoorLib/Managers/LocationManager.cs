@@ -21,7 +21,13 @@ namespace Door2DoorLib.Managers
         #region Methods
 
         #region Add Location
-        public async Task<bool> AddLocationAsync(Location location, Admin admin)
+        /// <summary>
+        /// Adds a new location entity to the database
+        /// </summary>
+        /// <param name="location"></param>
+        /// <param name="admin"></param>
+        /// <returns></returns>
+        public async Task<bool> CreateAsync(Location location, Admin admin)
         {
             if (_repository.CreateAsync(location).Result)
             {
@@ -37,7 +43,13 @@ namespace Door2DoorLib.Managers
         #endregion
 
         #region Delete Location
-        public async Task<bool> DeleteLocationAsync(Location location, Admin admin)
+        /// <summary>
+        /// Deletes a location entity from the database
+        /// </summary>
+        /// <param name="location"></param>
+        /// <param name="admin"></param>
+        /// <returns></returns>
+        public async Task<bool> DeleteAsync(Location location, Admin admin)
         {
             if (_repository.DeleteAsync(location).Result)
             {
@@ -53,21 +65,36 @@ namespace Door2DoorLib.Managers
         #endregion
 
         #region Get all
-        public async Task<IEnumerable<Location>> GetAllLocationsAsync()
+        /// <summary>
+        /// Returns all Location entities from the database
+        /// </summary>
+        /// <returns></returns>
+        public async Task<IEnumerable<Location>> GetAllAsync()
         {
             return await _repository.GetAllAsync();
         }
         #endregion
 
         #region Get By Id
-        public async Task<Location> GetLocationByIdAsync(int id)
+        /// <summary>
+        /// Returns a Location entity matching the given id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
+        public async Task<Location> GetByIdAsync(int id)
         {
             return await _repository.GetByIdAsync(id);
         }
         #endregion
 
         #region Update Location
-        public async Task<bool> UpdateLocationAsync(Location location, Admin admin)
+        /// <summary>
+        /// Updates a Location entity in the database
+        /// </summary>
+        /// <param name="location"></param>
+        /// <param name="admin"></param>
+        /// <returns></returns>
+        public async Task<bool> UpdateAsync(Location location, Admin admin)
         {
             if (_repository.UpdateAsync(location).Result)
             {
