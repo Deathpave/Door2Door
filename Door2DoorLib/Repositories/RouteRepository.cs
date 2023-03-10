@@ -146,6 +146,7 @@ namespace Door2DoorLib.Repositories
             }
         }
 
+        // Get route by location ids
         public async Task<Route> GetByLocations(long startLocation, long endLocation)
         {
             MySqlCommand sqlCommand = new MySqlCommand("d2d.spGetRouteByLocations");
