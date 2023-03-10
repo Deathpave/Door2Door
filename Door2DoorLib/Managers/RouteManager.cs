@@ -96,7 +96,7 @@ namespace Door2DoorLib.Managers
         /// <returns></returns>
         public async Task<Route> GetRouteByLocationIdsAsync(int startLocation, int endLocation)
         {
-            return await _repository.GetByLocations(startLocation, endLocation);
+            return await _repository.GetRouteByLocations(startLocation, endLocation);
         }
         #endregion
         #endregion
