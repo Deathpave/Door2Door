@@ -17,6 +17,7 @@ namespace Door2DoorFrontEnd.Controllers
         [HttpGet("/admin")]
         public IActionResult AdminMenu()
         {
+            //Door2DoorLib.DataModels.Admin admin = _adminManager.
             AdminModel model = new AdminModel();
             return View("Admin",model);
         }
