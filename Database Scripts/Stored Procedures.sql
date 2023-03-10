@@ -14,7 +14,8 @@ DROP PROCEDURE IF EXISTS `d2d.spGetAllLocations`;
 DELIMITER //
 CREATE PROCEDURE `d2d.spCreateLocation` (IN newName VARCHAR(255), IN newIconUrl VARCHAR(255))
 BEGIN
-INSERT INTO locations (name, iconUrl) VALUES (newName, newIconUrl);
+	INSERT INTO locations (name, iconUrl) 
+    VALUES (newName, newIconUrl);
 END //
 DELIMITER ;
 
@@ -30,7 +31,8 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE `d2d.spGetLocationByName` (IN searchName VARCHAR(255))
 BEGIN
-SELECT * FROM locations WHERE name = searchName;
+	SELECT * FROM locations 
+    WHERE name = searchName;
 END //
 DELIMITER ;
 
@@ -38,7 +40,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE `d2d.spGetAllLocations` ()
 BEGIN
-SELECT * FROM locations;
+	SELECT * FROM locations;
 END //
 DELIMITER ;
 
@@ -46,7 +48,10 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE `d2d.spUpdateLocation` (IN locationId INT, IN newName VARCHAR(255), IN newIconUrl VARCHAR(255))
 BEGIN
-UPDATE locations SET name = newName, iconUrl = newIconUrl WHERE id = locationId;
+	UPDATE locations SET 
+    name = newName, 
+    iconUrl = newIconUrl 
+    WHERE id = locationId;
 END //
 DELIMITER ;
 
@@ -54,7 +59,8 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE `d2d.spDeleteLocation` (IN locationId INT)
 BEGIN
-DELETE FROM locations WHERE id = locationId;
+	DELETE FROM locations 
+    WHERE id = locationId;
 END //
 DELIMITER ;
 
@@ -73,7 +79,8 @@ DROP PROCEDURE IF EXISTS `d2d.spGetAllRoutes`;
 DELIMITER //
 CREATE PROCEDURE `d2d.spCreateRoute` (IN startId INT, IN endId INT, IN newText VARCHAR(255), IN videourl VARCHAR(255))
 BEGIN
-INSERT INTO routes (start, end, text, videoUrl) VALUES (newStart, newEnd, newText, videourl);
+	INSERT INTO routes (start, end, text, videoUrl) 
+    VALUES (newStart, newEnd, newText, videourl);
 END //
 DELIMITER ;
 
@@ -81,7 +88,8 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE `d2d.spGetRouteById` (IN routeId INT)
 BEGIN
-SELECT * FROM routes WHERE id = routeId;
+	SELECT * FROM routes 
+    WHERE id = routeId;
 END //
 DELIMITER ;
 
@@ -89,7 +97,8 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE `d2d.spGetRouteByLocations` (IN startId INT, IN endId INT)
 BEGIN
-SELECT * FROM routes WHERE start = startId && end = endId;
+	SELECT * FROM routes 
+	WHERE start = startId && end = endId;
 END //
 DELIMITER ;
 
@@ -105,7 +114,12 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE `d2d.spUpdateRoute` (IN routeId INT, IN startId INT, IN endID INT, IN newText VARCHAR(255), IN videourl VARCHAR(255))
 BEGIN
-UPDATE routes SET start = newStart, end = newEnd, text = newText, videoUrl = videourl WHERE id = routeId;
+	UPDATE routes SET 
+		start = newStart, 
+		end = newEnd, 
+		text = newText, 
+		videoUrl = videourl 
+		WHERE id = routeId;
 END //
 DELIMITER ;
 
@@ -113,9 +127,11 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE `d2d.spDeleteRoute` (IN routeId INT)
 BEGIN
-DELETE FROM routes WHERE id = routeId;
+	DELETE FROM routes 
+    WHERE id = routeId;
 END //
 DELIMITER ;
+
 
 /*####################################################
 			## Admin Section ##
@@ -130,7 +146,8 @@ DROP PROCEDURE IF EXISTS `d2d.spGetAllAdmins`;
 DELIMITER //
 CREATE PROCEDURE `d2d.spCreateAdmin` (IN username VARCHAR(255), IN password VARCHAR(255))
 BEGIN
-INSERT INTO admin (username, password) VALUES (username, password);
+	INSERT INTO admin (username, password) 
+    VALUES (username, password);
 END //
 DELIMITER ;
 
@@ -138,7 +155,8 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE `d2d.spGetAdminById` (IN adminId INT)
 BEGIN
-SELECT * FROM admin WHERE id = adminId;
+	SELECT * FROM admin 
+    WHERE id = adminId;
 END //
 DELIMITER ;
 
@@ -146,7 +164,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE `d2d.spGetAllAdmins` ()
 BEGIN
-SELECT * FROM admin;
+	SELECT * FROM admin;
 END //
 DELIMITER ;
 
@@ -154,7 +172,10 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE `d2d.spUpdateAdmin` (IN adminId INT, IN username VARCHAR(255), IN password VARCHAR(255))
 BEGIN
-UPDATE admin SET username = username, password = password WHERE id = adminId;
+	UPDATE admin SET 
+    username = username, 
+    password = password 
+    WHERE id = adminId;
 END //
 DELIMITER ;
 
@@ -162,9 +183,10 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE `d2d.spDeleteAdmin` (IN adminId INT)
 BEGIN
-DELETE FROM admin WHERE id = adminId;
+	DELETE FROM admin WHERE id = adminId;
 END //
 DELIMITER ;
+
 
 /*####################################################
 			## Log Section ##
@@ -179,7 +201,8 @@ DROP PROCEDURE IF EXISTS `d2d.spGetAllLogs`;
 DELIMITER //
 CREATE PROCEDURE `d2d.spCreateLog` (IN type INT, IN description VARCHAR(255), IN timestamp TIMESTAMP(6))
 BEGIN
-INSERT INTO log (type, description, timestamp) VALUES (type, description, timestamp);
+	INSERT INTO log (type, description, timestamp) 
+    VALUES (type, description, timestamp);
 END //
 DELIMITER ;
 
@@ -187,7 +210,8 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE `d2d.spGetLogById` (IN logId INT)
 BEGIN
-SELECT * FROM log WHERE id = logId;
+	SELECT * FROM log 
+    WHERE id = logId;
 END //
 DELIMITER ;
 
@@ -195,7 +219,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE `d2d.spGetAllLogs` ()
 BEGIN
-SELECT * FROM log;
+	SELECT * FROM log;
 END //
 DELIMITER ;
 
@@ -203,7 +227,11 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE `d2d.spUpdateLog` (IN logId INT, IN type INT, IN description VARCHAR(255), IN timestamp TIMESTAMP(6))
 BEGIN
-UPDATE log SET type = type, description = description, timestamp = timestamp WHERE id = logId;
+	UPDATE log SET 
+    type = type, 
+    description = description, 
+    timestamp = timestamp 
+    WHERE id = logId;
 END //
 DELIMITER ;
 
@@ -211,9 +239,11 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE `d2d.spDeleteLog` (IN logId INT)
 BEGIN
-DELETE FROM log WHERE id = logId;
+	DELETE FROM log 
+    WHERE id = logId;
 END //
 DELIMITER ;
+
 
 /*####################################################
 			## LogType Section ##
@@ -228,7 +258,8 @@ DROP PROCEDURE IF EXISTS `d2d.spGetAllLogTypes`;
 DELIMITER //
 CREATE PROCEDURE `d2d.spCreateLogType` (IN errorCodes VARCHAR(255))
 BEGIN
-INSERT INTO logTypes (errorCodes) VALUES (errorCodes);
+	INSERT INTO logTypes (errorCodes) 
+    VALUES (errorCodes);
 END //
 DELIMITER ;
 
@@ -236,7 +267,8 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE `d2d.spGetLogTypeById` (IN logTypeId INT)
 BEGIN
-SELECT * FROM logTypes WHERE id = logTypeId;
+	SELECT * FROM logTypes 
+    WHERE id = logTypeId;
 END //
 DELIMITER ;
 
@@ -244,7 +276,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE `d2d.spGetAllLogTypes` ()
 BEGIN
-SELECT * FROM logTypes;
+	SELECT * FROM logTypes;
 END //
 DELIMITER ;
 
@@ -252,7 +284,9 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE `d2d.spUpdateLogType` (IN logTypeId INT, IN errorCodes VARCHAR(255))
 BEGIN
-UPDATE logTypes SET errorCodes = errorCodes WHERE id = logTypeId;
+	UPDATE logTypes SET 
+    errorCodes = errorCodes 
+    WHERE id = logTypeId;
 END //
 DELIMITER ;
 
@@ -260,6 +294,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE `d2d.spDeleteLogType` (IN logTypeId INT)
 BEGIN
-DELETE FROM logTypes WHERE id = logTypeId;
+	DELETE FROM logTypes 
+    WHERE id = logTypeId;
 END //
 DELIMITER ;
