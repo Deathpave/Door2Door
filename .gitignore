@@ -365,3 +365,4 @@ FodyWeavers.xsd
 Door2DoorFrontEnd/appsettings.json
 Door2DoorFrontEnd/appsettings.Development.json
 Door2DoorFrontEnd/TestLogs.txt
+/Door2DoorFrontEnd/appsettings.json
