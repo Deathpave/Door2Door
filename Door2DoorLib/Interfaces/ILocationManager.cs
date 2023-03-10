@@ -10,7 +10,7 @@ namespace Door2DoorLib.Interfaces
         /// <param name="location"></param>
         /// <param name="admin"></param>
         /// <returns></returns>
-        Task<bool> AddLocationAsync(Location location, Admin admin);
+        Task<bool> CreateAsync(Location location, Admin admin);
 
         /// <summary>
         /// Deletes a location entity from the database
@@ -18,7 +18,7 @@ namespace Door2DoorLib.Interfaces
         /// <param name="location"></param>
         /// <param name="admin"></param>
         /// <returns></returns>
-        Task<bool> DeleteLocationAsync(Location location, Admin admin);
+        Task<bool> DeleteAsync(Location location, Admin admin);
 
         /// <summary>
         /// Updates a Location entity in the database
@@ -26,19 +26,19 @@ namespace Door2DoorLib.Interfaces
         /// <param name="location"></param>
         /// <param name="admin"></param>
         /// <returns></returns>
-        Task<bool> UpdateLocationAsync(Location location, Admin admin);
+        Task<bool> UpdateAsync(Location location, Admin admin);
 
         /// <summary>
         /// Returns all Location entities from the database
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<Location>> GetAllLocationsAsync();
+        Task<IEnumerable<Location>> GetAllAsync();
 
         /// <summary>
         /// Returns a Location entity matching the given id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<Location> GetLocationByIdAsync(int id);
+        Task<Location> GetByIdAsync(int id);
     }
 }

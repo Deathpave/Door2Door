@@ -10,7 +10,7 @@ namespace Door2DoorLib.Interfaces
         /// <param name="route"></param>
         /// <param name="admin"></param>
         /// <returns></returns>
-        Task<bool> AddRouteAsync(Route route, Admin admin);
+        Task<bool> CreateAsync(Route route, Admin admin);
 
         /// <summary>
         /// Deletes a route from the database
@@ -18,7 +18,7 @@ namespace Door2DoorLib.Interfaces
         /// <param name="route"></param>
         /// <param name="admin"></param>
         /// <returns></returns>
-        Task<bool> DeleteRouteAsync(Route route, Admin admin);
+        Task<bool> DeleteAsync(Route route, Admin admin);
 
         /// <summary>
         /// Update route
@@ -26,20 +26,20 @@ namespace Door2DoorLib.Interfaces
         /// <param name="route"></param>
         /// <param name="admin"></param>
         /// <returns></returns>
-        Task<bool> UpdateRouteAsync(Route route, Admin admin);
+        Task<bool> UpdateAsync(Route route, Admin admin);
 
         /// <summary>
         /// Get all routes
         /// </summary>
         /// <returns></returns>
-        Task<IEnumerable<Route>> GetAllRoutesAsync();
+        Task<IEnumerable<Route>> GetAllAsync();
 
         /// <summary>
         /// Get route by id
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<Route> GetRouteByIdAsync(int id);
+        Task<Route> GetByIdAsync(int id);
 
         /// <summary>
         /// Get route by location ids
@@ -47,6 +47,6 @@ namespace Door2DoorLib.Interfaces
         /// <param name="startLocation"></param>
         /// <param name="endLocation"></param>
         /// <returns></returns>
-        Task<Route> GetRouteByLocationIdsAsync(int startLocation, int endLocation);
+        Task<Route> GetByLocationIdsAsync(int startLocation, int endLocation);
     }
 }
