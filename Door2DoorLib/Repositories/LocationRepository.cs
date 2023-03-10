@@ -27,7 +27,7 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<bool> CreateAsync(Location createEntity)
         {
-            MySqlCommand sqlCommand = new MySqlCommand("d2d.spCreateLocation");
+            MySqlCommand sqlCommand = new MySqlCommand("spCreateLocation");
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
             sqlCommand.Parameters.Add(new MySqlParameter("@newName", createEntity.Name));
             sqlCommand.Parameters.Add(new MySqlParameter("@newIconUrl", createEntity.IconUrl));
@@ -52,7 +52,7 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<bool> DeleteAsync(Location deleteEntity)
         {
-            MySqlCommand sqlCommand = new MySqlCommand("d2d.spDeleteLocation");
+            MySqlCommand sqlCommand = new MySqlCommand("spDeleteLocation");
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
             sqlCommand.Parameters.Add(new MySqlParameter("@locationId", deleteEntity.Id));
 
@@ -75,7 +75,7 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<Location>> GetAllAsync()
         {
-            MySqlCommand sqlCommand = new MySqlCommand("d2d.spGetAllLocations");
+            MySqlCommand sqlCommand = new MySqlCommand("spGetAllLocations");
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
             List<Location> result = new List<Location>();
@@ -107,7 +107,7 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<Location> GetByIdAsync(long id)
         {
-            MySqlCommand sqlCommand = new MySqlCommand("d2d.spGetLocationById");
+            MySqlCommand sqlCommand = new MySqlCommand("spGetLocationById");
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
             sqlCommand.Parameters.Add(new MySqlParameter("@LocationId", id));
 
@@ -137,7 +137,7 @@ namespace Door2DoorLib.Repositories
         /// <exception cref="NotImplementedException"></exception>
         public async Task<bool> UpdateAsync(Location updateEntity)
         {
-            MySqlCommand sqlCommand = new MySqlCommand("d2d.spUpdateLocation");
+            MySqlCommand sqlCommand = new MySqlCommand("spUpdateLocation");
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
             sqlCommand.Parameters.Add(new MySqlParameter("@routeId", updateEntity.Id));
             sqlCommand.Parameters.Add(new MySqlParameter("@newText", updateEntity.Name));

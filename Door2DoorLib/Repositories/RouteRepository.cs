@@ -57,7 +57,7 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<bool> DeleteAsync(Route deleteEntity)
         {
-            MySqlCommand sqlCommand = new MySqlCommand("d2d.spDeleteRoute");
+            MySqlCommand sqlCommand = new MySqlCommand("spDeleteRoute");
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
             sqlCommand.Parameters.Add(new MySqlParameter("@routeId", deleteEntity.Id));
 
@@ -83,7 +83,7 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<Route>> GetAllAsync()
         {
-            MySqlCommand sqlCommand = new MySqlCommand("d2d.spGetAllRoutes");
+            MySqlCommand sqlCommand = new MySqlCommand("spGetAllRoutes");
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
             List<Route> result = new List<Route>();
@@ -118,7 +118,7 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<Route> GetByIdAsync(long id)
         {
-            MySqlCommand sqlCommand = new MySqlCommand("d2d.spGetRouteById");
+            MySqlCommand sqlCommand = new MySqlCommand("spGetRouteById");
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
             sqlCommand.Parameters.Add(new MySqlParameter("@routeId", id));
 
@@ -149,7 +149,7 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<bool> UpdateAsync(Route updateEntity)
         {
-            MySqlCommand sqlCommand = new MySqlCommand("d2d.spUpdateRoute");
+            MySqlCommand sqlCommand = new MySqlCommand("spUpdateRoute");
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
             sqlCommand.Parameters.Add(new MySqlParameter("@routeId", updateEntity.Id));
             sqlCommand.Parameters.Add(new MySqlParameter("@newText", updateEntity.Description));
@@ -175,9 +175,9 @@ namespace Door2DoorLib.Repositories
         /// <param name="startLocation"></param>
         /// <param name="endLocation"></param>
         /// <returns></returns>
-        public async Task<Route> GetRouteByLocations(long startLocation, long endLocation)
+        public async Task<Route> GetByLocations(long startLocation, long endLocation)
         {
-            MySqlCommand sqlCommand = new MySqlCommand("d2d.spGetRouteByLocations");
+            MySqlCommand sqlCommand = new MySqlCommand("spGetRouteByLocations");
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
             sqlCommand.Parameters.Add(new MySqlParameter("@startId", startLocation));
             sqlCommand.Parameters.Add(new MySqlParameter("@endId", endLocation));

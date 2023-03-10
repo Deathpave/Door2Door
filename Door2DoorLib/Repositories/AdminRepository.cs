@@ -54,7 +54,7 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<bool> DeleteAsync(Admin deleteEntity)
         {
-            MySqlCommand sqlCommand = new MySqlCommand("d2d.spDeleteAdmin");
+            MySqlCommand sqlCommand = new MySqlCommand("spDeleteAdmin");
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
             sqlCommand.Parameters.Add(new MySqlParameter("@adminId", deleteEntity.Id));
 
@@ -81,7 +81,7 @@ namespace Door2DoorLib.Repositories
         /// <exception cref="NotImplementedException"></exception>
         public async Task<Admin> GetByIdAsync(long id)
         {
-            MySqlCommand sqlCommand = new MySqlCommand("d2d.spGetAdminById");
+            MySqlCommand sqlCommand = new MySqlCommand("spGetAdminById");
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
             sqlCommand.Parameters.Add(new MySqlParameter("@adminId", id));
 
@@ -111,7 +111,7 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<Admin>> GetAllAsync()
         {
-            MySqlCommand sqlCommand = new MySqlCommand("d2d.spGetAllRoutes");
+            MySqlCommand sqlCommand = new MySqlCommand("spGetAllRoutes");
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
             List<Admin> result = new List<Admin>();
@@ -145,7 +145,7 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<Admin> GetByNameAsync(string name)
         {
-            MySqlCommand sqlCommand = new MySqlCommand("d2d.spGetAdminByName");
+            MySqlCommand sqlCommand = new MySqlCommand("spGetAdminByName");
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
             Admin result = null;
@@ -178,7 +178,7 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<bool> UpdateAsync(Admin updateEntity)
         {
-            MySqlCommand sqlCommand = new MySqlCommand("d2d.spUpdateAdmin");
+            MySqlCommand sqlCommand = new MySqlCommand("spUpdateAdmin");
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
             sqlCommand.Parameters.Add(new MySqlParameter("@adminId", updateEntity.Id));
             sqlCommand.Parameters.Add(new MySqlParameter("@newUsername", updateEntity.UserName));
