@@ -7,6 +7,7 @@ DROP PROCEDURE IF EXISTS `d2d.spCreateLocation`;
 DROP PROCEDURE IF EXISTS `d2d.spUpdateLocation`;
 DROP PROCEDURE IF EXISTS `d2d.spDeleteLocation`;
 DROP PROCEDURE IF EXISTS `d2d.spGetLocationById`;
+DROP PROCEDURE IF EXISTS `d2d.spGetLocationByName`;
 DROP PROCEDURE IF EXISTS `d2d.spGetAllLocations`;
 
 -- Create operation
@@ -25,7 +26,7 @@ SELECT * FROM locations WHERE id = locatoinId;
 END //
 DELIMITER ;
 
--- Read operation 2
+-- Read operation 
 DELIMITER //
 CREATE PROCEDURE `d2d.spGetLocationByName` (IN searchName VARCHAR(255))
 BEGIN
@@ -65,11 +66,12 @@ DROP PROCEDURE IF EXISTS `d2d.spCreateRoute`;
 DROP PROCEDURE IF EXISTS `d2d.spUpdateRoute`;
 DROP PROCEDURE IF EXISTS `d2d.spDeleteRoute`;
 DROP PROCEDURE IF EXISTS `d2d.spGetRouteById`;
+DROP PROCEDURE IF EXISTS `d2d.spGetRouteByLocations`;
 DROP PROCEDURE IF EXISTS `d2d.spGetAllRoutes`;
 
 -- Create operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spCreateRoute` (IN newStart INT, IN newEnd INT, IN newText VARCHAR(255), IN videourl VARCHAR(255))
+CREATE PROCEDURE `d2d.spCreateRoute` (IN startId INT, IN endId INT, IN newText VARCHAR(255), IN videourl VARCHAR(255))
 BEGIN
 INSERT INTO routes (start, end, text, videoUrl) VALUES (newStart, newEnd, newText, videourl);
 END //
@@ -83,6 +85,14 @@ SELECT * FROM routes WHERE id = routeId;
 END //
 DELIMITER ;
 
+-- Read operation
+DELIMITER //
+CREATE PROCEDURE `d2d.spGetRouteByLocations` (IN startId INT, IN endId INT)
+BEGIN
+SELECT * FROM routes WHERE start = startId && end = endId;
+END //
+DELIMITER ;
+
 -- Read All operation
 DELIMITER //
 CREATE PROCEDURE `d2d.spGetAllRoutes` ()
@@ -93,7 +103,7 @@ DELIMITER ;
 
 -- Update operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spUpdateRoute` (IN routeId INT, IN newStart INT, IN newEnd INT, IN newText VARCHAR(255), IN videourl VARCHAR(255))
+CREATE PROCEDURE `d2d.spUpdateRoute` (IN routeId INT, IN startId INT, IN endID INT, IN newText VARCHAR(255), IN videourl VARCHAR(255))
 BEGIN
 UPDATE routes SET start = newStart, end = newEnd, text = newText, videoUrl = videourl WHERE id = routeId;
 END //
