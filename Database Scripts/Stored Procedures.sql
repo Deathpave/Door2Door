@@ -3,16 +3,16 @@ USE door2doordb;
 /*####################################################
 			## Locations Section ##
 ####################################################*/
-DROP PROCEDURE IF EXISTS `d2d.spCreateLocation`;
-DROP PROCEDURE IF EXISTS `d2d.spUpdateLocation`;
-DROP PROCEDURE IF EXISTS `d2d.spDeleteLocation`;
-DROP PROCEDURE IF EXISTS `d2d.spGetLocationById`;
-DROP PROCEDURE IF EXISTS `d2d.spGetLocationByName`;
-DROP PROCEDURE IF EXISTS `d2d.spGetAllLocations`;
+DROP PROCEDURE IF EXISTS `spCreateLocation`;
+DROP PROCEDURE IF EXISTS `spUpdateLocation`;
+DROP PROCEDURE IF EXISTS `spDeleteLocation`;
+DROP PROCEDURE IF EXISTS `spGetLocationById`;
+DROP PROCEDURE IF EXISTS `spGetLocationByName`;
+DROP PROCEDURE IF EXISTS `spGetAllLocations`;
 
 -- Create operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spCreateLocation` (IN newName VARCHAR(255), IN newIconUrl VARCHAR(255))
+CREATE PROCEDURE `spCreateLocation` (IN newName VARCHAR(255), IN newIconUrl VARCHAR(255))
 BEGIN
 	INSERT INTO locations (name, iconUrl) 
     VALUES (newName, newIconUrl);
@@ -21,7 +21,7 @@ DELIMITER ;
 
 -- Read operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spGetLocationById` (IN locationId INT)
+CREATE PROCEDURE `spGetLocationById` (IN locationId INT)
 BEGIN
 SELECT * FROM locations WHERE id = locatoinId;
 END //
@@ -29,7 +29,7 @@ DELIMITER ;
 
 -- Read operation 
 DELIMITER //
-CREATE PROCEDURE `d2d.spGetLocationByName` (IN searchName VARCHAR(255))
+CREATE PROCEDURE `spGetLocationByName` (IN searchName VARCHAR(255))
 BEGIN
 	SELECT * FROM locations 
     WHERE name = searchName;
@@ -38,7 +38,7 @@ DELIMITER ;
 
 -- Read All operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spGetAllLocations` ()
+CREATE PROCEDURE `spGetAllLocations` ()
 BEGIN
 	SELECT * FROM locations;
 END //
@@ -46,7 +46,7 @@ DELIMITER ;
 
 -- Update operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spUpdateLocation` (IN locationId INT, IN newName VARCHAR(255), IN newIconUrl VARCHAR(255))
+CREATE PROCEDURE `spUpdateLocation` (IN locationId INT, IN newName VARCHAR(255), IN newIconUrl VARCHAR(255))
 BEGIN
 	UPDATE locations SET 
     name = newName, 
@@ -57,7 +57,7 @@ DELIMITER ;
 
 -- Delete operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spDeleteLocation` (IN locationId INT)
+CREATE PROCEDURE `spDeleteLocation` (IN locationId INT)
 BEGIN
 	DELETE FROM locations 
     WHERE id = locationId;
@@ -77,16 +77,16 @@ DROP PROCEDURE IF EXISTS `d2d.spGetAllRoutes`;
 
 -- Create operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spCreateRoute` (IN startId INT, IN endId INT, IN newText VARCHAR(255), IN videourl VARCHAR(255))
+CREATE PROCEDURE `spCreateRoute` (IN startId INT, IN endId INT, IN newText VARCHAR(255), IN videourl VARCHAR(255))
 BEGIN
 	INSERT INTO routes (start, end, text, videoUrl) 
-    VALUES (newStart, newEnd, newText, videourl);
+    VALUES (startId, endID, newText, videourl);
 END //
 DELIMITER ;
 
 -- Read operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spGetRouteById` (IN routeId INT)
+CREATE PROCEDURE `spGetRouteById` (IN routeId INT)
 BEGIN
 	SELECT * FROM routes 
     WHERE id = routeId;
@@ -95,7 +95,7 @@ DELIMITER ;
 
 -- Read operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spGetRouteByLocations` (IN startId INT, IN endId INT)
+CREATE PROCEDURE `pGetRouteByLocations` (IN startId INT, IN endId INT)
 BEGIN
 	SELECT * FROM routes 
 	WHERE start = startId && end = endId;
@@ -104,7 +104,7 @@ DELIMITER ;
 
 -- Read All operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spGetAllRoutes` ()
+CREATE PROCEDURE `spGetAllRoutes` ()
 BEGIN
 SELECT * FROM routes;
 END //
@@ -112,7 +112,7 @@ DELIMITER ;
 
 -- Update operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spUpdateRoute` (IN routeId INT, IN startId INT, IN endID INT, IN newText VARCHAR(255), IN videourl VARCHAR(255))
+CREATE PROCEDURE `spUpdateRoute` (IN routeId INT, IN startId INT, IN endID INT, IN newText VARCHAR(255), IN videourl VARCHAR(255))
 BEGIN
 	UPDATE routes SET 
 		start = newStart, 
@@ -125,7 +125,7 @@ DELIMITER ;
 
 -- Delete operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spDeleteRoute` (IN routeId INT)
+CREATE PROCEDURE `spDeleteRoute` (IN routeId INT)
 BEGIN
 	DELETE FROM routes 
     WHERE id = routeId;
@@ -136,15 +136,15 @@ DELIMITER ;
 /*####################################################
 			## Admin Section ##
 ####################################################*/
-DROP PROCEDURE IF EXISTS `d2d.spCreateAdmin`;
-DROP PROCEDURE IF EXISTS `d2d.spUpdateAdmin`;
-DROP PROCEDURE IF EXISTS `d2d.spDeleteAdmin`;
-DROP PROCEDURE IF EXISTS `d2d.spGetAdminById`;
-DROP PROCEDURE IF EXISTS `d2d.spGetAllAdmins`;
+DROP PROCEDURE IF EXISTS `spCreateAdmin`;
+DROP PROCEDURE IF EXISTS `spUpdateAdmin`;
+DROP PROCEDURE IF EXISTS `spDeleteAdmin`;
+DROP PROCEDURE IF EXISTS `spGetAdminById`;
+DROP PROCEDURE IF EXISTS `spGetAllAdmins`;
 
 -- Create operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spCreateAdmin` (IN username VARCHAR(255), IN password VARCHAR(255))
+CREATE PROCEDURE `spCreateAdmin` (IN username VARCHAR(255), IN password VARCHAR(255))
 BEGIN
 	INSERT INTO admin (username, password) 
     VALUES (username, password);
@@ -153,7 +153,7 @@ DELIMITER ;
 
 -- Read operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spGetAdminById` (IN adminId INT)
+CREATE PROCEDURE `spGetAdminById` (IN adminId INT)
 BEGIN
 	SELECT * FROM admin 
     WHERE id = adminId;
@@ -162,7 +162,7 @@ DELIMITER ;
 
 -- Read all operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spGetAllAdmins` ()
+CREATE PROCEDURE `spGetAllAdmins` ()
 BEGIN
 	SELECT * FROM admin;
 END //
@@ -170,7 +170,7 @@ DELIMITER ;
 
 -- Update operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spUpdateAdmin` (IN adminId INT, IN newUsername VARCHAR(255), IN newPassword VARCHAR(255))
+CREATE PROCEDURE `spUpdateAdmin` (IN adminId INT, IN newUsername VARCHAR(255), IN newPassword VARCHAR(255))
 BEGIN
 	UPDATE admin SET 
     username = newUsername, 
@@ -181,7 +181,7 @@ DELIMITER ;
 
 -- Delete operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spDeleteAdmin` (IN adminId INT)
+CREATE PROCEDURE `spDeleteAdmin` (IN adminId INT)
 BEGIN
 	DELETE FROM admin WHERE id = adminId;
 END //
@@ -191,15 +191,15 @@ DELIMITER ;
 /*####################################################
 			## Log Section ##
 ####################################################*/
-DROP PROCEDURE IF EXISTS `d2d.spCreateLog`;
-DROP PROCEDURE IF EXISTS `d2d.spUpdateLog`;
-DROP PROCEDURE IF EXISTS `d2d.spDeleteLog`;
-DROP PROCEDURE IF EXISTS `d2d.spGetLogById`;
-DROP PROCEDURE IF EXISTS `d2d.spGetAllLogs`;
+DROP PROCEDURE IF EXISTS `spCreateLog`;
+DROP PROCEDURE IF EXISTS `spUpdateLog`;
+DROP PROCEDURE IF EXISTS `spDeleteLog`;
+DROP PROCEDURE IF EXISTS `spGetLogById`;
+DROP PROCEDURE IF EXISTS `spGetAllLogs`;
 
 -- Create operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spCreateLog` (IN type INT, IN description VARCHAR(255), IN timestamp TIMESTAMP(6))
+CREATE PROCEDURE `spCreateLog` (IN type INT, IN description VARCHAR(255), IN timestamp TIMESTAMP(6))
 BEGIN
 	INSERT INTO log (type, description, timestamp) 
     VALUES (type, description, timestamp);
@@ -208,7 +208,7 @@ DELIMITER ;
 
 -- Read operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spGetLogById` (IN logId INT)
+CREATE PROCEDURE `spGetLogById` (IN logId INT)
 BEGIN
 	SELECT * FROM log 
     WHERE id = logId;
@@ -217,7 +217,7 @@ DELIMITER ;
 
 -- Read all operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spGetAllLogs` ()
+CREATE PROCEDURE `spGetAllLogs` ()
 BEGIN
 	SELECT * FROM log;
 END //
@@ -225,7 +225,7 @@ DELIMITER ;
 
 -- Update operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spUpdateLog` (IN logId INT, IN type INT, IN description VARCHAR(255), IN timestamp TIMESTAMP(6))
+CREATE PROCEDURE `spUpdateLog` (IN logId INT, IN type INT, IN description VARCHAR(255), IN timestamp TIMESTAMP(6))
 BEGIN
 	UPDATE log SET 
     type = type, 
@@ -237,7 +237,7 @@ DELIMITER ;
 
 -- Delete operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spDeleteLog` (IN logId INT)
+CREATE PROCEDURE `spDeleteLog` (IN logId INT)
 BEGIN
 	DELETE FROM log 
     WHERE id = logId;
@@ -248,15 +248,15 @@ DELIMITER ;
 /*####################################################
 			## LogType Section ##
 ####################################################*/
-DROP PROCEDURE IF EXISTS `d2d.spCreateLogType`;
-DROP PROCEDURE IF EXISTS `d2d.spUpdateLogType`;
-DROP PROCEDURE IF EXISTS `d2d.spDeleteLogType`;
-DROP PROCEDURE IF EXISTS `d2d.spGetLogTypeById`;
-DROP PROCEDURE IF EXISTS `d2d.spGetAllLogTypes`;
+DROP PROCEDURE IF EXISTS `spCreateLogType`;
+DROP PROCEDURE IF EXISTS `spUpdateLogType`;
+DROP PROCEDURE IF EXISTS `spDeleteLogType`;
+DROP PROCEDURE IF EXISTS `spGetLogTypeById`;
+DROP PROCEDURE IF EXISTS `spGetAllLogTypes`;
 
 -- Create operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spCreateLogType` (IN errorCodes VARCHAR(255))
+CREATE PROCEDURE `spCreateLogType` (IN errorCodes VARCHAR(255))
 BEGIN
 	INSERT INTO logTypes (errorCodes) 
     VALUES (errorCodes);
@@ -265,7 +265,7 @@ DELIMITER ;
 
 -- Read operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spGetLogTypeById` (IN logTypeId INT)
+CREATE PROCEDURE `spGetLogTypeById` (IN logTypeId INT)
 BEGIN
 	SELECT * FROM logTypes 
     WHERE id = logTypeId;
@@ -274,7 +274,7 @@ DELIMITER ;
 
 -- Read all operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spGetAllLogTypes` ()
+CREATE PROCEDURE `spGetAllLogTypes` ()
 BEGIN
 	SELECT * FROM logTypes;
 END //
@@ -282,7 +282,7 @@ DELIMITER ;
 
 -- Update operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spUpdateLogType` (IN logTypeId INT, IN errorCodes VARCHAR(255))
+CREATE PROCEDURE `spUpdateLogType` (IN logTypeId INT, IN errorCodes VARCHAR(255))
 BEGIN
 	UPDATE logTypes SET 
     errorCodes = errorCodes 
@@ -292,7 +292,7 @@ DELIMITER ;
 
 -- Delete operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spDeleteLogType` (IN logTypeId INT)
+CREATE PROCEDURE `spDeleteLogType` (IN logTypeId INT)
 BEGIN
 	DELETE FROM logTypes 
     WHERE id = logTypeId;
