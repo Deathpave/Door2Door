@@ -2,14 +2,13 @@
 using Door2DoorLib.Factories;
 using Door2DoorLib.Interfaces;
 using MySql.Data.MySqlClient;
-using MySqlX.XDevAPI.Common;
 
 namespace Door2DoorLib.Repositories
 {
     internal class RouteRepository : IRouteRepository
     {
         #region Fields
-        private IDatabase _database;
+        private readonly IDatabase _database;
         #endregion
 
         #region Constructor
@@ -67,32 +66,6 @@ namespace Door2DoorLib.Repositories
         }
         #endregion
 
-        #region Get By Id Async
-        // Gets route by id
-        public async Task<Route> GetByIdAsync(long id)
-        {
-            MySqlCommand sqlCommand = new MySqlCommand("d2d.spGetRouteById");
-            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sqlCommand.Parameters.Add(new MySqlParameter("@routeId", id));
-
-            Route result = null;
-            await _database.OpenConnectionAsync();
-            using (var streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
-            {
-                if (streamReader != null)
-                {
-                    // Create a new route from the datastream
-                    result = new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetInt64("startLocation"), streamReader.GetInt64("endLocation"));
-                }
-                else
-                {
-                    LogFactory.CreateLog(LogTypes.File, $"Could not get route by id {id}", MessageTypes.Error);
-                }
-            }
-            _database.CloseConnection();
-            return await Task.FromResult(result);
-        }
-        #endregion
 
         #region Get All Async
         // Gets all routes
@@ -124,6 +97,34 @@ namespace Door2DoorLib.Repositories
         }
         #endregion
 
+
+        #region Get By Id Async
+        // Gets route by id
+        public async Task<Route> GetByIdAsync(long id)
+        {
+            MySqlCommand sqlCommand = new MySqlCommand("d2d.spGetRouteById");
+            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sqlCommand.Parameters.Add(new MySqlParameter("@routeId", id));
+
+            Route result = null;
+            await _database.OpenConnectionAsync();
+            using (var streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
+            {
+                if (streamReader != null)
+                {
+                    // Create a new route from the datastream
+                    result = new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetInt64("startLocation"), streamReader.GetInt64("endLocation"));
+                }
+                else
+                {
+                    LogFactory.CreateLog(LogTypes.File, $"Could not get route by id {id}", MessageTypes.Error);
+                }
+            }
+            _database.CloseConnection();
+            return await Task.FromResult(result);
+        }
+        #endregion
+
         #region Update Async
         // Updates route
         public Task<bool> UpdateAsync(Route updateEntity)
@@ -145,7 +146,9 @@ namespace Door2DoorLib.Repositories
                 return Task.FromResult(false);
             }
         }
+        #endregion
 
+        #region Get by Locations
         // Get route by location ids
         public async Task<Route> GetByLocations(long startLocation, long endLocation)
         {
