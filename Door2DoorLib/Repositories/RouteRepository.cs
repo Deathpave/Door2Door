@@ -2,8 +2,6 @@
 using Door2DoorLib.Factories;
 using Door2DoorLib.Interfaces;
 using MySql.Data.MySqlClient;
-using System.ComponentModel.DataAnnotations;
-using System.Xml.Linq;
 
 namespace Door2DoorLib.Repositories
 {
@@ -25,8 +23,12 @@ namespace Door2DoorLib.Repositories
         // Creates new route row
         public async Task<bool> CreateAsync(Route createEntity)
         {
-            string query = $"INSERT INTO routes (text,videoUrl) VALUES ({createEntity.Description},{createEntity.VideoUrl})";
-            MySqlCommand sqlCommand = new MySqlCommand(query);
+            MySqlCommand sqlCommand = new MySqlCommand("d2d.spCreateRoute");
+            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sqlCommand.Parameters.Add(new MySqlParameter("@newText", createEntity.Description));
+            sqlCommand.Parameters.Add(new MySqlParameter("@videourl", createEntity.VideoUrl));
+            sqlCommand.Parameters.Add(new MySqlParameter("@startLocation", createEntity.StartLocation));
+            sqlCommand.Parameters.Add(new MySqlParameter("@endLocation", createEntity.EndLocation));
 
             await _database.OpenConnectionAsync();
             var result = _database.ExecuteCommandAsync(sqlCommand).Status;
@@ -46,8 +48,10 @@ namespace Door2DoorLib.Repositories
         // Deletes route row from id
         public async Task<bool> DeleteAsync(Route deleteEntity)
         {
-            string query = $"DELETE FROM routes WHERE id='{deleteEntity.Id}'";
-            MySqlCommand sqlCommand = new MySqlCommand(query);
+            MySqlCommand sqlCommand = new MySqlCommand("d2d.spDeleteRoute");
+            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sqlCommand.Parameters.Add(new MySqlParameter("@routeId", deleteEntity.Id));
+
             await _database.OpenConnectionAsync();
             var result = _database.ExecuteCommandAsync(sqlCommand).Status;
             _database.CloseConnection();
@@ -66,8 +70,10 @@ namespace Door2DoorLib.Repositories
         // Gets route by id
         public async Task<Route> GetByIdAsync(long id)
         {
-            string query = $"SELECT * FROM routes WHERE id='{id}'";
-            MySqlCommand sqlCommand = new MySqlCommand(query);
+            MySqlCommand sqlCommand = new MySqlCommand("d2d.spGetRouteById");
+            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sqlCommand.Parameters.Add(new MySqlParameter("@routeId", id));
+
             Route result = null;
             await _database.OpenConnectionAsync();
             using (var streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
@@ -75,8 +81,7 @@ namespace Door2DoorLib.Repositories
                 if (streamReader != null)
                 {
                     // Create a new route from the datastream
-                    streamReader.Read();
-                    result = new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetString("name"));
+                    result = new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetInt64("startLocation"), streamReader.GetInt64("endLocation"));
                 }
                 else
                 {
@@ -88,37 +93,15 @@ namespace Door2DoorLib.Repositories
         }
         #endregion
 
-        #region Get By Name Async
-        // Gets route by name
-        public async Task<Route> GetByNameAsync(string name)
-        {
-            string query = $"SELECT FROM routes WHERE name='{name}'";
-            MySqlCommand sqlCommand = new MySqlCommand(query);
-            Route result = null;
-            await _database.OpenConnectionAsync();
-            using (var streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
-            {
-                if (streamReader != null)
-                {
-                    // Create a new route from the datastream
-                    result = new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetString("name"));
-                }
-                else
-                {
-                    LogFactory.CreateLog(LogTypes.File, $"Could not get route by name {name}", MessageTypes.Error);
-                }
-            }
-            _database.CloseConnection();
-            return await Task.FromResult(result);
-        }
-        #endregion
-
         #region Get All Async
         // Gets all routes
         public async Task<IEnumerable<Route>> GetAllAsync()
         {
-            string query = $"SELECT * FROM routes";
-            MySqlCommand sqlCommand = new MySqlCommand(query);
+            MySqlCommand sqlCommand = new MySqlCommand("d2d.spGetAllRoutes");
+            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+
+            //string query = $"SELECT * FROM routes";
+            //MySqlCommand sqlCommand = new MySqlCommand(query);
             List<Route> result = new List<Route>();
             await _database.OpenConnectionAsync();
             using (MySqlDataReader streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
@@ -128,7 +111,7 @@ namespace Door2DoorLib.Repositories
                     // Create a new route from the datastream
                     while (streamReader.Read())
                     {
-                        Route newroute = new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetString("name"));
+                        Route newroute = new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetInt64("startLocation"), streamReader.GetInt64("endLocation"));
                         result.Add(newroute);
                     }
                 }
@@ -146,8 +129,13 @@ namespace Door2DoorLib.Repositories
         // Updates route
         public Task<bool> UpdateAsync(Route updateEntity)
         {
-            string query = $"UPDATE routes SET text = '{updateEntity.Description}',videoUrl='{updateEntity.Id}' WHERE id='{updateEntity.Id}'";
-            MySqlCommand sqlCommand = new MySqlCommand(query);
+            MySqlCommand sqlCommand = new MySqlCommand("d2d.spUpdateRoute");
+            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sqlCommand.Parameters.Add(new MySqlParameter("@routeId", updateEntity.Id));
+            sqlCommand.Parameters.Add(new MySqlParameter("@newText", updateEntity.Description));
+            sqlCommand.Parameters.Add(new MySqlParameter("@videourl", updateEntity.VideoUrl));
+            sqlCommand.Parameters.Add(new MySqlParameter("@startLocation", updateEntity.StartLocation));
+            sqlCommand.Parameters.Add(new MySqlParameter("@endLocation", updateEntity.EndLocation));
 
             if (_database.ExecuteCommandAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
             {
