@@ -47,6 +47,6 @@ namespace Door2DoorLib.Interfaces
         /// <param name="startLocation"></param>
         /// <param name="endLocation"></param>
         /// <returns></returns>
-        Task<Route> GetByLocationIdsAsync(int startLocation, int endLocation);
+        Task<Route> GetByLocationsAsync(int startLocation, int endLocation);
     }
 }
