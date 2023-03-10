@@ -25,6 +25,14 @@ SELECT * FROM routes WHERE id = routeId;
 END //
 DELIMITER ;
 
+-- Read operation 2
+DELIMITER //
+CREATE PROCEDURE `d2d.spGetRouteByName` (IN searchName VARCHAR(255))
+BEGIN
+SELECT * FROM routes WHERE name = searchName;
+END //
+DELIMITER ;
+
 -- Read All operation
 DELIMITER //
 CREATE PROCEDURE `d2d.spGetAllRoutes` ()
@@ -35,9 +43,9 @@ DELIMITER ;
 
 -- Update operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spUpdateRoute` (IN routeId INT, IN newText VARCHAR(255), IN videourl VARCHAR(255))
+CREATE PROCEDURE `d2d.spUpdateRoute` (IN routeId INT, IN newName VARCHAR(255), IN newText VARCHAR(255), IN videourl VARCHAR(255))
 BEGIN
-UPDATE routes SET text = newText, videoUrl = videourl WHERE id = routeId;
+UPDATE routes SET name = newName, text = newText, videoUrl = videourl WHERE id = routeId;
 END //
 DELIMITER ;
 
