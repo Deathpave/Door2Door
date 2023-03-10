@@ -2,6 +2,7 @@
 using Door2DoorLib.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using System.Diagnostics;
+using Door2DoorLib.DataModels;
 
 namespace Door2DoorFrontEnd.Controllers
 {
@@ -9,24 +10,22 @@ namespace Door2DoorFrontEnd.Controllers
     {
         private readonly ILogger<HomeController> _logger;
 
-        private IEnumerable<Door2DoorLib.DataModels.Route> _routes = new List<Door2DoorLib.DataModels.Route>();
-        private readonly IRouteManager _routeManager;
+        private IEnumerable<Location> _locations = new List<Location>();
+        private readonly ILocationManager _locationManager;
 
-        public HomeController(ILogger<HomeController> logger, IRouteManager routeManager)
+        public HomeController(ILogger<HomeController> logger, ILocationManager locationManager)
         {
             _logger = logger;
-            _routeManager = routeManager;
+            _locationManager = locationManager;
         }
 
         [HttpGet("~/")]
         public IActionResult Index()
         {
-            _routes = _routeManager.GetAllRoutesAsync().Result;
+            ViewData["routes"] = _locations;
 
-            ViewData["routes"] = _routes;
-
-            RouteModel model = new RouteModel();
-            model.RouteList = _routes.ToList();
+            LocationModel model = new LocationModel();
+            model.LocationList = _locationManager.GetAllLocationsAsync().Result.ToList();
             return View(model);
         }
 

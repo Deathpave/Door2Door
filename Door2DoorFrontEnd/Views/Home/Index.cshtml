@@ -1,4 +1,4 @@
-﻿@model Door2DoorFrontEnd.Models.RouteModel
+﻿@model Door2DoorFrontEnd.Models.LocationModel
 @{
     ViewData["Title"] = "Navigation";
 }
@@ -55,11 +55,6 @@
 
 </style>
 
-
-@*<div class="dropdown">
-    <select id="routesDropDown">
-    </select>
-</div>*@
 <div>
     <div class="imagewrapper">
         <img <img src="~/assets/skoleplan.png" />
@@ -70,9 +65,9 @@
         </button>
         <div id="itemlist" class="dropdownitems" style="display:none;">
             <div id="searchwrapper"> <img id="searchicon" src="~/assets/loupe.png" /><input type="text" id="searchbar" /></div>
-                @foreach (var item in Model.RouteList)
+                @foreach (var item in Model.LocationList)
                 {
-                    <div class="items" id="@item." onclick="itemClicked(@item.Id)">@item.EndLocation</div>
+                    <div class="items" id="@item.Id" onclick="itemClicked(@item.Id)">@item.Name</div>
                 }
         </div>
 
