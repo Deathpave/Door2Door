@@ -11,7 +11,6 @@
     }
 
     .dropdownitems {
-        max-width: 30px;
         background-color: white;
         color: black;
         font-weight: bold;
@@ -49,7 +48,7 @@
         border:none;
     }
     .items{
-        width:100%;
+        width:fit;
         cursor:pointer;
     }
 
@@ -85,7 +84,7 @@
     }
     function itemClicked(item) {
         //window.history.pushState({}, document.title, "?route="+item);
-        window.location.href = "/navigation?routeid="+item;
+        window.location.href = "/navigation?startid="+@Model.StartId+"&endid="+item;
     }
     document.getElementById('searchbar').addEventListener('keyup', search);
     function search(evt) {

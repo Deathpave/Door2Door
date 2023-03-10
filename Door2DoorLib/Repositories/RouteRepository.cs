@@ -129,6 +129,7 @@ namespace Door2DoorLib.Repositories
                 if (streamReader != null)
                 {
                     // Create a new route from the datastream
+                    streamReader.Read();
                     result = new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetInt64("startLocation"), streamReader.GetInt64("endLocation"));
                 }
                 else
@@ -189,6 +190,7 @@ namespace Door2DoorLib.Repositories
                 if (streamReader != null)
                 {
                     // Create a new route from the datastream
+                    streamReader.Read();
                     result = new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetInt64("startLocation"), streamReader.GetInt64("endLocation"));
                 }
                 else

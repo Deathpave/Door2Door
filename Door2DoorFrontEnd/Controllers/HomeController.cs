@@ -20,12 +20,12 @@ namespace Door2DoorFrontEnd.Controllers
         }
 
         [HttpGet("~/")]
-        public IActionResult Index()
+        public IActionResult Index(int startid)
         {
-            ViewData["routes"] = _locations;
+            ViewData["locations"] = _locations;
 
             LocationModel model = new LocationModel();
-            model.LocationList = _locationManager.GetAllLocationsAsync().Result.ToList();
+            model.LocationList = _locationManager.GetAllAsync().Result.ToList();
             return View(model);
         }
 
