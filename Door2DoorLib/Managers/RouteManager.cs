@@ -108,6 +108,19 @@ namespace Door2DoorLib.Managers
             return _routeRepository.GetByIdAsync(id);
         }
         #endregion
+
+        #region Get Route By Location Ids
+        /// <summary>
+        /// Get route by location ids
+        /// </summary>
+        /// <param name="startLocation"></param>
+        /// <param name="endLocation"></param>
+        /// <returns></returns>
+        public Task<Route> GetRouteByLocationIds(int startLocation, int endLocation)
+        {
+            return _routeRepository.GetByLocations(startLocation, endLocation);
+        }
+        #endregion
         #endregion
         #endregion
     }
