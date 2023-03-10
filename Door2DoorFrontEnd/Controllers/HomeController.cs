@@ -26,6 +26,7 @@ namespace Door2DoorFrontEnd.Controllers
 
             LocationModel model = new LocationModel();
             model.LocationList = _locationManager.GetAllAsync().Result.ToList();
+            model.StartId = startid;
             return View(model);
         }
 
