@@ -8,13 +8,13 @@ namespace Door2DoorLib.Managers
     public class RouteManager : IRouteManager
     {
         #region Fields
-        private RouteRepository _routeRepository;
+        private RouteRepository _repository;
         #endregion
 
         #region Constructor
         public RouteManager(IDatabase database)
         {
-            _routeRepository = new RouteRepository(database);
+            _repository = new RouteRepository(database);
         }
         #endregion
 
@@ -26,17 +26,17 @@ namespace Door2DoorLib.Managers
         /// <param name="route"></param>
         /// <param name="admin"></param>
         /// <returns></returns>
-        public Task<bool> AddRouteAsync(Route route, Admin admin)
+        public async Task<bool> AddRouteAsync(Route route, Admin admin)
         {
-            if (_routeRepository.CreateAsync(route).Result)
+            if (_repository.CreateAsync(route).Result)
             {
                 LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} created {route.StartLocation}-{route.EndLocation}", MessageTypes.Added).WriteLog();
-                return Task.FromResult(true);
+                return await Task.FromResult(true);
             }
             else
             {
                 LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} failed to create route {route.StartLocation}-{route.EndLocation}", MessageTypes.Error).WriteLog();
-                return Task.FromResult(false);
+                return await Task.FromResult(false);
             }
         }
         #endregion
@@ -48,52 +48,30 @@ namespace Door2DoorLib.Managers
         /// <param name="route"></param>
         /// <param name="admin"></param>
         /// <returns></returns>
-        public Task<bool> DeleteRouteAsync(Route route, Admin admin)
+        public async Task<bool> DeleteRouteAsync(Route route, Admin admin)
         {
-            if (_routeRepository.DeleteAsync(route).Result)
+            if (_repository.DeleteAsync(route).Result)
             {
                 LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} deleted route {route.StartLocation}-{route.EndLocation}", MessageTypes.Deleted).WriteLog();
-                return Task.FromResult(true);
+                return await Task.FromResult(true);
             }
             else
             {
                 LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} failed deleted route {route.StartLocation}-{route.EndLocation}", MessageTypes.Error).WriteLog();
-                return Task.FromResult(false);
-            }
-        }
-        #endregion
-
-        #region Update Route Async
-        /// <summary>
-        /// Update route
-        /// </summary>
-        /// <param name="route"></param>
-        /// <param name="admin"></param>
-        /// <returns></returns>
-        public Task<bool> UpdateRouteAsync(Route route, Admin admin)
-        {
-            if (_routeRepository.UpdateAsync(route).Result)
-            {
-                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} created {route.StartLocation}-{route.EndLocation}", MessageTypes.Added);
-                return Task.FromResult(true);
-            }
-            else
-            {
-                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} failed to create route {route.StartLocation}-{route.EndLocation}", MessageTypes.Error);
-                return Task.FromResult(false);
+                return await Task.FromResult(false);
             }
         }
         #endregion
 
         #region Get Routes
-        #region Get Route Async
+        #region Get All Routes Async
         /// <summary>
         /// Get all routes
         /// </summary>
         /// <returns></returns>
-        public Task<IEnumerable<Route>> GetAllRoutesAsync()
+        public async Task<IEnumerable<Route>> GetAllRoutesAsync()
         {
-            return _routeRepository.GetAllAsync();
+            return await _repository.GetAllAsync();
         }
         #endregion
 
@@ -103,9 +81,9 @@ namespace Door2DoorLib.Managers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public Task<Route> GetRouteById(int id)
+        public async Task<Route> GetRouteByIdAsync(int id)
         {
-            return _routeRepository.GetByIdAsync(id);
+            return await _repository.GetByIdAsync(id);
         }
         #endregion
 
@@ -116,12 +94,38 @@ namespace Door2DoorLib.Managers
         /// <param name="startLocation"></param>
         /// <param name="endLocation"></param>
         /// <returns></returns>
-        public Task<Route> GetRouteByLocationIds(int startLocation, int endLocation)
+        public async Task<Route> GetRouteByLocationIdsAsync(int startLocation, int endLocation)
         {
-            return _routeRepository.GetByLocations(startLocation, endLocation);
+            return await _repository.GetByLocations(startLocation, endLocation);
         }
         #endregion
         #endregion
+
+
+        #region Update Route Async
+        /// <summary>
+        /// Update route
+        /// </summary>
+        /// <param name="route"></param>
+        /// <param name="admin"></param>
+        /// <returns></returns>
+        public async Task<bool> UpdateRouteAsync(Route route, Admin admin)
+        {
+            if (_repository.UpdateAsync(route).Result)
+            {
+                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} created {route.StartLocation}-{route.EndLocation}", MessageTypes.Added);
+                return await Task.FromResult(true);
+            }
+            else
+            {
+                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} failed to create route {route.StartLocation}-{route.EndLocation}", MessageTypes.Error);
+                return await Task.FromResult(false);
+            }
+        }
+        #endregion
+
+
+
         #endregion
     }
 }

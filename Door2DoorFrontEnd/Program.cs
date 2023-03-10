@@ -16,6 +16,7 @@ var db = Door2DoorLib.Factories.DatabaseFactory.CreateDatabase(config, "d2ddatab
 //Manager dependency injections
 builder.Services.AddScoped<IRouteManager, RouteManager>(manager => new RouteManager(db));
 builder.Services.AddScoped<IAdminManager, AdminManager>(manager => new AdminManager(db));
+builder.Services.AddScoped<ILocationManager, LocationManager>(manager => new LocationManager(db));
 
 //Initialize the log that handles errors if database can not be reached
 LogFactory.Initialize(Environment.CurrentDirectory + "\\TestLogs.txt", db);
