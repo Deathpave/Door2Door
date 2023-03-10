@@ -20,7 +20,7 @@ namespace Door2DoorFrontEnd.Controllers
         {
             if (routeid > -1)
             {
-                Door2DoorLib.DataModels.Route route = _routeManager.GetRouteByIdAsync(routeid).Result;
+                Door2DoorLib.DataModels.Route route = _routeManager.GetByIdAsync(routeid).Result;
                 RouteModel model = new RouteModel();
                 model.RouteList = new List<Door2DoorLib.DataModels.Route> { route };
                 return View("Route", model);
