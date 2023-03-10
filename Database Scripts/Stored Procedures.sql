@@ -98,7 +98,7 @@ DELIMITER //
 CREATE PROCEDURE `spGetRouteByLocations` (IN startId INT, IN endId INT)
 BEGIN
 	SELECT * FROM routes 
-	WHERE start = startId && end = endId;
+	WHERE startLocation = startId && endLocation = endId;
 END //
 DELIMITER ;
 
