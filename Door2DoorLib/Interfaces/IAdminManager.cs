@@ -18,7 +18,7 @@ namespace Door2DoorLib.Interfaces
         /// <param name="admin"></param>
         /// <param name="newAdmin"></param>
         /// <returns></returns>
-        Task<bool> AddAdminAsync(Admin newAdmin, Admin admin);
+        Task<bool> CreateAsync(Admin newAdmin, Admin admin);
 
         /// <summary>
         /// deletes the delete admin, and logs the admin who did it
@@ -26,7 +26,7 @@ namespace Door2DoorLib.Interfaces
         /// <param name="admin"></param>
         /// <param name="deleteAdmin"></param>
         /// <returns></returns>
-        Task<bool> DeleteAdminAsync(Admin deleteAdmin, Admin admin);
+        Task<bool> DeleteAsync(Admin deleteAdmin, Admin admin);
 
         /// <summary>
         /// Update admin
@@ -34,6 +34,6 @@ namespace Door2DoorLib.Interfaces
         /// <param name="admin"></param>
         /// <param name="updateadmin"></param>
         /// <returns></returns>
-        Task<bool> UpdateAdminAsync(Admin updateAdmin, Admin admin);
+        Task<bool> UpdateAsync(Admin updateAdmin, Admin admin);
     }
 }
