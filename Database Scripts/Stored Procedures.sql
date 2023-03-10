@@ -1,6 +1,64 @@
 USE door2doordb;
 
 /*####################################################
+			## Locations Section ##
+####################################################*/
+DROP PROCEDURE IF EXISTS `d2d.spCreateLocation`;
+DROP PROCEDURE IF EXISTS `d2d.spUpdateLocation`;
+DROP PROCEDURE IF EXISTS `d2d.spDeleteLocation`;
+DROP PROCEDURE IF EXISTS `d2d.spGetLocationById`;
+DROP PROCEDURE IF EXISTS `d2d.spGetAllLocations`;
+
+-- Create operation
+DELIMITER //
+CREATE PROCEDURE `d2d.spCreateLocation` (IN newName VARCHAR(255), IN newIconUrl VARCHAR(255))
+BEGIN
+INSERT INTO locations (name, iconUrl) VALUES (newName, newIconUrl);
+END //
+DELIMITER ;
+
+-- Read operation
+DELIMITER //
+CREATE PROCEDURE `d2d.spGetLocationById` (IN locationId INT)
+BEGIN
+SELECT * FROM locations WHERE id = locatoinId;
+END //
+DELIMITER ;
+
+-- Read operation 2
+DELIMITER //
+CREATE PROCEDURE `d2d.spGetLocationByName` (IN searchName VARCHAR(255))
+BEGIN
+SELECT * FROM locations WHERE name = searchName;
+END //
+DELIMITER ;
+
+-- Read All operation
+DELIMITER //
+CREATE PROCEDURE `d2d.spGetAllLocations` ()
+BEGIN
+SELECT * FROM locations;
+END //
+DELIMITER ;
+
+-- Update operation
+DELIMITER //
+CREATE PROCEDURE `d2d.spUpdateLocation` (IN locationId INT, IN newName VARCHAR(255), IN newIconUrl VARCHAR(255))
+BEGIN
+UPDATE locations SET name = newName, iconUrl = newIconUrl WHERE id = locationId;
+END //
+DELIMITER ;
+
+-- Delete operation
+DELIMITER //
+CREATE PROCEDURE `d2d.spDeleteLocation` (IN locationId INT)
+BEGIN
+DELETE FROM locations WHERE id = locationId;
+END //
+DELIMITER ;
+
+
+/*####################################################
 			## Routes Section ##
 ####################################################*/
 DROP PROCEDURE IF EXISTS `d2d.spCreateRoute`;
@@ -11,9 +69,9 @@ DROP PROCEDURE IF EXISTS `d2d.spGetAllRoutes`;
 
 -- Create operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spCreateRoute` (IN newName VARCHAR(255), IN newText VARCHAR(255), IN videourl VARCHAR(255))
+CREATE PROCEDURE `d2d.spCreateRoute` (IN newStart INT, IN newEnd INT, IN newText VARCHAR(255), IN videourl VARCHAR(255))
 BEGIN
-INSERT INTO routes (name, text, videoUrl) VALUES (newName, newText, videourl);
+INSERT INTO routes (start, end, text, videoUrl) VALUES (newStart, newEnd, newText, videourl);
 END //
 DELIMITER ;
 
@@ -22,14 +80,6 @@ DELIMITER //
 CREATE PROCEDURE `d2d.spGetRouteById` (IN routeId INT)
 BEGIN
 SELECT * FROM routes WHERE id = routeId;
-END //
-DELIMITER ;
-
--- Read operation 2
-DELIMITER //
-CREATE PROCEDURE `d2d.spGetRouteByName` (IN searchName VARCHAR(255))
-BEGIN
-SELECT * FROM routes WHERE name = searchName;
 END //
 DELIMITER ;
 
@@ -43,9 +93,9 @@ DELIMITER ;
 
 -- Update operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spUpdateRoute` (IN routeId INT, IN newName VARCHAR(255), IN newText VARCHAR(255), IN videourl VARCHAR(255))
+CREATE PROCEDURE `d2d.spUpdateRoute` (IN routeId INT, IN newStart INT, IN newEnd INT, IN newText VARCHAR(255), IN videourl VARCHAR(255))
 BEGIN
-UPDATE routes SET name = newName, text = newText, videoUrl = videourl WHERE id = routeId;
+UPDATE routes SET start = newStart, end = newEnd, text = newText, videoUrl = videourl WHERE id = routeId;
 END //
 DELIMITER ;
 
