@@ -76,7 +76,7 @@ DELIMITER ;
 
 -- Read all operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spGetAllAdmins` (IN adminId INT)
+CREATE PROCEDURE `d2d.spGetAllAdmins` ()
 BEGIN
 SELECT * FROM admin;
 END //
@@ -125,7 +125,7 @@ DELIMITER ;
 
 -- Read all operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spGetAllLogs` (IN logId INT)
+CREATE PROCEDURE `d2d.spGetAllLogs` ()
 BEGIN
 SELECT * FROM log;
 END //
@@ -174,7 +174,7 @@ DELIMITER ;
 
 -- Read all operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spGetAllLogTypes` (IN logTypeId INT)
+CREATE PROCEDURE `d2d.spGetAllLogTypes` ()
 BEGIN
 SELECT * FROM logTypes;
 END //
