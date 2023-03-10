@@ -68,18 +68,18 @@ DELIMITER ;
 /*####################################################
 			## Routes Section ##
 ####################################################*/
-DROP PROCEDURE IF EXISTS `d2d.spCreateRoute`;
-DROP PROCEDURE IF EXISTS `d2d.spUpdateRoute`;
-DROP PROCEDURE IF EXISTS `d2d.spDeleteRoute`;
-DROP PROCEDURE IF EXISTS `d2d.spGetRouteById`;
-DROP PROCEDURE IF EXISTS `d2d.spGetRouteByLocations`;
-DROP PROCEDURE IF EXISTS `d2d.spGetAllRoutes`;
+DROP PROCEDURE IF EXISTS `spCreateRoute`;
+DROP PROCEDURE IF EXISTS `spUpdateRoute`;
+DROP PROCEDURE IF EXISTS `spDeleteRoute`;
+DROP PROCEDURE IF EXISTS `spGetRouteById`;
+DROP PROCEDURE IF EXISTS `spGetRouteByLocations`;
+DROP PROCEDURE IF EXISTS `spGetAllRoutes`;
 
 -- Create operation
 DELIMITER //
 CREATE PROCEDURE `spCreateRoute` (IN startId INT, IN endId INT, IN newText VARCHAR(255), IN videourl VARCHAR(255))
 BEGIN
-	INSERT INTO routes (start, end, text, videoUrl) 
+	INSERT INTO routes (startLocation, endLocation, text, videoUrl) 
     VALUES (startId, endID, newText, videourl);
 END //
 DELIMITER ;
@@ -95,7 +95,7 @@ DELIMITER ;
 
 -- Read operation
 DELIMITER //
-CREATE PROCEDURE `pGetRouteByLocations` (IN startId INT, IN endId INT)
+CREATE PROCEDURE `spGetRouteByLocations` (IN startId INT, IN endId INT)
 BEGIN
 	SELECT * FROM routes 
 	WHERE start = startId && end = endId;
@@ -115,8 +115,8 @@ DELIMITER //
 CREATE PROCEDURE `spUpdateRoute` (IN routeId INT, IN startId INT, IN endID INT, IN newText VARCHAR(255), IN videourl VARCHAR(255))
 BEGIN
 	UPDATE routes SET 
-		start = newStart, 
-		end = newEnd, 
+		startLocation = newStart, 
+		endLocation = newEnd, 
 		text = newText, 
 		videoUrl = videourl 
 		WHERE id = routeId;
