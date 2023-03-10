@@ -11,9 +11,9 @@ DROP PROCEDURE IF EXISTS `d2d.spGetAllRoutes`;
 
 -- Create operation
 DELIMITER //
-CREATE PROCEDURE `d2d.spCreateRoute` (IN newText VARCHAR(255), IN videourl VARCHAR(255))
+CREATE PROCEDURE `d2d.spCreateRoute` (IN newName VARCHAR(255), IN newText VARCHAR(255), IN videourl VARCHAR(255))
 BEGIN
-INSERT INTO routes (text, videoUrl) VALUES (newText, videourl);
+INSERT INTO routes (name, text, videoUrl) VALUES (newName, newText, videourl);
 END //
 DELIMITER ;
 
@@ -92,14 +92,14 @@ DELIMITER ;
 
 -- Delete operation
 DELIMITER //
-CREATE PROCEDURE `deleteAdmin` (IN adminId INT)
+CREATE PROCEDURE `d2d.spDeleteAdmin` (IN adminId INT)
 BEGIN
 DELETE FROM admin WHERE id = adminId;
 END //
 DELIMITER ;
 
 /*####################################################
-			## Admin Section ##
+			## Log Section ##
 ####################################################*/
 DROP PROCEDURE IF EXISTS `d2d.spCreateLog`;
 DROP PROCEDURE IF EXISTS `d2d.spUpdateLog`;
@@ -148,7 +148,7 @@ END //
 DELIMITER ;
 
 /*####################################################
-			## Log Section ##
+			## LogType Section ##
 ####################################################*/
 DROP PROCEDURE IF EXISTS `d2d.spCreateLogType`;
 DROP PROCEDURE IF EXISTS `d2d.spUpdateLogType`;
