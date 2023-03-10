@@ -18,7 +18,6 @@
             _name = name;
             _iconUrl = iconUrl;
         }
-
         #endregion
     }
 }

@@ -72,7 +72,7 @@
             <div id="searchwrapper"> <img id="searchicon" src="~/assets/loupe.png" /><input type="text" id="searchbar" /></div>
                 @foreach (var item in Model.RouteList)
                 {
-                    <div class="items" id="@item.Name" onclick="itemClicked(@item.Id)">@item.Name</div>
+                    <div class="items" id="@item." onclick="itemClicked(@item.Id)">@item.EndLocation</div>
                 }
         </div>
 
