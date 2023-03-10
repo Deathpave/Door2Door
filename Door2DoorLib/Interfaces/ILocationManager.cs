@@ -4,7 +4,7 @@ namespace Door2DoorLib.Interfaces
 {
     public interface ILocationManager
     {
-        // <summary>
+        /// <summary>
         /// Adds a new location entity to the database
         /// </summary>
         /// <param name="location"></param>
