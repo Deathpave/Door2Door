@@ -30,12 +30,12 @@ namespace Door2DoorLib.Managers
         {
             if (_routeRepository.CreateAsync(route).Result)
             {
-                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} created {route.Name}", MessageTypes.Added).WriteLog();
+                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} created {route.StartLocation}-{route.EndLocation}", MessageTypes.Added).WriteLog();
                 return Task.FromResult(true);
             }
             else
             {
-                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} failed to create route {route.Name}", MessageTypes.Error).WriteLog();
+                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} failed to create route {route.StartLocation}-{route.EndLocation}", MessageTypes.Error).WriteLog();
                 return Task.FromResult(false);
             }
         }
@@ -52,12 +52,12 @@ namespace Door2DoorLib.Managers
         {
             if (_routeRepository.DeleteAsync(route).Result)
             {
-                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} deleted route {route.Name}", MessageTypes.Deleted).WriteLog();
+                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} deleted route {route.StartLocation}-{route.EndLocation}", MessageTypes.Deleted).WriteLog();
                 return Task.FromResult(true);
             }
             else
             {
-                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} failed deleted route {route.Name}", MessageTypes.Error).WriteLog();
+                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} failed deleted route {route.StartLocation}-{route.EndLocation}", MessageTypes.Error).WriteLog();
                 return Task.FromResult(false);
             }
         }
@@ -74,30 +74,18 @@ namespace Door2DoorLib.Managers
         {
             if (_routeRepository.UpdateAsync(route).Result)
             {
-                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} created {route.Name}", MessageTypes.Added);
+                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} created {route.StartLocation}-{route.EndLocation}", MessageTypes.Added);
                 return Task.FromResult(true);
             }
             else
             {
-                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} failed to create route {route.Name}", MessageTypes.Error);
+                LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} failed to create route {route.StartLocation}-{route.EndLocation}", MessageTypes.Error);
                 return Task.FromResult(false);
             }
         }
         #endregion
 
         #region Get Routes
-        #region Get Route By Name
-        /// <summary>
-        /// Get route by name 
-        /// </summary>
-        /// <param name="routename"></param>
-        /// <returns></returns>
-        public Task<Route> GetRouteAsync(string routename)
-        {
-            return _routeRepository.GetByNameAsync(routename);
-        }
-        #endregion
-
         #region Get Route Async
         /// <summary>
         /// Get all routes

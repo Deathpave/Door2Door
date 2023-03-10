@@ -7,7 +7,7 @@ namespace Door2DoorLib.Interfaces
         public Task<bool> CreateAsync(Route createEntity);
         public Task<bool> DeleteAsync(Route deleteEntity);
         public Task<Route> GetByIdAsync(long id);
-        public Task<Route> GetByNameAsync(string name);
+        //public Task<Route> GetByNameAsync(string name);
         public Task<IEnumerable<Route>> GetAllAsync();
         public Task<bool> UpdateAsync(Route updateEntity);
     }
