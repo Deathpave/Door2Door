@@ -1,14 +1,12 @@
-USE master;
-
+USE sys;
 DROP DATABASE IF EXISTS door2doordb;
-
 CREATE DATABASE door2doordb;
-
 USE door2doordb;
 
 /*####################################################
 			## Drop Tables ##
 ####################################################*/
+DROP TABLE IF EXISTS `locations`;
 DROP TABLE IF EXISTS `routes`;
 DROP TABLE IF EXISTS `admin`;
 DROP TABLE IF EXISTS `log`;
@@ -18,48 +16,51 @@ DROP TABLE IF EXISTS `logTypes`;
 			## Create Tables ##
 ####################################################*/
 
+CREATE TABLE `locations`
+(
+`id` INT(255) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+`name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+`iconUrl` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci
+);
+
 CREATE TABLE `routes` 
 ( 
-`id` INT(255) NOT NULL AUTO_INCREMENT , 
-`text` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL , 
-PRIMARY KEY (`id`)
+`id` INT(255) NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+`start` INT NOT NULL,
+`end` INT NOT NULL,
+`text` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL,
+`videoUrl` VARCHAR(255) NOT NULL
 ) ;
 
 CREATE TABLE `admin` 
 ( 
-`id` INT(255) NOT NULL AUTO_INCREMENT , 
+`id` INT(255) NOT NULL AUTO_INCREMENT PRIMARY KEY, 
 `username` VARCHAR(255) NOT NULL , 
-`password` VARCHAR(255) NOT NULL , 
-PRIMARY KEY (`id`)
+`password` VARCHAR(255) NOT NULL
 ) ;
 
 CREATE TABLE `log` 
 ( 
-`id` INT NOT NULL AUTO_INCREMENT , 
+`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
 `type` INT NOT NULL , 
 `description` VARCHAR(255) NOT NULL, 
-`timestamp` TIMESTAMP(6) NOT NULL, 
-PRIMARY KEY (`id`)
+`timestamp` TIMESTAMP(6) NOT NULL
 );
 
 CREATE TABLE `logTypes` 
 ( 
-`id` INT NOT NULL AUTO_INCREMENT , 
-`errorCodes` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL, 
-PRIMARY KEY (`id`)
+`id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
+`errorCodes` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL
 ) ;
 
 /*####################################################
 			## Alter Tables ##
 ####################################################*/
 
-ALTER TABLE `routes` ADD `videoUrl` INT NOT NULL AFTER `text`; 
-
-ALTER TABLE `routes` CHANGE `videoUrl` `videoUrl` VARCHAR(255) NOT NULL; 
-
+ALTER TABLE `routes` ADD FOREIGN KEY (`start`) REFERENCES `locations`(`id`) ON UPDATE CASCADE; 
+ALTER TABLE `routes` ADD FOREIGN KEY (`end`) REFERENCES `locations`(`id`) ON UPDATE CASCADE; 
 ALTER TABLE `log` ADD FOREIGN KEY (`type`) REFERENCES `logTypes`(`id`) ON DELETE RESTRICT ON UPDATE RESTRICT; 
 
-ALTER TABLE `routes` ADD `name` VARCHAR(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL AFTER `id`;  
 
 /*####################################################
 			## Insert dummy/static data ##

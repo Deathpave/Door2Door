@@ -30,18 +30,18 @@ namespace Door2DoorFrontEnd.Controllers
             return View(model);
         }
 
-        [HttpGet("~/navigation")]
-        public IActionResult Navigation(int routeid)
-        {
-            if (routeid > -1)
-            {
-                Door2DoorLib.DataModels.Route route = _routeManager.GetRouteById(routeid).Result;
-                RouteModel model = new RouteModel();
-                model.RouteList.Add(route);
-                return View("Route",model);
-            }
-            return View();
-        }
+        //[HttpGet("~/navigation")]
+        //public IActionResult Navigation(int routeid)
+        //{
+        //    if (routeid > -1)
+        //    {
+        //        Door2DoorLib.DataModels.Route route = _routeManager.GetRouteById(routeid).Result;
+        //        RouteModel model = new RouteModel();
+        //        model.RouteList = new List<Door2DoorLib.DataModels.Route> { route};
+        //        return View("Route",model);
+        //    }
+        //    return View();
+        //}
         public IActionResult Privacy()
         {
             return View();

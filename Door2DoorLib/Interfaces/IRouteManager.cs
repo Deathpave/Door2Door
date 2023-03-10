@@ -8,6 +8,6 @@ namespace Door2DoorLib.Interfaces
         Task<bool> DeleteRouteAsync(Route route, Admin admin);
         Task<bool> UpdateRouteAsync(Route route, Admin admin);
         Task<IEnumerable<Route>> GetAllRoutesAsync();
-        public Task<Route> GetRouteById(int id);
+        Task<Route> GetRouteById(int id);
     }
 }
