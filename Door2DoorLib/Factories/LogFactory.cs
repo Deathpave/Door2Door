@@ -27,7 +27,7 @@ namespace Door2DoorLib.Factories
             switch (type)
             {
                 case LogTypes.Database:
-                    log = new DatabaseLog(messsage, DateTime.Now, messageType, _database);
+                    log = new DatabaseLog(0, messsage, DateTime.Now, messageType, _database);
                     break;
                 case LogTypes.File:
                     log = new FileLog(messsage, DateTime.Now, messageType, _errorLogLocation);
