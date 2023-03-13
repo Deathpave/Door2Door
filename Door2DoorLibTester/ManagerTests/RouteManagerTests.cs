@@ -8,7 +8,7 @@ namespace Door2DoorLibTester.ManagerTests
 {
     internal class RouteManagerTests
     {
-        private IRouteManager _routeManager;
+        private IRouteManager? _routeManager;
 
         [SetUp]
         public void Setup()
@@ -18,25 +18,6 @@ namespace Door2DoorLibTester.ManagerTests
         }
 
         [Test]
-        [Order(0)]
-        public async Task GetAllAsync_HasData_IfCollectionIsNotNull()
-        {
-            //Arrange
-            int collectionCount = 0;
-
-            //Act
-            var routes = await _routeManager.GetAllAsync();
-            AsyncTestDelegate getAllAction = async () => await _routeManager.GetAllAsync();
-
-            //Assert
-            Assert.IsNotNull(routes);
-            Assert.IsNotEmpty(routes);
-            Assert.Greater(routes.Count(), collectionCount);
-            Assert.DoesNotThrowAsync(getAllAction);
-        }
-
-        [Test]
-        [Order(1)]
         public async Task CreateAsync_CreatesARoute_IfArgumentsAreValid()
         {
             //Arrange
@@ -54,7 +35,23 @@ namespace Door2DoorLibTester.ManagerTests
         }
 
         [Test]
-        [Order(2)]
+        public async Task GetAllAsync_HasData_IfCollectionIsNotNull()
+        {
+            //Arrange
+            int collectionCount = 0;
+
+            //Act
+            var routes = await _routeManager.GetAllAsync();
+            AsyncTestDelegate getAllAction = async () => await _routeManager.GetAllAsync();
+
+            //Assert
+            Assert.IsNotNull(routes);
+            Assert.IsNotEmpty(routes);
+            Assert.Greater(routes.Count(), collectionCount);
+            Assert.DoesNotThrowAsync(getAllAction);
+        }
+
+        [Test]
         public async Task GetByIdAsync_ReturnsAValidObject_IfArgumentIsValid()
         {
             //Arrange
@@ -79,7 +76,6 @@ namespace Door2DoorLibTester.ManagerTests
         }
 
         [Test]
-        [Order(3)]
         public async Task UpdateAsync_UpdatesExistingObject_IfArgumentsAreValid()
         {
             //Arrange
@@ -100,7 +96,6 @@ namespace Door2DoorLibTester.ManagerTests
         }
 
         [Test]
-        [Order(4)]
         public async Task RemoveObjectAsync_RemovesExistingObject_IfArgumentsAreValid()
         {
             //Arrange
