@@ -47,7 +47,7 @@
         {
             @Html.AntiForgeryToken();
             @Html.TextBoxFor(Model => Model.newadmin)
-            <input id="button" value="Tilføj" type="submit" />
+            <input id="button" value="Tilføj" type="submit"/>
         }
 
     </div>
@@ -65,11 +65,10 @@
         @using (Html.BeginForm("AddRoute", "Admin", FormMethod.Post))
         {
             @Html.AntiForgeryToken();
-                @Html.TextBoxFor(Model => Model.newroute.StartLocation, new {placeholder = "Start location"})
-                @Html.TextBoxFor(Model => Model.newroute.EndLocation, new {placeholder = "End location"})
-                @Html.TextBoxFor(Model => Model.newroute.Description, new {placeholder = "Description"})
-                @Html.TextBoxFor(Model => Model.newroute.VideoUrl, new {placeholder = "Description"})
-                <input id="button" value="Tilføj" type="submit"/>
+            @Html.TextBoxFor(Model => Model.newroute.StartLocation, new {placeholder = "Start location"})
+            @Html.TextBoxFor(Model => Model.newroute.EndLocation, new {placeholder = "End location"})
+            @Html.TextBoxFor(Model => Model.newroute.Description, new {placeholder = "Description"})
+            <input id="button" value="Tilføj" type="submit"/>
         }
     </div>
 

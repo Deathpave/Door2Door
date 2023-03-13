@@ -31,8 +31,7 @@ namespace Door2DoorFrontEnd.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    AdminModel adminModel = new AdminModel();
-                    adminModel.newadmin = model.newadmin;
+                    AdminModel adminModel = model;
                     //add new admin to database here
                 }
                 return View("Admin");
