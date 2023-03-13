@@ -39,7 +39,7 @@ namespace Door2DoorLib.Interfaces
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<Route> GetByIdAsync(int id);
+        Task<Route> GetByIdAsync(long id);
 
         /// <summary>
         /// Get route by location ids

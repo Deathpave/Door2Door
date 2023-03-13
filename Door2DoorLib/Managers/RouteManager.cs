@@ -95,7 +95,7 @@ namespace Door2DoorLib.Managers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<Route> GetByIdAsync(int id)
+        public async Task<Route> GetByIdAsync(long id)
         {
             return await _repository.GetByIdAsync(id);
         }
