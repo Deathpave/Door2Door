@@ -19,6 +19,20 @@ namespace Door2DoorLib.Managers
         #endregion
 
         #region Methods
+        #region Upload Video
+        public async Task<bool> UploadVideoAsync(string filePath, string filename, string fileExtension)
+        {
+            if (_repository.UploadVideo(filePath, filename, fileExtension).Result != string.Empty)
+            {
+                return await Task.FromResult(true);
+            }
+            else
+            {
+                return await Task.FromResult(false);
+            }
+        }
+        #endregion
+
         #region Add Route Async
         /// <summary>
         /// Adds a new route to the database
@@ -122,7 +136,6 @@ namespace Door2DoorLib.Managers
             }
         }
         #endregion
-
         #endregion
     }
 }
