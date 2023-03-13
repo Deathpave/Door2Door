@@ -32,7 +32,7 @@
         border: black;
     }
     .actionform{
-        display:flex;
+        display:none;
         flex-direction:column;
     }
     #hiden{
@@ -43,10 +43,16 @@
 
     <a onclick="toggleform('addadmin')">Tilføj admin</a>
     <div id="addadmin" class="formwrapper">
-        <form class="actionform">
+        @using (Html.BeginForm("AddAdmin","Admin",FormMethod.Post,new { @id = "actionform" }))
+        {
+            @Html.AntiForgeryToken();
+            @Html.TextBoxFor(Model => Model.newadmin)
+            <input id="button" value="Tilføj" type="submit" />
+        }
+        @*<form class="actionform">
             <input  type="text"/>
             <input id="button" value="Tilføj" type="submit"/>
-        </form>
+        </form>*@
     </div>
 
     <a onclick="toggleform('removeadmin')">Fjern admin</a>
@@ -57,8 +63,22 @@
         </form>
     </div>
 
-    <a>Tilføj rute</a>
-
+    <a onclick ="toggleform('addroute')">Tilføj rute</a>
+    <div id="addroute" class="formwrapper">
+        @using (Html.BeginForm("AddRoute", "Admin", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken();
+                @Html.TextBoxFor(Model => Model.newroute.StartLocation, new {placeholder = "Start location"})
+                @Html.TextBoxFor(Model => Model.newroute.EndLocation, new {placeholder = "End location"})
+                @Html.TextBoxFor(Model => Model.newroute.Description, new {placeholder = "Description"})
+                <input id="button" value="Tilføj" type="submit" />
+        }
+    </div>
+ @*   <form class="actionform">
+        <input type="text" />
+        <input id="button" value="Tilføj" type="submit" />
+        <input id="file" type="file">
+    </form>*@
     <a>Fjern rute</a>
 </div>
 
@@ -72,7 +92,6 @@
         } else {
             item.style.display = "none";
         }
-        console.log(ítem);
     }
 
 </script>
