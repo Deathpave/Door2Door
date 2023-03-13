@@ -49,7 +49,6 @@ namespace Door2DoorFrontEnd.Controllers
                 if (ModelState.IsValid)
                 {
                     RouteModel routeModel = new RouteModel();
-                    //routeModel. = model.;
                     //add new admin to database here
                 }
                 return View("Admin");
