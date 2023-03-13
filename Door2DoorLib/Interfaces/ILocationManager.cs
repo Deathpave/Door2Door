@@ -39,6 +39,6 @@ namespace Door2DoorLib.Interfaces
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        Task<Location> GetByIdAsync(int id);
+        Task<Location> GetByIdAsync(long id);
     }
 }
