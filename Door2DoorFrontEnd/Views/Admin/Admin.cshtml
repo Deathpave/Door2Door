@@ -49,10 +49,7 @@
             @Html.TextBoxFor(Model => Model.newadmin)
             <input id="button" value="Tilføj" type="submit" />
         }
-        @*<form class="actionform">
-            <input  type="text"/>
-            <input id="button" value="Tilføj" type="submit"/>
-        </form>*@
+
     </div>
 
     <a onclick="toggleform('removeadmin')">Fjern admin</a>
@@ -71,15 +68,19 @@
                 @Html.TextBoxFor(Model => Model.newroute.StartLocation, new {placeholder = "Start location"})
                 @Html.TextBoxFor(Model => Model.newroute.EndLocation, new {placeholder = "End location"})
                 @Html.TextBoxFor(Model => Model.newroute.Description, new {placeholder = "Description"})
-                <input id="button" value="Tilføj" type="submit" />
+                <input id="button" value="Tilføj" type="submit"/>
         }
     </div>
- @*   <form class="actionform">
-        <input type="text" />
-        <input id="button" value="Tilføj" type="submit" />
-        <input id="file" type="file">
-    </form>*@
+
     <a>Fjern rute</a>
+    <div id="addroute" class="formwrapper">
+        @using (Html.BeginForm("removeRoute", "Admin", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken();
+            //Get a list of all routes and select the one to delete
+            <input id="button" value="Tilføj" type="submit" />
+        }
+    </div>
 </div>
 
 <script>

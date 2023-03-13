@@ -9,10 +9,12 @@ namespace Door2DoorFrontEnd.Controllers
     {
         private readonly ILogger<AdminController> _logger;
         private readonly IAdminManager _adminManager;
-        public AdminController(ILogger<AdminController> logger, IAdminManager adminmanager)
+        private readonly IRouteManager _routeManager;
+        public AdminController(ILogger<AdminController> logger, IAdminManager adminmanager, IRouteManager routemanager)
         {
             _logger = logger;
             _adminManager = adminmanager;
+            _routeManager = routemanager;
         }
         [HttpGet("/admin")]
         public IActionResult AdminMenu()
@@ -42,14 +44,15 @@ namespace Door2DoorFrontEnd.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddRoute(RouteModel model)
+        public ActionResult AddRoute(AdminModel model)
         {
             try
             {
                 if (ModelState.IsValid)
                 {
                     RouteModel routeModel = new RouteModel();
-                    //add new admin to database here
+                    Admin admin = new Admin(-1, model.Username,"");
+                    _routeManager.CreateAsync(model.newroute,admin);
                 }
                 return View("Admin");
             }
