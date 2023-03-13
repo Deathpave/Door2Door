@@ -2,6 +2,7 @@
 using Door2DoorLib.Interfaces;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
+using System.Data.Common;
 
 namespace Door2DoorLib.Adapters
 {
@@ -52,10 +53,10 @@ namespace Door2DoorLib.Adapters
 
         #region Execute Command Async
         // Default execute sql command (not in use when overriding from other classes)
-        public virtual Task<MySqlDataReader> ExecuteCommandAsync(MySqlCommand sqlCommand)
+        public virtual Task<DbDataReader> ExecuteCommandAsync(DbCommand sqlCommand)
         {
             LogFactory.CreateLog(LogTypes.Console, "Tried to execute sql command via abstract database class", MessageTypes.Error).WriteLog();
-            return Task.FromResult<MySqlDataReader>(null);
+            return Task.FromResult<DbDataReader>(null);
         }
         #endregion
         #endregion
