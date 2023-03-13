@@ -1,6 +1,7 @@
 ﻿using Door2DoorLib.Factories;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
+using System.Data.Common;
 
 namespace Door2DoorLib.Adapters
 {
@@ -54,7 +55,7 @@ namespace Door2DoorLib.Adapters
 
         #region Execute Command Async
         // Executes sql command
-        public override Task<MySqlDataReader?> ExecuteCommandAsync(MySqlCommand sqlCommand)
+        public override Task<DbDataReader?> ExecuteCommandAsync(DbCommand sqlCommand)
         {
             try
             {
@@ -64,7 +65,7 @@ namespace Door2DoorLib.Adapters
             catch (Exception e)
             {
                 LogFactory.CreateLog(LogTypes.File, $"Failed to execute sql command due to {e.Message}", MessageTypes.Error).WriteLog();
-                return Task.FromResult<MySqlDataReader?>(null);
+                return Task.FromResult<DbDataReader?>(null);
             }
         }
         #endregion
