@@ -15,11 +15,64 @@
         color:white !important;
         font-weight:bold;
         height:40px;
+        cursor:pointer;
+    }
+    .formwrapper{
+        display:none;
+        flex-direction:column;
+    }
+
+    #button {
+        min-height: 35px;
+        min-width: 60px;
+        background-color: #598392;
+        color: white;
+        font-weight: bold;
+        border-radius: 10px;
+        border: black;
+    }
+    .actionform{
+        display:flex;
+        flex-direction:column;
+    }
+    #hiden{
+        display:none;
     }
 </style>
 <div class="adminmenu">
-    <a>Tilføj admin</a>
+
+    <a onclick="toggleform('addadmin')">Tilføj admin</a>
+    <div id="addadmin" class="formwrapper">
+        <form class="actionform">
+            <input  type="text"/>
+            <input id="button" value="Tilføj" type="submit"/>
+        </form>
+    </div>
+
+    <a onclick="toggleform('removeadmin')">Fjern admin</a>
+    <div id="removeadmin" class="formwrapper">
+        <form class="actionform">
+            <input type="text" />
+            <input id="button" value="Fjern" type="submit" />
+        </form>
+    </div>
+
     <a>Tilføj rute</a>
-    <a>Fjern admin</a>
+
     <a>Fjern rute</a>
 </div>
+
+<script>
+
+    function toggleform(id) {
+        var item = document.getElementById(id);
+        if (item.style.display == "none") {
+            item.style.display = "flex";
+            console.log("flex");
+        } else {
+            item.style.display = "none";
+        }
+        console.log(ítem);
+    }
+
+</script>
