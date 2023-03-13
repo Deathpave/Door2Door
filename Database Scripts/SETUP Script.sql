@@ -44,7 +44,7 @@ CREATE TABLE `log`
 `id` INT NOT NULL AUTO_INCREMENT PRIMARY KEY, 
 `type` INT NOT NULL , 
 `description` VARCHAR(255) NOT NULL, 
-`timestamp` TIMESTAMP(6) NOT NULL
+`timestamp` DATETIME DEFAULT NOW()
 );
 
 CREATE TABLE `logTypes` 
