@@ -1,9 +1,9 @@
-﻿namespace Door2DoorLib.Interfaces
+﻿using Door2DoorLib.DataModels;
+
+namespace Door2DoorLib.Interfaces
 {
     public interface ILog
     {
-        #region Methods
         public void WriteLog();
-        #endregion
     }
 }

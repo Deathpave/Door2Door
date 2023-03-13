@@ -2,6 +2,9 @@
 using Door2DoorLib.Factories;
 using Door2DoorLib.Interfaces;
 using MySql.Data.MySqlClient;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
 using System.Net;
 
 namespace Door2DoorLib.Repositories
@@ -21,15 +24,15 @@ namespace Door2DoorLib.Repositories
 
         #region Methods
         #region Upload Video
-        public Task<string> UploadVideo(string filePath, string filename, string fileExtension)
+        public Task<string> UploadVideo(string filePath, string fileName, string fileExtension)
         {
             try
             {
                 using (WebClient client = new WebClient())
                 {
                     client.Credentials = new NetworkCredential("Administrator", "Kode1234!");
-                    client.UploadFile($"ftp://10.13.0.125//path/{filename}.{fileExtension}", WebRequestMethods.Ftp.UploadFile, filePath);
-                    return Task.FromResult($"ftp://10.13.0.125//path/{filename}.{fileExtension}");
+                    client.UploadFile($"ftp://10.13.0.125//path/{fileName}.{fileExtension}", WebRequestMethods.Ftp.UploadFile, filePath);
+                    return Task.FromResult($"ftp://10.13.0.125//path/{fileName}.{fileExtension}");
                 }
             }
             catch (Exception)
@@ -48,12 +51,19 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<bool> CreateAsync(Route createEntity)
         {
-            MySqlCommand sqlCommand = new MySqlCommand("d2d.spCreateRoute");
-            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sqlCommand.Parameters.Add(new MySqlParameter("@newText", createEntity.Description));
-            sqlCommand.Parameters.Add(new MySqlParameter("@videourl", createEntity.VideoUrl));
-            sqlCommand.Parameters.Add(new MySqlParameter("@startId", createEntity.StartLocation));
-            sqlCommand.Parameters.Add(new MySqlParameter("@endId", createEntity.EndLocation));
+            //MySqlCommand sqlCommand = new MySqlCommand("spCreateRoute");
+            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            //sqlCommand.Parameters.Add(new MySqlParameter("@newText", createEntity.Description));
+            //sqlCommand.Parameters.Add(new MySqlParameter("@videourl", createEntity.VideoUrl));
+            //sqlCommand.Parameters.Add(new MySqlParameter("@startId", createEntity.StartLocation));
+            //sqlCommand.Parameters.Add(new MySqlParameter("@endId", createEntity.EndLocation));
+
+            DbCommand sqlCommand = new SqlCommand("spCreateRoute");
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.Add(new SqlParameter("@newText", createEntity.Description));
+            sqlCommand.Parameters.Add(new SqlParameter("@videourl", createEntity.VideoUrl));
+            sqlCommand.Parameters.Add(new SqlParameter("@startId", createEntity.StartLocation));
+            sqlCommand.Parameters.Add(new SqlParameter("@endId", createEntity.EndLocation));
 
             await _database.OpenConnectionAsync();
             var result = _database.ExecuteCommandAsync(sqlCommand).Status;
@@ -77,9 +87,13 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<bool> DeleteAsync(Route deleteEntity)
         {
-            MySqlCommand sqlCommand = new MySqlCommand("spDeleteRoute");
-            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sqlCommand.Parameters.Add(new MySqlParameter("@routeId", deleteEntity.Id));
+            //MySqlCommand sqlCommand = new MySqlCommand("spDeleteRoute");
+            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            //sqlCommand.Parameters.Add(new MySqlParameter("@routeId", deleteEntity.Id));
+
+            DbCommand sqlCommand = new SqlCommand("spDeleteRoute");
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.Add(new SqlParameter("@routeId", deleteEntity.Id));
 
             await _database.OpenConnectionAsync();
             var result = _database.ExecuteCommandAsync(sqlCommand).Status;
@@ -102,12 +116,15 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<Route>> GetAllAsync()
         {
-            MySqlCommand sqlCommand = new MySqlCommand("spGetAllRoutes");
-            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            //MySqlCommand sqlCommand = new MySqlCommand("spGetAllRoutes");
+            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+
+            DbCommand sqlCommand = new SqlCommand("spGetAllRoutes");
+            sqlCommand.CommandType = CommandType.StoredProcedure;
 
             List<Route> result = new List<Route>();
             await _database.OpenConnectionAsync();
-            using (MySqlDataReader streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
+            using (DbDataReader streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
             {
                 if (streamReader != null)
                 {
@@ -136,9 +153,13 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<Route> GetByIdAsync(long id)
         {
-            MySqlCommand sqlCommand = new MySqlCommand("spGetRouteById");
-            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sqlCommand.Parameters.Add(new MySqlParameter("@routeId", id));
+            //MySqlCommand sqlCommand = new MySqlCommand("spGetRouteById");
+            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            //sqlCommand.Parameters.Add(new MySqlParameter("@routeId", id));
+
+            DbCommand sqlCommand = new SqlCommand("spGetRouteById");
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.Add(new SqlParameter("@routeId", id));
 
             Route result = null;
             await _database.OpenConnectionAsync();
@@ -168,13 +189,22 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<bool> UpdateAsync(Route updateEntity)
         {
-            MySqlCommand sqlCommand = new MySqlCommand("spUpdateRoute");
-            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sqlCommand.Parameters.Add(new MySqlParameter("@routeId", updateEntity.Id));
-            sqlCommand.Parameters.Add(new MySqlParameter("@newText", updateEntity.Description));
-            sqlCommand.Parameters.Add(new MySqlParameter("@videourl", updateEntity.VideoUrl));
-            sqlCommand.Parameters.Add(new MySqlParameter("@startId", updateEntity.StartLocation));
-            sqlCommand.Parameters.Add(new MySqlParameter("@endId", updateEntity.EndLocation));
+            //MySqlCommand sqlCommand = new MySqlCommand("spUpdateRoute");
+            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            //sqlCommand.Parameters.Add(new MySqlParameter("@routeId", updateEntity.Id));
+            //sqlCommand.Parameters.Add(new MySqlParameter("@newText", updateEntity.Description));
+            //sqlCommand.Parameters.Add(new MySqlParameter("@videourl", updateEntity.VideoUrl));
+            //sqlCommand.Parameters.Add(new MySqlParameter("@startId", updateEntity.StartLocation));
+            //sqlCommand.Parameters.Add(new MySqlParameter("@endId", updateEntity.EndLocation));
+
+            DbCommand sqlCommand = new SqlCommand("spUpdateRoute");
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.Add(new SqlParameter("@routeId", updateEntity.Id));
+            sqlCommand.Parameters.Add(new SqlParameter("@newText", updateEntity.Description));
+            sqlCommand.Parameters.Add(new SqlParameter("@videourl", updateEntity.VideoUrl));
+            sqlCommand.Parameters.Add(new SqlParameter("@startId", updateEntity.StartLocation));
+            sqlCommand.Parameters.Add(new SqlParameter("@endId", updateEntity.EndLocation));
+
 
             if (_database.ExecuteCommandAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
             {
@@ -196,10 +226,15 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<Route> GetByLocationsAsync(long startLocation, long endLocation)
         {
-            MySqlCommand sqlCommand = new MySqlCommand("spGetRouteByLocations");
-            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sqlCommand.Parameters.Add(new MySqlParameter("@startId", startLocation));
-            sqlCommand.Parameters.Add(new MySqlParameter("@endId", endLocation));
+            //MySqlCommand sqlCommand = new MySqlCommand("spGetRouteByLocations");
+            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            //sqlCommand.Parameters.Add(new MySqlParameter("@startId", startLocation));
+            //sqlCommand.Parameters.Add(new MySqlParameter("@endId", endLocation));
+
+            DbCommand sqlCommand = new SqlCommand("spGetRouteByLocations");
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            sqlCommand.Parameters.Add(new SqlParameter("@startId", startLocation));
+            sqlCommand.Parameters.Add(new SqlParameter("@endId", endLocation));
 
             Route result = null;
             await _database.OpenConnectionAsync();
