@@ -1,6 +1,5 @@
 ﻿using Door2DoorLib.Factories;
 using Microsoft.Extensions.Configuration;
-using MySql.Data.MySqlClient;
 using System.Data.Common;
 using System.Data.SqlClient;
 
