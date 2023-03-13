@@ -9,11 +9,11 @@ namespace Door2DoorLib.Logs
         #region Fields
         private readonly string _message;
         private readonly MessageTypes _messageType;
-        private readonly DateTime _timestamp;
+        private readonly DateTime _timeStamp;
 
         public string Message { get { return _message; } }
         public MessageTypes MessageType { get { return _messageType; } }
-        public DateTime TimeStamp { get { return _timestamp; } }
+        public DateTime TimeStamp { get { return _timeStamp; } }
         #endregion
 
         #region Constructor
@@ -21,7 +21,7 @@ namespace Door2DoorLib.Logs
         {
             _message = message;
             _messageType = messageType;
-            _timestamp = timeStamp;
+            _timeStamp = timeStamp;
         }
         #endregion
 
