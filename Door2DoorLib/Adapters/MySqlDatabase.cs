@@ -1,21 +1,21 @@
 ﻿using Door2DoorLib.Factories;
 using Microsoft.Extensions.Configuration;
-using MySql.Data.MySqlClient;
 using System.Data.Common;
+using System.Data.SqlClient;
 
 namespace Door2DoorLib.Adapters
 {
     internal class MySqlDatabase : Database
     {
         #region Fields
-        private MySqlConnection _sqlConnection;
+        private SqlConnection _sqlConnection;
         #endregion
 
         #region Constructor
         public MySqlDatabase(IConfiguration configuration, string databaseName) : base(configuration, databaseName)
         {
             // Creating our database connection
-            _sqlConnection = new MySqlConnection(configuration.GetConnectionString("DefaultConnection"));
+            _sqlConnection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
         }
         #endregion
 

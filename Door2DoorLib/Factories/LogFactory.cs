@@ -21,19 +21,19 @@ namespace Door2DoorLib.Factories
 
         #region Create Log
         // Returns a log depending on log type
-        public static ILog CreateLog(LogTypes type, string messsage, MessageTypes messageType)
+        public static ILog CreateLog(LogTypes type, string message, MessageTypes messageType)
         {
             ILog log = null;
             switch (type)
             {
                 case LogTypes.Database:
-                    log = new DatabaseLog(0, messsage, DateTime.Now, messageType, _database);
+                    log = new DatabaseLog(0, messageType, message, DateTime.Now);
                     break;
                 case LogTypes.File:
-                    log = new FileLog(messsage, DateTime.Now, messageType, _errorLogLocation);
+                    log = new FileLog(message, DateTime.Now, messageType, _errorLogLocation);
                     break;
                 case LogTypes.Console:
-                    log = new ConsoleLog(messsage, DateTime.Now, messageType);
+                    log = new ConsoleLog(message, DateTime.Now, messageType);
                     break;
             }
             return log;
