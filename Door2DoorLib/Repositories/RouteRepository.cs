@@ -95,7 +95,6 @@ namespace Door2DoorLib.Repositories
         }
         #endregion
 
-
         #region Get All Async
         /// <summary>
         /// Returns all Route entities from database
@@ -128,7 +127,6 @@ namespace Door2DoorLib.Repositories
             return await Task.FromResult(result);
         }
         #endregion
-
 
         #region Get By Id Async
         /// <summary>
