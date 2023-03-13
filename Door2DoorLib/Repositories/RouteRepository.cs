@@ -2,6 +2,7 @@
 using Door2DoorLib.Factories;
 using Door2DoorLib.Interfaces;
 using MySql.Data.MySqlClient;
+using System.Net;
 
 namespace Door2DoorLib.Repositories
 {
@@ -19,6 +20,25 @@ namespace Door2DoorLib.Repositories
         #endregion
 
         #region Methods
+        #region Upload Video
+        public Task<string> UploadVideo(string filePath, string filename, string fileExtension)
+        {
+            try
+            {
+                using (WebClient client = new WebClient())
+                {
+                    client.Credentials = new NetworkCredential("Administrator", "Kode1234!");
+                    client.UploadFile($"ftp://10.13.0.125//path/{filename}.{fileExtension}", WebRequestMethods.Ftp.UploadFile, filePath);
+                    return Task.FromResult($"ftp://10.13.0.125//path/{filename}.{fileExtension}");
+                }
+            }
+            catch (Exception)
+            {
+                return Task.FromResult(string.Empty);
+            }
+        }
+        #endregion
+
         #region Create Async
 
         /// <summary>
