@@ -1,11 +1,12 @@
-﻿using Door2DoorLib.Factories;
+﻿using Door2DoorLib.DataModels;
+using Door2DoorLib.Factories;
 using Door2DoorLib.Interfaces;
 using Google.Protobuf.WellKnownTypes;
 using MySql.Data.MySqlClient;
 
 namespace Door2DoorLib.Logs
 {
-    internal class DatabaseLog : ILog
+    internal class DatabaseLog : BaseEntity, ILog
     {
         #region Fields
         private string _message;
@@ -14,7 +15,7 @@ namespace Door2DoorLib.Logs
         #endregion
 
         #region Constructor
-        public DatabaseLog(string message, DateTime date, MessageTypes messageType, IDatabase database)
+        public DatabaseLog(long id, string message, DateTime date, MessageTypes messageType, IDatabase database) : base(id)
         {
             _message = message;
             _database = database;

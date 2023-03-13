@@ -199,7 +199,7 @@ DROP PROCEDURE IF EXISTS `spGetAllLogs`;
 
 -- Create operation
 DELIMITER //
-CREATE PROCEDURE `spCreateLog` (IN type INT, IN description VARCHAR(255), IN timestamp TIMESTAMP(6))
+CREATE PROCEDURE `spCreateLog` (IN type INT, IN description VARCHAR(255), IN timestamp DATETIME)
 BEGIN
 	INSERT INTO log (type, description, timestamp) 
     VALUES (type, description, timestamp);
@@ -225,7 +225,7 @@ DELIMITER ;
 
 -- Update operation
 DELIMITER //
-CREATE PROCEDURE `spUpdateLog` (IN logId INT, IN type INT, IN description VARCHAR(255), IN timestamp TIMESTAMP(6))
+CREATE PROCEDURE `spUpdateLog` (IN logId INT, IN type INT, IN description VARCHAR(255), IN timestamp DATETIME)
 BEGIN
 	UPDATE log SET 
     type = type, 
