@@ -48,7 +48,7 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<bool> CreateAsync(Route createEntity)
         {
-            MySqlCommand sqlCommand = new MySqlCommand("d2d.spCreateRoute");
+            MySqlCommand sqlCommand = new MySqlCommand("spCreateRoute");
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
             sqlCommand.Parameters.Add(new MySqlParameter("@newText", createEntity.Description));
             sqlCommand.Parameters.Add(new MySqlParameter("@videourl", createEntity.VideoUrl));
