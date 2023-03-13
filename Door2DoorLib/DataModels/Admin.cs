@@ -3,19 +3,19 @@
     public class Admin : BaseEntity
     {
         #region Fields
-        private string _userName;
+        private string _username;
         private string _password;
         #endregion
 
         #region Properties
-        public string UserName { get { return _userName; } }
+        public string UserName { get { return _username; } }
         public string Password { get { return _password; } }
         #endregion
 
         #region Constructor
-        public Admin(long id, string userName, string password) : base(id)
+        public Admin(long id, string username, string password) : base(id)
         {
-            _userName = userName;
+            _username = username;
             _password = password;
         }
         #endregion
