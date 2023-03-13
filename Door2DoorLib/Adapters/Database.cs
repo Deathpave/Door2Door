@@ -1,7 +1,6 @@
 ﻿using Door2DoorLib.Factories;
 using Door2DoorLib.Interfaces;
 using Microsoft.Extensions.Configuration;
-using MySql.Data.MySqlClient;
 using System.Data.Common;
 
 namespace Door2DoorLib.Adapters
