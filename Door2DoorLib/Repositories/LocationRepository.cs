@@ -1,7 +1,6 @@
 ﻿using Door2DoorLib.DataModels;
 using Door2DoorLib.Factories;
 using Door2DoorLib.Interfaces;
-using MySql.Data.MySqlClient;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
