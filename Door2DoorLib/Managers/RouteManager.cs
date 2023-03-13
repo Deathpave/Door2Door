@@ -136,7 +136,6 @@ namespace Door2DoorLib.Managers
             }
         }
         #endregion
-
         #endregion
     }
 }
