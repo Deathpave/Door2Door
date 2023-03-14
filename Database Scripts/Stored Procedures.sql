@@ -160,6 +160,15 @@ BEGIN
 END //
 DELIMITER ;
 
+-- Read operation
+DELIMITER //
+CREATE PROCEDURE `spGetAdminByName` (IN adminName VARCHAR(255))
+BEGIN
+	SELECT * FROM admin
+    WHERE username = adminName;
+END //
+DELIMITER;
+
 -- Read all operation
 DELIMITER //
 CREATE PROCEDURE `spGetAllAdmins` ()
