@@ -1,5 +1,4 @@
 ﻿using Door2DoorLib.DataModels;
-using Door2DoorLib.Factories;
 using Door2DoorLib.Interfaces;
 using System.Data;
 using System.Data.Common;
@@ -59,15 +58,21 @@ namespace Door2DoorLib.Repositories
 
             DbCommand sqlCommand = new SqlCommand("spCreateRoute");
             sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.Parameters.Add(new SqlParameter("@newText", createEntity.Description));
-            sqlCommand.Parameters.Add(new SqlParameter("@videourl", createEntity.VideoUrl));
-            sqlCommand.Parameters.Add(new SqlParameter("@startId", createEntity.StartLocation));
-            sqlCommand.Parameters.Add(new SqlParameter("@endId", createEntity.EndLocation));
+            int affectedRows = 0;
 
-            await _database.OpenConnectionAsync();
-            var result = _database.ExecuteCommandAsync(sqlCommand).Status;
-            _database.CloseConnection();
-            if (result == TaskStatus.RanToCompletion)
+            IDictionary<string, object> sqlParams = new Dictionary<string, object>
+            {
+                { "@startId", createEntity.StartLocation },
+                {"@endId", createEntity.EndLocation },
+                { "@newText", createEntity.Description},
+                { "@videourl", createEntity.VideoUrl}
+            };
+
+            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
+            dataReader.Read();
+            affectedRows = dataReader.RecordsAffected;
+
+            if (affectedRows > 0)
             {
                 return await Task.FromResult(true);
             }
@@ -92,18 +97,25 @@ namespace Door2DoorLib.Repositories
 
             DbCommand sqlCommand = new SqlCommand("spDeleteRoute");
             sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.Parameters.Add(new SqlParameter("@routeId", deleteEntity.Id));
+            int returnValue = 0;
 
-            await _database.OpenConnectionAsync();
-            var result = _database.ExecuteCommandAsync(sqlCommand).Status;
-            _database.CloseConnection();
-            if (result == TaskStatus.RanToCompletion)
+            IDictionary<string, object> sqlParams = new Dictionary<string, object>
             {
-                return await Task.FromResult(true);
+                { "@routeId", deleteEntity.Id }
+            };
+
+            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
+
+            dataReader.Read();
+            returnValue = dataReader.RecordsAffected;
+
+            if (returnValue != 0)
+            {
+                return true;
             }
             else
             {
-                return await Task.FromResult(false);
+                return false;
             }
         }
         #endregion
@@ -121,25 +133,17 @@ namespace Door2DoorLib.Repositories
             DbCommand sqlCommand = new SqlCommand("spGetAllRoutes");
             sqlCommand.CommandType = CommandType.StoredProcedure;
 
+            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand);
+
+            if (dataReader.HasRows == false) return new List<Route>();
+
             List<Route> result = new List<Route>();
-            await _database.OpenConnectionAsync();
-            using (DbDataReader streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
+
+            while (await dataReader.ReadAsync())
             {
-                if (streamReader != null)
-                {
-                    // Create a new route from the datastream
-                    while (streamReader.Read())
-                    {
-                        Route newroute = new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetInt64("startLocation"), streamReader.GetInt64("endLocation"));
-                        result.Add(newroute);
-                    }
-                }
-                else
-                {
-                    LogFactory.CreateLog(LogTypes.File, "Could not get all routes async", MessageTypes.Error).WriteLog();
-                }
+                Route newroute = new Route(dataReader.GetInt64("id"), dataReader.GetString("videoUrl"), dataReader.GetString("text"), dataReader.GetInt64("startLocation"), dataReader.GetInt64("endLocation"));
+                result.Add(newroute);
             }
-            _database.CloseConnection();
             return await Task.FromResult(result);
         }
         #endregion
@@ -158,24 +162,21 @@ namespace Door2DoorLib.Repositories
 
             DbCommand sqlCommand = new SqlCommand("spGetRouteById");
             sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.Parameters.Add(new SqlParameter("@routeId", id));
 
-            Route result = null;
-            await _database.OpenConnectionAsync();
-            using (var streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
+            IDictionary<string, object> sqlParams = new Dictionary<string, object>
             {
-                if (streamReader != null)
-                {
-                    // Create a new route from the datastream
-                    streamReader.Read();
-                    result = new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetInt64("startLocation"), streamReader.GetInt64("endLocation"));
-                }
-                else
-                {
-                    LogFactory.CreateLog(LogTypes.File, $"Could not get route by id {id}", MessageTypes.Error);
-                }
+                { "@id", id }
+            };
+            Route result = null;
+
+            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand);
+
+            if (dataReader.HasRows == false) return result;
+
+            while (dataReader.Read())
+            {
+                result = new Route(dataReader.GetInt64("id"), dataReader.GetString("videoUrl"), dataReader.GetString("text"), dataReader.GetInt64("startLocation"), dataReader.GetInt64("endLocation"));
             }
-            _database.CloseConnection();
             return await Task.FromResult(result);
         }
         #endregion
@@ -198,14 +199,16 @@ namespace Door2DoorLib.Repositories
 
             DbCommand sqlCommand = new SqlCommand("spUpdateRoute");
             sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.Parameters.Add(new SqlParameter("@routeId", updateEntity.Id));
-            sqlCommand.Parameters.Add(new SqlParameter("@newText", updateEntity.Description));
-            sqlCommand.Parameters.Add(new SqlParameter("@videourl", updateEntity.VideoUrl));
-            sqlCommand.Parameters.Add(new SqlParameter("@startId", updateEntity.StartLocation));
-            sqlCommand.Parameters.Add(new SqlParameter("@endId", updateEntity.EndLocation));
 
+            IDictionary<string, object> sqlParams = new Dictionary<string, object>
+            {
+                { "@startId", updateEntity.StartLocation },
+                {"@endId", updateEntity.EndLocation },
+                { "@newText", updateEntity.Description},
+                { "@videourl", updateEntity.VideoUrl}
+            };
 
-            if (_database.ExecuteCommandAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
+            if (_database.ExecuteQueryAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
             {
                 return await Task.FromResult(true);
             }
@@ -232,25 +235,23 @@ namespace Door2DoorLib.Repositories
 
             DbCommand sqlCommand = new SqlCommand("spGetRouteByLocations");
             sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.Parameters.Add(new SqlParameter("@startId", startLocation));
-            sqlCommand.Parameters.Add(new SqlParameter("@endId", endLocation));
+
+            IDictionary<string, object> sqlParams = new Dictionary<string, object>
+            {
+                { "@startId", startLocation },
+                {"@endId", endLocation },
+            };
 
             Route result = null;
-            await _database.OpenConnectionAsync();
-            using (var streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
+
+            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand);
+
+            if (dataReader.HasRows == false) return result;
+
+            while (dataReader.Read())
             {
-                if (streamReader != null)
-                {
-                    // Create a new route from the datastream
-                    streamReader.Read();
-                    result = new Route(streamReader.GetInt64("id"), streamReader.GetString("videoUrl"), streamReader.GetString("text"), streamReader.GetInt64("startLocation"), streamReader.GetInt64("endLocation"));
-                }
-                else
-                {
-                    LogFactory.CreateLog(LogTypes.File, $"Could not get route by ids {startLocation}-{endLocation}", MessageTypes.Error);
-                }
+                result = new Route(dataReader.GetInt64("id"), dataReader.GetString("videoUrl"), dataReader.GetString("text"), dataReader.GetInt64("startLocation"), dataReader.GetInt64("endLocation"));
             }
-            _database.CloseConnection();
             return await Task.FromResult(result);
         }
         #endregion

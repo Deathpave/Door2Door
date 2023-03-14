@@ -45,11 +45,12 @@ namespace Door2DoorLib.Adapters
 
         #region Execute Command Async
         // Default execute sql command (not in use when overriding from other classes)
-        public virtual Task<DbDataReader> ExecuteCommandAsync(DbCommand sqlCommand)
+        public virtual Task<DbDataReader> ExecuteQueryAsync(DbCommand sqlCommand, IDictionary<string, object> sqlParams = null)
         {
             LogFactory.CreateLog(LogTypes.Console, "Tried to execute sql command via abstract database class", MessageTypes.Error).WriteLog();
             return Task.FromResult<DbDataReader>(null);
         }
+
         #endregion
         #endregion
     }

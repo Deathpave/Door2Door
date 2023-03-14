@@ -32,7 +32,7 @@ namespace Door2DoorLib.Repositories
             sqlCommand.Parameters.Add(new SqlParameter("@timestamp", DateTime.Now));
 
             await _database.OpenConnectionAsync();
-            var result = _database.ExecuteCommandAsync(sqlCommand).Status;
+            var result = _database.ExecuteQueryAsync(sqlCommand).Status;
             _database.CloseConnection();
             if (result == TaskStatus.RanToCompletion)
             {
@@ -51,7 +51,7 @@ namespace Door2DoorLib.Repositories
             sqlCommand.Parameters.Add(new SqlParameter("@logId", deleteEntity.Id));
 
             await _database.OpenConnectionAsync();
-            var result = _database.ExecuteCommandAsync(sqlCommand).Status;
+            var result = _database.ExecuteQueryAsync(sqlCommand).Status;
             _database.CloseConnection();
             if (result == TaskStatus.RanToCompletion)
             {
@@ -70,7 +70,7 @@ namespace Door2DoorLib.Repositories
 
             List<DatabaseLog> result = new List<DatabaseLog>();
             await _database.OpenConnectionAsync();
-            using (DbDataReader streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
+            using (DbDataReader streamReader = _database.ExecuteQueryAsync(sqlCommand).Result)
             {
                 if (streamReader != null)
                 {
@@ -98,7 +98,7 @@ namespace Door2DoorLib.Repositories
 
             DatabaseLog result = null;
             await _database.OpenConnectionAsync();
-            using (var streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
+            using (var streamReader = _database.ExecuteQueryAsync(sqlCommand).Result)
             {
                 if (streamReader != null)
                 {
@@ -125,7 +125,7 @@ namespace Door2DoorLib.Repositories
             sqlCommand.Parameters.Add(new SqlParameter("@timestamp", DateTime.Now));
 
 
-            if (_database.ExecuteCommandAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
+            if (_database.ExecuteQueryAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
             {
                 return await Task.FromResult(true);
             }

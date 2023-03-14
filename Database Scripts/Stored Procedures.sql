@@ -80,7 +80,7 @@ DELIMITER //
 CREATE PROCEDURE `spCreateRoute` (IN startId INT, IN endId INT, IN newText VARCHAR(255), IN videourl VARCHAR(255))
 BEGIN
 	INSERT INTO routes (startLocation, endLocation, text, videoUrl) 
-    VALUES (startId, endID, newText, videourl);
+    VALUES (startId, endId, newText, videourl);
 END //
 DELIMITER ;
 

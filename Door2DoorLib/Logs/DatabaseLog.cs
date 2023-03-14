@@ -27,7 +27,7 @@ namespace Door2DoorLib.Logs
 
         public void WriteLog()
         {
-            throw new NotImplementedException();
+            
         }
     }
 }
