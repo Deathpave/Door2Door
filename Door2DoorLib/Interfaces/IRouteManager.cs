@@ -48,5 +48,14 @@ namespace Door2DoorLib.Interfaces
         /// <param name="endLocation"></param>
         /// <returns></returns>
         Task<Route> GetByLocationsAsync(long startLocation, long endLocation);
+
+        /// <summary>
+        ///  Upload video file to ftp server
+        /// </summary>
+        /// <param name="filePath"></param>
+        /// <param name="fileName"></param>
+        /// <param name="fileExtension"></param>
+        /// <returns></returns>
+        Task<bool> UploadVideoAsync(string filePath, string fileName, string fileExtension);
     }
 }
