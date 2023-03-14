@@ -26,12 +26,12 @@ namespace Door2DoorLib.Adapters
         #endregion
 
         #region Methods
-        #region Get Connection String
-        public string GetConnectionString(string databaseName)
-        {
-            return _configuration.GetConnectionString(databaseName);
-        }
-        #endregion
+        //#region Get Connection String
+        //public string GetConnectionString(string databaseName)
+        //{
+        //    return _configuration.GetConnectionString(databaseName);
+        //}
+        //#endregion
 
         #region Close Connection
         // Default close connection method (not in use when overriding from other classes)

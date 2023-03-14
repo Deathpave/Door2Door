@@ -10,7 +10,7 @@ namespace Door2DoorLib.Interfaces
         /// <param name="username"></param>
         /// <param name="pswd"></param>
         /// <returns></returns>
-        Task<bool> CheckLoginAsync(string username, string password);
+        Task<bool> CheckLoginAsync(string userName, string password);
 
         /// <summary>
         /// Adds new admin, and logs the admin who did it

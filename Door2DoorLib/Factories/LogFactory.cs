@@ -7,15 +7,13 @@ namespace Door2DoorLib.Factories
     {
         #region Fields
         private static string _errorLogLocation;
-        private static IDatabase _database;
         #endregion
 
         #region Initialize
         // Sets needed data for factory
-        public static void Initialize(string errorLogLocation, IDatabase database)
+        public static void Initialize(string errorLogLocation)
         {
             _errorLogLocation = errorLogLocation;
-            _database = database;
         }
         #endregion
 

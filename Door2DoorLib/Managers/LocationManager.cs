@@ -19,7 +19,6 @@ namespace Door2DoorLib.Managers
         #endregion
 
         #region Methods
-
         #region Add Location
         /// <summary>
         /// Adds a new location entity to the database
@@ -81,7 +80,7 @@ namespace Door2DoorLib.Managers
         /// </summary>
         /// <param name="id"></param>
         /// <returns></returns>
-        public async Task<Location> GetByIdAsync(int id)
+        public async Task<Location> GetByIdAsync(long id)
         {
             return await _repository.GetByIdAsync(id);
         }
@@ -108,7 +107,6 @@ namespace Door2DoorLib.Managers
             }
         }
         #endregion
-
         #endregion
     }
 }

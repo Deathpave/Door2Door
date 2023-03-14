@@ -20,7 +20,7 @@ builder.Services.AddScoped<ILocationManager, LocationManager>(manager => new Loc
 builder.Services.AddScoped<IDbLogManager, DbLogManager>(manager => new DbLogManager(db));
 
 //Initialize the log that handles errors if database can not be reached
-LogFactory.Initialize(Environment.CurrentDirectory + "\\TestLogs.txt", db);
+LogFactory.Initialize(Environment.CurrentDirectory + "\\TestLogs.txt");
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
