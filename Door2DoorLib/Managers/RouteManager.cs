@@ -20,6 +20,12 @@ namespace Door2DoorLib.Managers
 
         #region Methods
         #region Upload Video
+        /// <summary>
+        ///  Uploads video to fpt server, and returns url for video
+        /// </summary>
+        /// <param name="fileName"></param>
+        /// <param name="fileExtension"></param>
+        /// <returns></returns>
         public async Task<string> UploadVideoAsync(string fileName, string fileExtension)
         {
             string result = _repository.UploadVideo(fileName, fileExtension).Result;
