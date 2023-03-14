@@ -36,6 +36,7 @@ namespace Door2DoorFrontEnd.Controllers
                 //{
                 //    //add new admin to database here
                 //}
+                _routeManager.UploadVideoAsync(model.Video.Name,model.Video.ContentType);
                 return RedirectToAction("Admin",model);
             }
             catch (Exception)
