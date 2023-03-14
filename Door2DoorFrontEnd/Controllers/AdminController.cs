@@ -32,10 +32,11 @@ namespace Door2DoorFrontEnd.Controllers
             try
             {
                 AdminModel adminModel = new AdminModel();
-                if (ModelState.IsValid)
-                {
-                    //add new admin to database here
-                }
+                //if (ModelState.IsValid)
+                //{
+                //    //add new admin to database here
+                //}
+                
                 return RedirectToAction("Admin",model);
             }
             catch (Exception)
