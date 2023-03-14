@@ -1,6 +1,7 @@
 ﻿using Door2DoorLib.DataModels;
 using Door2DoorLib.Factories;
 using Door2DoorLib.Interfaces;
+using Door2DoorLib.Managers;
 using Door2DoorLib.Security;
 using MySql.Data.MySqlClient;
 using System.Data;
@@ -31,13 +32,8 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<bool> CreateAsync(Admin createEntity)
         {
-            //MySqlCommand sqlCommand = new MySqlCommand("d2d.spCreateAdmin");
-            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            //sqlCommand.Parameters.Add(new MySqlParameter("@username", createEntity.UserName));
-            //sqlCommand.Parameters.Add(new MySqlParameter("@password", createEntity.Password));
-
             DbCommand sqlCommand = new SqlCommand("spCreateAdmin");
-            sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+            sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.Parameters.Add(new SqlParameter("@username", new Encryption().EncryptString(createEntity.UserName, createEntity.UserName)));
             sqlCommand.Parameters.Add(new SqlParameter("@password", new Hashing().Sha256Hash(new Encryption().EncryptString(createEntity.Password, createEntity.Password))));
 
@@ -63,10 +59,6 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<bool> DeleteAsync(Admin deleteEntity)
         {
-            //MySqlCommand sqlCommand = new MySqlCommand("spDeleteAdmin");
-            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            //sqlCommand.Parameters.Add(new MySqlParameter("@adminId", deleteEntity.Id));
-
             DbCommand sqlCommand = new SqlCommand("spDeleteAdmin");
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
             sqlCommand.Parameters.Add(new SqlParameter("@adminId", deleteEntity.Id));
@@ -94,10 +86,6 @@ namespace Door2DoorLib.Repositories
         /// <exception cref="NotImplementedException"></exception>
         public async Task<Admin> GetByIdAsync(long id)
         {
-            //MySqlCommand sqlCommand = new MySqlCommand("spGetAdminById");
-            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            //sqlCommand.Parameters.Add(new MySqlParameter("@adminId", id));
-
             DbCommand sqlCommand = new SqlCommand("spGetAdminById");
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
             sqlCommand.Parameters.Add(new SqlParameter("@adminId", id));
@@ -128,32 +116,7 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<Admin>> GetAllAsync()
         {
-            //MySqlCommand sqlCommand = new MySqlCommand("spGetAllRoutes");
-            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-
-            DbCommand sqlCommand = new SqlCommand("spGetAllRoutes");
-            sqlCommand.CommandType = CommandType.StoredProcedure;
-
-            List<Admin> result = new List<Admin>();
-            await _database.OpenConnectionAsync();
-            using (DbDataReader streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
-            {
-                if (streamReader != null)
-                {
-                    // Create a new route from the datastream
-                    while (streamReader.Read())
-                    {
-                        Admin newroute = new Admin(streamReader.GetInt64("id"), streamReader.GetString("username"), streamReader.GetString("password"));
-                        result.Add(newroute);
-                    }
-                }
-                else
-                {
-                    LogFactory.CreateLog(LogTypes.File, "Could not get all admins", MessageTypes.Error).WriteLog();
-                }
-            }
-            _database.CloseConnection();
-            return await Task.FromResult(result);
+            throw new NotImplementedException("This is not allowed");
         }
         #endregion
 
@@ -165,9 +128,6 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<Admin> GetByNameAsync(string name)
         {
-            //MySqlCommand sqlCommand = new MySqlCommand("spGetAdminByName");
-            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-
             DbCommand sqlCommand = new SqlCommand("spGetAdminByName");
             sqlCommand.CommandType = CommandType.StoredProcedure;
 
@@ -201,17 +161,11 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<bool> UpdateAsync(Admin updateEntity)
         {
-            //MySqlCommand sqlCommand = new MySqlCommand("spUpdateAdmin");
-            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            //sqlCommand.Parameters.Add(new MySqlParameter("@adminId", updateEntity.Id));
-            //sqlCommand.Parameters.Add(new MySqlParameter("@newUsername", updateEntity.UserName));
-            //sqlCommand.Parameters.Add(new MySqlParameter("@newPassword", updateEntity.Password));
-
             DbCommand sqlCommand = new SqlCommand("spUpdateAdmin");
             sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.Parameters.Add(new SqlParameter("@adminId", updateEntity.Id));
-            sqlCommand.Parameters.Add(new SqlParameter("@newUsername", updateEntity.UserName));
-            sqlCommand.Parameters.Add(new SqlParameter("@newPassword", updateEntity.Password));
+            sqlCommand.Parameters.Add(new SqlParameter("@username", new Encryption().EncryptString(createEntity.UserName, createEntity.UserName)));
+            sqlCommand.Parameters.Add(new SqlParameter("@password", new Hashing().Sha256Hash(new Encryption().EncryptString(createEntity.Password, createEntity.Password))));
 
             if (_database.ExecuteCommandAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
             {
