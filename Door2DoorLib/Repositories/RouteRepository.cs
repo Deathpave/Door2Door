@@ -217,7 +217,7 @@ namespace Door2DoorLib.Repositories
 
             Route result = null;
 
-            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand);
+            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
 
             if (dataReader.HasRows == false) return result;
 
