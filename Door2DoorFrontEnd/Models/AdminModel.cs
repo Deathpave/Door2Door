@@ -7,9 +7,18 @@ namespace Door2DoorFrontEnd.Models
         public string Username { get; set; }
 
         public string NewAdminUsername { get; set; }
+
         public string NewAdminPswd { get; set; }
 
-        public Door2DoorLib.DataModels.Route newroute { get; set; }
+        public string NewRouteStart { get; set; }
+
+        public string NewRouteEnd { get; set; }
+
+        public string NewRouteDescription { get; set; }
+
+        public string NewRouteVideoUrl { get; set; }
+
+        public string DeleteRoute { get; set; }
 
         public IFormFile Video { get; set; }
 
@@ -17,6 +26,9 @@ namespace Door2DoorFrontEnd.Models
 
         public string FileExtension { get; set; }
 
+        public string NewLocationName { get; set; }
+
+        public IFormFile NewLocationIcon { get; set; }
 
     }
 
