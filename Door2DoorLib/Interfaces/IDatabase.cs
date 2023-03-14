@@ -1,5 +1,4 @@
-﻿using MySql.Data.MySqlClient;
-using System.Data.Common;
+﻿using System.Data.Common;
 
 namespace Door2DoorLib.Interfaces
 {
