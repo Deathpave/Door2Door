@@ -43,10 +43,12 @@
 
     <a onclick="toggleform('addadmin')">Tilføj admin</a>
     <div id="addadmin" class="formwrapper">
-        @using (Html.BeginForm("AddAdmin","Admin",FormMethod.Post,new { @id = "actionform" }))
+        @using (Html.BeginForm("AddAdmin", "Admin", FormMethod.Post))
         {
             @Html.AntiForgeryToken();
-            @Html.TextBoxFor(Model => Model.newadmin)
+            @Html.TextBoxFor(Model => Model.newadmin.UserName, new {placeholder="Brugernavn"})
+            //TODO
+            @Html.TextBoxFor(Model => Model.newadmin.Password,new {type="password", placeholder="Kodeord"})//hash the password
             <input id="button" value="Tilføj" type="submit"/>
         }
 
