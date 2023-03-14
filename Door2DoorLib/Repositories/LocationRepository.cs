@@ -41,7 +41,8 @@ namespace Door2DoorLib.Repositories
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
             dataReader.Read();
             affectedRows = dataReader.RecordsAffected;
-
+            await _database.CloseConnection();
+            
             if (affectedRows > 0)
             {
                 return await Task.FromResult(true);
@@ -71,6 +72,7 @@ namespace Door2DoorLib.Repositories
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
             dataReader.Read();
             affectedRows = dataReader.RecordsAffected;
+            await _database.CloseConnection();
 
             if (affectedRows != 0)
             {
@@ -105,6 +107,7 @@ namespace Door2DoorLib.Repositories
                 Location newLocation = new Location(dataReader.GetString("name"), dataReader.GetString("iconUrl"), dataReader.GetInt64("id"));
                 result.Add(newLocation);
             }
+            await _database.CloseConnection();
             return await Task.FromResult(result);
         }
 
@@ -135,6 +138,7 @@ namespace Door2DoorLib.Repositories
             {
                 result = new Location(dataReader.GetString("name"), dataReader.GetString("iconUrl"), dataReader.GetInt64("id"));
             }
+            await _database.CloseConnection();
             return await Task.FromResult(result);
         }
 
@@ -160,6 +164,7 @@ namespace Door2DoorLib.Repositories
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
             dataReader.Read();
             affectedRows = dataReader.RecordsAffected;
+            await _database.CloseConnection();
 
             if (affectedRows != 0)
             {

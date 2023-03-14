@@ -34,6 +34,7 @@ namespace Door2DoorLib.Repositories
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
             dataReader.Read();
             affectedRows = dataReader.RecordsAffected;
+            await _database.CloseConnection();
 
             if (affectedRows > 0)
             {
@@ -59,6 +60,7 @@ namespace Door2DoorLib.Repositories
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
             dataReader.Read();
             affectedRows = dataReader.RecordsAffected;
+            await _database.CloseConnection();
 
             if (affectedRows != 0)
             {
@@ -88,8 +90,8 @@ namespace Door2DoorLib.Repositories
                 DatabaseLog newLog = new DatabaseLog(dataReader.GetInt64("id"), (MessageTypes)dataReader.GetInt32("type"), dataReader.GetString("message"), dataReader.GetDateTime("timestamp"));
                 result.Add(newLog);
             }
+            await _database.CloseConnection();
             return await Task.FromResult(result);
-
         }
 
         public async Task<DatabaseLog> GetByIdAsync(long id)
@@ -114,6 +116,7 @@ namespace Door2DoorLib.Repositories
             {
                 result = new DatabaseLog(dataReader.GetInt64("id"), (MessageTypes)dataReader.GetInt32("type"), dataReader.GetString("message"), dataReader.GetDateTime("timestamp"));
             }
+            await _database.CloseConnection();
             return await Task.FromResult(result);
         }
 
@@ -138,6 +141,7 @@ namespace Door2DoorLib.Repositories
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
             dataReader.Read();
             affectedRows = dataReader.RecordsAffected;
+            await _database.CloseConnection();
 
             if (affectedRows != 0)
             {
