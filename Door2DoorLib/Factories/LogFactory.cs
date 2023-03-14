@@ -7,7 +7,6 @@ namespace Door2DoorLib.Factories
     {
         #region Fields
         private static string _errorLogLocation;
-        private static IDatabase _database;
         #endregion
 
         #region Initialize
