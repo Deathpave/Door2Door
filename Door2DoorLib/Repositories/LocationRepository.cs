@@ -40,7 +40,7 @@ namespace Door2DoorLib.Repositories
             sqlCommand.Parameters.Add(new SqlParameter("@newIconUrl", createEntity.IconUrl));
 
             await _database.OpenConnectionAsync();
-            var result = _database.ExecuteCommandAsync(sqlCommand).Status;
+            var result = _database.ExecuteQueryAsync(sqlCommand).Status;
             _database.CloseConnection();
             if (result == TaskStatus.RanToCompletion)
             {
@@ -68,7 +68,7 @@ namespace Door2DoorLib.Repositories
             sqlCommand.Parameters.Add(new SqlParameter("@locationId", deleteEntity.Id));
 
             await _database.OpenConnectionAsync();
-            var result = _database.ExecuteCommandAsync(sqlCommand).Status;
+            var result = _database.ExecuteQueryAsync(sqlCommand).Status;
             _database.CloseConnection();
             if (result == TaskStatus.RanToCompletion)
             {
@@ -94,7 +94,7 @@ namespace Door2DoorLib.Repositories
 
             List<Location> result = new List<Location>();
             await _database.OpenConnectionAsync();
-            using (DbDataReader streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
+            using (DbDataReader streamReader = _database.ExecuteQueryAsync(sqlCommand).Result)
             {
                 if (streamReader != null)
                 {
@@ -131,7 +131,7 @@ namespace Door2DoorLib.Repositories
 
             Location result = null;
             await _database.OpenConnectionAsync();
-            using (var streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
+            using (var streamReader = _database.ExecuteQueryAsync(sqlCommand).Result)
             {
                 if (streamReader != null)
                 {
@@ -167,7 +167,7 @@ namespace Door2DoorLib.Repositories
             sqlCommand.Parameters.Add(new SqlParameter("@newText", updateEntity.Name));
             sqlCommand.Parameters.Add(new SqlParameter("@videourl", updateEntity.IconUrl));
 
-            if (_database.ExecuteCommandAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
+            if (_database.ExecuteQueryAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
             {
                 return await Task.FromResult(true);
             }
