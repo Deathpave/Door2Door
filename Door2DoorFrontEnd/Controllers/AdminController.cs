@@ -21,7 +21,7 @@ namespace Door2DoorFrontEnd.Controllers
         {
             //Door2DoorLib.DataModels.Admin admin = _adminManager.
             AdminModel model = new AdminModel();
-            model.newadmin = new Admin(0,null,null);
+
 
             return View("Admin",model);
         }

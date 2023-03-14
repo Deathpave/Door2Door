@@ -43,15 +43,15 @@
 
     <a onclick="toggleform('addadmin')">Tilføj admin</a>
     <div id="addadmin" class="formwrapper">
-        @using (Html.BeginForm("AddAdmin", "Admin", FormMethod.Post))
+        @using (Html.BeginForm("AddAdmin", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken();
-            @Html.TextBoxFor(Model => Model.newadmin.UserName, new {placeholder="Brugernavn"})
+            @Html.TextBoxFor(Model => Model.NewAdminUsername, new {placeholder="Brugernavn"})
             //TODO
-            @Html.TextBoxFor(Model => Model.newadmin.Password,new {type="password", placeholder="Kodeord"})//hash the password
+            @Html.TextBoxFor(Model => Model.NewAdminPswd,new {type="password", placeholder="Kodeord"})//hash the password
+            @Html.TextBoxFor(Model => Model.Video, new {  type= "file"})
             <input id="button" value="Tilføj" type="submit"/>
         }
-
     </div>
 
     <a onclick="toggleform('removeadmin')">Fjern admin</a>
