@@ -27,7 +27,7 @@ namespace Door2DoorLib.Repositories
         {
             try
             {
-                using var stream = File.OpenWrite($"C:\\Door2Door\\Videos\\{file.Name}{file.Name}");
+                using var stream = File.OpenWrite($"C:\\Door2Door\\Videos\\{file.FileName}");
                 await file.CopyToAsync(stream);
                 //using (WebClient client = new WebClient())
                 //{
@@ -35,7 +35,7 @@ namespace Door2DoorLib.Repositories
                 //    client.UploadFile($"ftp://10.13.0.125//Videos/{fileName}.{fileExtension}", fileName+fileExtension);
                 //    return Task.FromResult($"ftp://10.13.0.125//Videos/{fileName}.{fileExtension}");
                 //}
-                return await Task.FromResult($"ftp://10.13.0.125//Videos/{file.Name}");
+                return await Task.FromResult($"ftp://10.13.0.125//Videos/{file.FileName}");
             }
             catch (Exception)
             {
