@@ -17,7 +17,11 @@ namespace Door2DoorLib.Repositories
             _database = database;
         }
 
-
+        /// <summary>
+        /// Creates a Log entity in the database
+        /// </summary>
+        /// <param name="createEntity"></param>
+        /// <returns></returns>
         public async Task<bool> CreateAsync(DatabaseLog createEntity)
         {
             DbCommand sqlCommand = new SqlCommand("spCreateLog");
@@ -34,6 +38,7 @@ namespace Door2DoorLib.Repositories
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
             dataReader.Read();
             affectedRows = dataReader.RecordsAffected;
+            await _database.CloseConnection();
 
             if (affectedRows > 0)
             {
@@ -45,6 +50,11 @@ namespace Door2DoorLib.Repositories
             }
         }
 
+        /// <summary>
+        /// Deletes a Log Entity from the database
+        /// </summary>
+        /// <param name="deleteEntity"></param>
+        /// <returns></returns>
         public async Task<bool> DeleteAsync(DatabaseLog deleteEntity)
         {
             DbCommand sqlCommand = new SqlCommand("spDeleteLog");
@@ -59,6 +69,7 @@ namespace Door2DoorLib.Repositories
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
             dataReader.Read();
             affectedRows = dataReader.RecordsAffected;
+            await _database.CloseConnection();
 
             if (affectedRows != 0)
             {
@@ -70,6 +81,10 @@ namespace Door2DoorLib.Repositories
             }
         }
 
+        /// <summary>
+        /// Returns all Log entities from the database
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<DatabaseLog>> GetAllAsync()
         {
             DbCommand sqlCommand = new SqlCommand("spGetAllLogs");
@@ -88,10 +103,15 @@ namespace Door2DoorLib.Repositories
                 DatabaseLog newLog = new DatabaseLog(dataReader.GetInt64("id"), (MessageTypes)dataReader.GetInt32("type"), dataReader.GetString("message"), dataReader.GetDateTime("timestamp"));
                 result.Add(newLog);
             }
+            await _database.CloseConnection();
             return await Task.FromResult(result);
-
         }
 
+        /// <summary>
+        /// Returns a Log Entity with a matching id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<DatabaseLog> GetByIdAsync(long id)
         {
             DbCommand sqlCommand = new SqlCommand("spGetLogById");
@@ -114,9 +134,15 @@ namespace Door2DoorLib.Repositories
             {
                 result = new DatabaseLog(dataReader.GetInt64("id"), (MessageTypes)dataReader.GetInt32("type"), dataReader.GetString("message"), dataReader.GetDateTime("timestamp"));
             }
+            await _database.CloseConnection();
             return await Task.FromResult(result);
         }
 
+        /// <summary>
+        /// Updates a Log Entity in the database
+        /// </summary>
+        /// <param name="updateEntity"></param>
+        /// <returns></returns>
         public async Task<bool> UpdateAsync(DatabaseLog updateEntity)
         {
             DbCommand sqlCommand = new SqlCommand("spUpdateLog");
@@ -138,6 +164,7 @@ namespace Door2DoorLib.Repositories
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
             dataReader.Read();
             affectedRows = dataReader.RecordsAffected;
+            await _database.CloseConnection();
 
             if (affectedRows != 0)
             {

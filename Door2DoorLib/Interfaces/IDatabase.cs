@@ -7,7 +7,7 @@ namespace Door2DoorLib.Interfaces
         #region Methods
         Task<DbDataReader> ExecuteQueryAsync(DbCommand sqlCommand, IDictionary<string, object> sqlParams = null);
         Task<bool> OpenConnectionAsync();
-        void CloseConnection();
+        Task<bool> CloseConnection();
         #endregion
     }
 }
