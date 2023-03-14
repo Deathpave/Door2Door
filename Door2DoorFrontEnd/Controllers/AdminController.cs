@@ -23,9 +23,9 @@ namespace Door2DoorFrontEnd.Controllers
         {
             //Door2DoorLib.DataModels.Admin admin = _adminManager.
             AdminModel model = new AdminModel();
-            model.LocationList = (IEnumerable<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem>)_locationManager.GetAllAsync().Result.ToList();
+            model.LocationList = _locationManager.GetAllAsync().Result.ToList();
 
-            return View("Admin",model);
+            return View("Admin", model);
         }
 
         [HttpPost]
@@ -37,7 +37,7 @@ namespace Door2DoorFrontEnd.Controllers
                 //{
                 //    //add new admin to database here
                 //}
-                await _routeManager.UploadVideoAsync(model.Video.Name,model.Video.ContentType);
+                await _routeManager.UploadVideoAsync(model.Video.Name, model.Video.ContentType);
                 return RedirectToAction("Admin", model);
             }
             catch (Exception)
@@ -55,9 +55,9 @@ namespace Door2DoorFrontEnd.Controllers
                 //{
                 //    //add new admin to database here
                 //}
-                Location location = new Location(model.NewLocationName,"");
-                Admin currentadmin = new Admin(model.Username,null);
-                _locationManager.CreateAsync(location,currentadmin);
+                Location location = new Location(model.NewLocationName, "");
+                Admin currentadmin = new Admin(model.Username, null);
+                _locationManager.CreateAsync(location, currentadmin);
                 return RedirectToAction("Admin", model);
             }
             catch (Exception)
@@ -73,12 +73,12 @@ namespace Door2DoorFrontEnd.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    Door2DoorLib.DataModels.Route newroute = new Door2DoorLib.DataModels.Route(model.NewRouteVideoUrl, model.NewRouteDescription, model.SelectedStartLocation,model.SelectedEndLocation);
+                    Door2DoorLib.DataModels.Route newroute = new Door2DoorLib.DataModels.Route(model.NewRouteVideoUrl, model.NewRouteDescription, model.SelectedStartLocation, model.SelectedEndLocation);
                     Admin admin = new Admin(model.Username, "");
 
                     _routeManager.CreateAsync(newroute, admin);
                 }
-                return View("Admin",model);
+                return View("Admin", model);
             }
             catch (Exception)
             {

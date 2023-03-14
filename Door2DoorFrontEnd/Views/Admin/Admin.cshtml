@@ -69,7 +69,8 @@
             @Html.AntiForgeryToken();
 @*            @Html.TextBoxFor(Model => Model.NewRouteStart, new {placeholder = "Start lokation"})
             @Html.TextBoxFor(Model => Model.NewRouteStart, new {placeholder = "slut lokation"})*@
-            @Html.TextBoxFor(Model => Model.NewRouteDescription, new {placeholder = "Beskrivelse"})
+            //@Html.TextBoxFor(Model => Model.NewRouteDescription, new {placeholder = "Beskrivelse"})
+            @Html.DropDownListFor(o=>o.SelectedStartLocation, new SelectList(Model.LocationList, "Id", "Name"))
             <input id="button" value="Tilføj" type="submit"/>
         }
     </div>

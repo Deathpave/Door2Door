@@ -32,7 +32,7 @@ namespace Door2DoorFrontEnd.Models
 
         public IFormFile NewLocationIcon { get; set; }
 
-        public IEnumerable<SelectListItem> LocationList { get; set; }
+        public IEnumerable<Location> LocationList { get; set; }
 
         public int SelectedStartLocation { get; set; }
         public int SelectedEndLocation { get; set; }
