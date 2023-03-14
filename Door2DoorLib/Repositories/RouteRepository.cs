@@ -44,7 +44,6 @@ namespace Door2DoorLib.Repositories
         #endregion
 
         #region Create Async
-
         /// <summary>
         /// Creates a route entity in the database
         /// </summary>
