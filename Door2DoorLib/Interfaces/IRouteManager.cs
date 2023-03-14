@@ -56,6 +56,6 @@ namespace Door2DoorLib.Interfaces
         /// <param name="fileName"></param>
         /// <param name="fileExtension"></param>
         /// <returns></returns>
-        Task<bool> UploadVideoAsync(string filePath, string fileName, string fileExtension);
+        Task<bool> UploadVideoAsync(string fileName, string fileExtension);
     }
 }
