@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Http;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using System.Net;
 
 namespace Door2DoorLib.Repositories
 {
@@ -29,12 +28,6 @@ namespace Door2DoorLib.Repositories
             {
                 using var stream = File.OpenWrite($"C:\\Door2Door\\Videos\\{file.FileName}");
                 await file.CopyToAsync(stream);
-                //using (WebClient client = new WebClient())
-                //{
-                //    client.Credentials = new NetworkCredential("Administrator", "Kode1234!");
-                //    client.UploadFile($"ftp://10.13.0.125//Videos/{fileName}.{fileExtension}", fileName+fileExtension);
-                //    return Task.FromResult($"ftp://10.13.0.125//Videos/{fileName}.{fileExtension}");
-                //}
                 return await Task.FromResult($"ftp://10.13.0.125//Videos/{file.FileName}");
             }
             catch (Exception)
