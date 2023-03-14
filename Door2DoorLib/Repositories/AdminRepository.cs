@@ -1,7 +1,5 @@
 ﻿using Door2DoorLib.DataModels;
-using Door2DoorLib.Factories;
 using Door2DoorLib.Interfaces;
-using Door2DoorLib.Security;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -11,7 +9,7 @@ namespace Door2DoorLib.Repositories
     internal class AdminRepository : IAdminRepository
     {
         #region Fields
-        private IDatabase _database;
+        private readonly IDatabase _database;
         #endregion
 
         #region Constructor
@@ -32,13 +30,19 @@ namespace Door2DoorLib.Repositories
         {
             DbCommand sqlCommand = new SqlCommand("spCreateAdmin");
             sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.Parameters.Add(new SqlParameter("@username", new Encryption().EncryptString(createEntity.UserName, createEntity.UserName)));
-            sqlCommand.Parameters.Add(new SqlParameter("@password", new Hashing().Sha256Hash(new Encryption().EncryptString(createEntity.Password, createEntity.Password))));
+            int affectedRows = 0;
 
-            await _database.OpenConnectionAsync();
-            var result = _database.ExecuteQueryAsync(sqlCommand).Status;
-            _database.CloseConnection();
-            if (result == TaskStatus.RanToCompletion)
+            IDictionary<string, object> sqlParams = new Dictionary<string, object>
+            {
+                {"@username", createEntity.UserName },
+                {"@password", createEntity.Password }
+            };
+
+            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
+            dataReader.Read();
+            affectedRows = dataReader.RecordsAffected;
+
+            if (affectedRows > 0)
             {
                 return await Task.FromResult(true);
             }
@@ -59,18 +63,24 @@ namespace Door2DoorLib.Repositories
         {
             DbCommand sqlCommand = new SqlCommand("spDeleteAdmin");
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sqlCommand.Parameters.Add(new SqlParameter("@adminId", deleteEntity.Id));
+            int affectedRows = 0;
 
-            await _database.OpenConnectionAsync();
-            var result = _database.ExecuteQueryAsync(sqlCommand).Status;
-            _database.CloseConnection();
-            if (result == TaskStatus.RanToCompletion)
+            IDictionary<string, object> sqlParams = new Dictionary<string, object>
             {
-                return await Task.FromResult(true);
+                { "@adminId", deleteEntity.Id }
+            };
+
+            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
+            dataReader.Read();
+            affectedRows = dataReader.RecordsAffected;
+
+            if (affectedRows != 0)
+            {
+                return true;
             }
             else
             {
-                return await Task.FromResult(false);
+                return false;
             }
         }
         #endregion
@@ -86,23 +96,24 @@ namespace Door2DoorLib.Repositories
         {
             DbCommand sqlCommand = new SqlCommand("spGetAdminById");
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sqlCommand.Parameters.Add(new SqlParameter("@adminId", id));
-
             Admin result = null;
-            await _database.OpenConnectionAsync();
-            using (var streamReader = _database.ExecuteQueryAsync(sqlCommand).Result)
+
+            IDictionary<string, object> sqlParams = new Dictionary<string, object>
             {
-                if (streamReader != null)
-                {
-                    // Create a new route from the datastream
-                    result = new Admin(streamReader.GetString("username"), streamReader.GetString("password"), streamReader.GetInt64("id"));
-                }
-                else
-                {
-                    LogFactory.CreateLog(LogTypes.File, $"Could not get route by id {id}", MessageTypes.Error);
-                }
+                { "@adminId", id }
+            };
+
+            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
+
+            if (dataReader.HasRows == false)
+            {
+                return result;
             }
-            _database.CloseConnection();
+
+            while (dataReader.Read())
+            {
+                result = new Admin(dataReader.GetString("username"), dataReader.GetString("password"));
+            }
             return await Task.FromResult(result);
         }
         #endregion
@@ -128,26 +139,26 @@ namespace Door2DoorLib.Repositories
         {
             DbCommand sqlCommand = new SqlCommand("spGetAdminByName");
             sqlCommand.CommandType = CommandType.StoredProcedure;
-
             Admin result = null;
-            await _database.OpenConnectionAsync();
-            using (DbDataReader streamReader = _database.ExecuteQueryAsync(sqlCommand).Result)
+
+            IDictionary<string, object> sqlParams = new Dictionary<string, object>
             {
-                if (streamReader != null)
-                {
-                    // Create a new route from the datastream
-                    while (streamReader.Read())
-                    {
-                        result = new Admin(streamReader.GetString("username"), streamReader.GetString("password"), streamReader.GetInt64("id"));
-                    }
-                }
-                else
-                {
-                    LogFactory.CreateLog(LogTypes.File, "Could not get admin by name", MessageTypes.Error).WriteLog();
-                }
+                { "@adminName", name }
+            };
+
+            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
+
+            if (dataReader.HasRows == false)
+            {
+                return result;
             }
-            _database.CloseConnection();
+
+            while (dataReader.Read())
+            {
+                result = new Admin(dataReader.GetString("username"), dataReader.GetString("password"));
+            }
             return await Task.FromResult(result);
+
         }
         #endregion
 
@@ -161,17 +172,26 @@ namespace Door2DoorLib.Repositories
         {
             DbCommand sqlCommand = new SqlCommand("spUpdateAdmin");
             sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.Parameters.Add(new SqlParameter("@adminId", updateEntity.Id));
-            sqlCommand.Parameters.Add(new SqlParameter("@username", new Encryption().EncryptString(updateEntity.UserName, updateEntity.UserName)));
-            sqlCommand.Parameters.Add(new SqlParameter("@password", new Hashing().Sha256Hash(new Encryption().EncryptString(updateEntity.Password, updateEntity.Password))));
+            int affectedRows = 0;
 
-            if (_database.ExecuteQueryAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
+            IDictionary<string, object> sqlParams = new Dictionary<string, object>
             {
-                return await Task.FromResult(true);
+                { "@adminId", updateEntity.Id },
+                { "@username", updateEntity.UserName },
+                { "@password", updateEntity.Password }
+            };
+
+            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
+            dataReader.Read();
+            affectedRows = dataReader.RecordsAffected;
+
+            if (affectedRows != 0)
+            {
+                return true;
             }
             else
             {
-                return await Task.FromResult(false);
+                return false;
             }
         }
         #endregion
