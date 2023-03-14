@@ -164,8 +164,8 @@ namespace Door2DoorLib.Repositories
             DbCommand sqlCommand = new SqlCommand("spUpdateAdmin");
             sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.Parameters.Add(new SqlParameter("@adminId", updateEntity.Id));
-            sqlCommand.Parameters.Add(new SqlParameter("@username", new Encryption().EncryptString(createEntity.UserName, createEntity.UserName)));
-            sqlCommand.Parameters.Add(new SqlParameter("@password", new Hashing().Sha256Hash(new Encryption().EncryptString(createEntity.Password, createEntity.Password))));
+            sqlCommand.Parameters.Add(new SqlParameter("@username", new Encryption().EncryptString(updateEntity.UserName, updateEntity.UserName)));
+            sqlCommand.Parameters.Add(new SqlParameter("@password", new Hashing().Sha256Hash(new Encryption().EncryptString(updateEntity.Password, updateEntity.Password))));
 
             if (_database.ExecuteCommandAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
             {
