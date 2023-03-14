@@ -23,7 +23,7 @@ namespace Door2DoorFrontEnd.Controllers
         {
             //Door2DoorLib.DataModels.Admin admin = _adminManager.
             AdminModel model = new AdminModel();
-
+            model.LocationList = (IEnumerable<Microsoft.AspNetCore.Mvc.Rendering.SelectListItem>)_locationManager.GetAllAsync().Result.ToList();
 
             return View("Admin",model);
         }
@@ -73,13 +73,10 @@ namespace Door2DoorFrontEnd.Controllers
             {
                 if (ModelState.IsValid)
                 {
-                    //Location startlocation = new Location(0,model.NewRouteStart,"");
-                    //Location endlocation = new Location(0, model.NewRouteEnd, "");
-                    
-                    //Door2DoorLib.DataModels.Route newroute = new Door2DoorLib.DataModels.Route(0,model.NewRouteVideoUrl,model.NewRouteDescription, startlocation,endlocation);
-                    //Admin admin = new Admin(-1, model.Username,"");
+                    Door2DoorLib.DataModels.Route newroute = new Door2DoorLib.DataModels.Route(model.NewRouteVideoUrl, model.NewRouteDescription, model.SelectedStartLocation,model.SelectedEndLocation);
+                    Admin admin = new Admin(model.Username, "");
 
-                    //_routeManager.CreateAsync(model.newroute,admin);
+                    _routeManager.CreateAsync(newroute, admin);
                 }
                 return View("Admin",model);
             }

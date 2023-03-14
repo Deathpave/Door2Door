@@ -67,8 +67,8 @@
         @using (Html.BeginForm("AddRoute", "Admin", FormMethod.Post))
         {
             @Html.AntiForgeryToken();
-            @Html.TextBoxFor(Model => Model.NewRouteStart, new {placeholder = "Start lokation"})
-            @Html.TextBoxFor(Model => Model.NewRouteStart, new {placeholder = "slut lokation"})
+@*            @Html.TextBoxFor(Model => Model.NewRouteStart, new {placeholder = "Start lokation"})
+            @Html.TextBoxFor(Model => Model.NewRouteStart, new {placeholder = "slut lokation"})*@
             @Html.TextBoxFor(Model => Model.NewRouteDescription, new {placeholder = "Beskrivelse"})
             <input id="button" value="Tilføj" type="submit"/>
         }
