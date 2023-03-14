@@ -36,7 +36,7 @@ namespace Door2DoorLib.Repositories
             sqlCommand.Parameters.Add(new SqlParameter("@password", new Hashing().Sha256Hash(new Encryption().EncryptString(createEntity.Password, createEntity.Password))));
 
             await _database.OpenConnectionAsync();
-            var result = _database.ExecuteCommandAsync(sqlCommand).Status;
+            var result = _database.ExecuteQueryAsync(sqlCommand).Status;
             _database.CloseConnection();
             if (result == TaskStatus.RanToCompletion)
             {
@@ -62,7 +62,7 @@ namespace Door2DoorLib.Repositories
             sqlCommand.Parameters.Add(new SqlParameter("@adminId", deleteEntity.Id));
 
             await _database.OpenConnectionAsync();
-            var result = _database.ExecuteCommandAsync(sqlCommand).Status;
+            var result = _database.ExecuteQueryAsync(sqlCommand).Status;
             _database.CloseConnection();
             if (result == TaskStatus.RanToCompletion)
             {
@@ -90,7 +90,7 @@ namespace Door2DoorLib.Repositories
 
             Admin result = null;
             await _database.OpenConnectionAsync();
-            using (var streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
+            using (var streamReader = _database.ExecuteQueryAsync(sqlCommand).Result)
             {
                 if (streamReader != null)
                 {
@@ -131,7 +131,7 @@ namespace Door2DoorLib.Repositories
 
             Admin result = null;
             await _database.OpenConnectionAsync();
-            using (DbDataReader streamReader = _database.ExecuteCommandAsync(sqlCommand).Result)
+            using (DbDataReader streamReader = _database.ExecuteQueryAsync(sqlCommand).Result)
             {
                 if (streamReader != null)
                 {
@@ -165,7 +165,7 @@ namespace Door2DoorLib.Repositories
             sqlCommand.Parameters.Add(new SqlParameter("@username", new Encryption().EncryptString(updateEntity.UserName, updateEntity.UserName)));
             sqlCommand.Parameters.Add(new SqlParameter("@password", new Hashing().Sha256Hash(new Encryption().EncryptString(updateEntity.Password, updateEntity.Password))));
 
-            if (_database.ExecuteCommandAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
+            if (_database.ExecuteQueryAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
             {
                 return await Task.FromResult(true);
             }

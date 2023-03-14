@@ -1,21 +1,23 @@
 ﻿using Door2DoorLib.Factories;
 using Microsoft.Extensions.Configuration;
+using MySql.Data.MySqlClient;
 using System.Data.Common;
-using System.Data.SqlClient;
+using System.Data;
+using System.Xml;
 
 namespace Door2DoorLib.Adapters
 {
     internal class MySqlDatabase : Database
     {
         #region Fields
-        private SqlConnection _sqlConnection;
+        private MySqlConnection _mySqlConnection;
         #endregion
 
         #region Constructor
         public MySqlDatabase(IConfiguration configuration, string databaseName) : base(configuration, databaseName)
         {
             // Creating our database connection
-            _sqlConnection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
+            _mySqlConnection = new MySqlConnection(configuration.GetConnectionString("DefaultConnection"));
         }
         #endregion
 
@@ -26,7 +28,12 @@ namespace Door2DoorLib.Adapters
         {
             try
             {
-                _sqlConnection.Open();
+                if (_mySqlConnection.State == ConnectionState.Open)
+                {
+                    return await Task.FromResult(true);
+                }
+
+                await _mySqlConnection.OpenAsync();
                 return await Task.FromResult(true);
             }
             catch (Exception e)
@@ -36,7 +43,7 @@ namespace Door2DoorLib.Adapters
             }
 
         }
-        #endregion
+        #endregion  
 
         #region Close Connection
         // Closes the database connection
@@ -44,7 +51,7 @@ namespace Door2DoorLib.Adapters
         {
             try
             {
-                _sqlConnection.Close();
+                _mySqlConnection.Close();
             }
             catch (Exception e)
             {
@@ -55,20 +62,41 @@ namespace Door2DoorLib.Adapters
 
         #region Execute Command Async
         // Executes sql command
-        public override Task<DbDataReader?> ExecuteCommandAsync(DbCommand sqlCommand)
+        public override async Task<DbDataReader> ExecuteQueryAsync(DbCommand sqlCommand, IDictionary<string, object> sqlParams = null)
         {
             try
             {
-                sqlCommand.Connection = _sqlConnection;
-                return Task.FromResult(sqlCommand.ExecuteReader());
+                using MySqlCommand commandObj = new()
+                {
+                    CommandText = sqlCommand.CommandText,
+                    CommandType = sqlCommand.CommandType,
+                    Connection = _mySqlConnection,
+                };
+
+                if (sqlParams != null)
+                {
+                    AddSqlParamsToSqlCommand(commandObj, sqlParams);
+                }
+
+                await OpenConnectionAsync();
+
+                return await commandObj.ExecuteReaderAsync(CommandBehavior.CloseConnection);
             }
             catch (Exception e)
             {
                 LogFactory.CreateLog(LogTypes.File, $"Failed to execute sql command due to {e.Message}", MessageTypes.Error).WriteLog();
-                return Task.FromResult<DbDataReader?>(null);
+                return await Task.FromResult<DbDataReader?>(null);
             }
         }
         #endregion
+
+        private static void AddSqlParamsToSqlCommand(MySqlCommand commandObj, IDictionary<string, object> sqlParams)
+        {
+            foreach (var param in sqlParams)
+            {
+                commandObj.Parameters.AddWithValue(param.Key, param.Value);
+            }
+        }
         #endregion
     }
 }
