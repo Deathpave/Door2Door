@@ -2,7 +2,6 @@
 using Door2DoorLib.Factories;
 using Door2DoorLib.Interfaces;
 using MySql.Data.MySqlClient;
-using Org.BouncyCastle.Crypto.Prng;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -26,14 +25,14 @@ namespace Door2DoorLib.Repositories
 
         #region Methods
         #region Upload Video
-        public Task<string> UploadVideo(string filePath, string fileName, string fileExtension)
+        public Task<string> UploadVideo(string fileName, string fileExtension)
         {
             try
             {
                 using (WebClient client = new WebClient())
                 {
                     client.Credentials = new NetworkCredential("Administrator", "Kode1234!");
-                    client.UploadFile($"ftp://10.13.0.125//path/{fileName}.{fileExtension}", WebRequestMethods.Ftp.UploadFile, filePath);
+                    client.UploadFile($"ftp://10.13.0.125//path/{fileName}.{fileExtension}", WebRequestMethods.Ftp.UploadFile);
                     return Task.FromResult($"ftp://10.13.0.125//path/{fileName}.{fileExtension}");
                 }
             }
