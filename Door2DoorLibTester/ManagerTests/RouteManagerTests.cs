@@ -9,27 +9,21 @@ namespace Door2DoorLibTester.ManagerTests
     internal class RouteManagerTests
     {
         private IRouteManager? _routeManager;
-        private Route testRoute = null;
-        private Admin testUser = null;
+        private int testId = 0;
 
-
-        [SetUp]
-        public async Task SetupAsync()
+        [OneTimeSetUp]
+        public void Setup()
         {
             var db = SqlConfigurationSetup.SetupDB();
             _routeManager = new RouteManager(db);
 
-            testRoute = await CreateTestObject();
-            testUser = CreateTestUser();
+            testId = GetTestId();
         }
 
         [Test]
         [Order(1)]
         public async Task GetAllAsync_HasData_IfCollectionIsNotNull()
         {
-            //Arrange
-            int collectionCount = 0;
-
             //Act
             var routes = await _routeManager.GetAllAsync();
             AsyncTestDelegate getAllAction = async () => await _routeManager.GetAllAsync();
@@ -37,7 +31,7 @@ namespace Door2DoorLibTester.ManagerTests
             //Assert
             Assert.IsNotNull(routes);
             Assert.IsNotEmpty(routes);
-            Assert.Greater(routes.Count(), collectionCount);
+            Assert.Greater(routes.Count(), 0);
             Assert.DoesNotThrowAsync(getAllAction);
         }
 
@@ -45,6 +39,10 @@ namespace Door2DoorLibTester.ManagerTests
         [Order(2)]
         public async Task CreateAsync_CreatesARoute_IfArgumentsAreValid()
         {
+            //Arrange
+            Route testRoute = CreateTestRoute();
+            Admin testUser = CreateTestUser();
+
             //Act
             bool result = await _routeManager.CreateAsync(testRoute, testUser);
 
@@ -60,6 +58,7 @@ namespace Door2DoorLibTester.ManagerTests
         {
             //Arrange
             Route requestedRoute;
+            Route testRoute = CreateTestRoute();
 
             //Act
             requestedRoute = await _routeManager.GetByIdAsync(testRoute.Id);
@@ -74,11 +73,31 @@ namespace Door2DoorLibTester.ManagerTests
 
         [Test]
         [Order(4)]
+        public async Task GetByLocationsAsync_ReturnsAValidObject_IFArgumentsAreValid()
+        {
+            //Arrange
+            Route requestedRoute;
+            Route testRoute = CreateTestRoute();
+
+            //Act
+            requestedRoute = await _routeManager.GetByLocationsAsync(testRoute.StartLocation, testRoute.EndLocation);
+
+            //Assert
+            Assert.AreEqual(testRoute.Id, requestedRoute.Id);
+            Assert.AreEqual(testRoute.Description, requestedRoute.Description);
+            Assert.AreEqual(testRoute.VideoUrl, requestedRoute.VideoUrl);
+            Assert.AreEqual(testRoute.StartLocation, requestedRoute.StartLocation);
+            Assert.AreEqual(testRoute.EndLocation, requestedRoute.EndLocation);
+        }
+
+        [Test]
+        [Order(5)]
         public async Task UpdateAsync_UpdatesExistingObject_IfArgumentsAreValid()
         {
-            Route updatedRoute = await CreateUpdatedTestObject();
-
-            await _routeManager.CreateAsync(testRoute, testUser);
+            //Arrange
+            Route testRoute = CreateTestRoute();
+            Route updatedRoute = CreateUpdatedTestObject();
+            Admin testUser = CreateTestUser();
 
             //Act
             var result = await _routeManager.UpdateAsync(updatedRoute, testUser);
@@ -88,10 +107,12 @@ namespace Door2DoorLibTester.ManagerTests
         }
 
         [Test]
-        [Order(5)]
+        [Order(6)]
         public async Task RemoveObjectAsync_RemovesExistingObject_IfArgumentsAreValid()
         {
-            await _routeManager.CreateAsync(testRoute, testUser);
+            //Arrange
+            Route testRoute = CreateTestRoute();
+            Admin testUser = CreateTestUser();
 
             //Act
             var result = await _routeManager.DeleteAsync(testRoute, testUser);
@@ -100,25 +121,28 @@ namespace Door2DoorLibTester.ManagerTests
             Assert.IsTrue(result);
         }
 
+        private int GetTestId()
+        {
+            List<Route> routes = (List<Route>)_routeManager.GetAllAsync().Result;
+            
+            return (int)routes.Last().Id + 1;
+        }
+
         private static Admin CreateTestUser()
         {
             Admin admin = new Admin("TestUser", "123");
             return admin;
         }
 
-        private async Task<Route> CreateTestObject()
+        private Route CreateTestRoute()
         {
-            List<Route> routes = (List<Route>)await _routeManager.GetAllAsync();
-
-            Route route = new Route("Test", "Test", 1, 2, routes.Count + 1);
+            Route route = new Route("Test", "Test", 6, 7, testId);
             return route;
         }
 
-        private async Task<Route> CreateUpdatedTestObject()
+        private Route CreateUpdatedTestObject()
         {
-            List<Route> routes = (List<Route>)await _routeManager.GetAllAsync();
-
-            Route route = new Route("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "Lav en U-vending", 1, 2, routes.Count + 1);
+            Route route = new Route("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "Lav en U-vending", 10, 12, testId);
             return route;
         }
 
