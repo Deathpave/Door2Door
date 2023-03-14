@@ -43,13 +43,13 @@
 
     <a onclick="toggleform('addadmin')">Tilføj admin</a>
     <div id="addadmin" class="formwrapper">
-        @using (Html.BeginForm("AddAdmin", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("AddAdmin", "Admin", FormMethod.Post))
         {
             @Html.AntiForgeryToken();
             @Html.TextBoxFor(Model => Model.NewAdminUsername, new {placeholder="Brugernavn"})
             //TODO
             @Html.TextBoxFor(Model => Model.NewAdminPswd,new {type="password", placeholder="Kodeord"})//hash the password
-            @Html.TextBoxFor(Model => Model.Video, new {  type= "file"})
+            
             <input id="button" value="Tilføj" type="submit"/>
         }
     </div>
@@ -70,14 +70,19 @@
 @*            @Html.TextBoxFor(Model => Model.NewRouteStart, new {placeholder = "Start lokation"})
             @Html.TextBoxFor(Model => Model.NewRouteStart, new {placeholder = "slut lokation"})*@
             //@Html.TextBoxFor(Model => Model.NewRouteDescription, new {placeholder = "Beskrivelse"})
+            @Html.TextBoxFor(Model => Model.Video, new {  type= "file"})
+            <p style="color:white;">Start lokation</p>
             @Html.DropDownListFor(o=>o.SelectedStartLocation, new SelectList(Model.LocationList, "Id", "Name"))
+            <p style="color:white;">Slut lokation</p>
+            @Html.DropDownListFor(o=>o.SelectedEndLocation, new SelectList(Model.LocationList, "Id", "Name"))
+            <br />
             <input id="button" value="Tilføj" type="submit"/>
         }
     </div>
 
     <a>Fjern rute</a>
     <div id="addroute" class="formwrapper">
-        @using (Html.BeginForm("removeRoute", "Admin", FormMethod.Post))
+        @using (Html.BeginForm("removeRoute", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken();
             //Get a list of all routes and select the one to delete

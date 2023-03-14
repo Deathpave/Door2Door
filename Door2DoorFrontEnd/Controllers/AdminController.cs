@@ -37,7 +37,6 @@ namespace Door2DoorFrontEnd.Controllers
                 //{
                 //    //add new admin to database here
                 //}
-                await _routeManager.UploadVideoAsync(model.Video.Name, model.Video.ContentType);
                 return RedirectToAction("Admin", model);
             }
             catch (Exception)
@@ -57,6 +56,7 @@ namespace Door2DoorFrontEnd.Controllers
                 //}
                 Location location = new Location(model.NewLocationName, "");
                 Admin currentadmin = new Admin(model.Username, null);
+                
                 _locationManager.CreateAsync(location, currentadmin);
                 return RedirectToAction("Admin", model);
             }
@@ -67,7 +67,7 @@ namespace Door2DoorFrontEnd.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddRoute(AdminModel model)
+        public async Task<ActionResult> AddRoute(AdminModel model)
         {
             try
             {
@@ -75,7 +75,7 @@ namespace Door2DoorFrontEnd.Controllers
                 {
                     Door2DoorLib.DataModels.Route newroute = new Door2DoorLib.DataModels.Route(model.NewRouteVideoUrl, model.NewRouteDescription, model.SelectedStartLocation, model.SelectedEndLocation);
                     Admin admin = new Admin(model.Username, "");
-
+                    string url =  _routeManager.UploadVideoAsync(model.Video.Name, model.Video.ContentType).Result;
                     _routeManager.CreateAsync(newroute, admin);
                 }
                 return View("Admin", model);
