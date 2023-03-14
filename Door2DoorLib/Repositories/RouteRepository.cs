@@ -1,5 +1,6 @@
 ﻿using Door2DoorLib.DataModels;
 using Door2DoorLib.Interfaces;
+using Microsoft.AspNetCore.Http;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
@@ -22,14 +23,14 @@ namespace Door2DoorLib.Repositories
 
         #region Methods
         #region Upload Video
-        public Task<string> UploadVideo(string fileName, string fileExtension)
+        public Task<string> UploadVideo(IFormFile file)
         {
             try
             {
                 using (WebClient client = new WebClient())
                 {
                     client.Credentials = new NetworkCredential("Administrator", "Kode1234!");
-                    client.UploadFile($"ftp://10.13.0.125//Videos/{fileName}.{fileExtension}", WebRequestMethods.Ftp.UploadFile);
+                    client.UploadFile($"ftp://10.13.0.125//Videos/{fileName}.{fileExtension}", fileName+fileExtension);
                     return Task.FromResult($"ftp://10.13.0.125//Videos/{fileName}.{fileExtension}");
                 }
             }

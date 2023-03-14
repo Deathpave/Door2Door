@@ -1,4 +1,5 @@
 ﻿using Door2DoorLib.DataModels;
+using Microsoft.AspNetCore.Http;
 
 namespace Door2DoorLib.Interfaces
 {
@@ -56,6 +57,6 @@ namespace Door2DoorLib.Interfaces
         /// <param name="fileName"></param>
         /// <param name="fileExtension"></param>
         /// <returns></returns>
-        Task<string> UploadVideoAsync(string fileName, string fileExtension);
+        Task<string> UploadVideoAsync(IFormFile file);
     }
 }

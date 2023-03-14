@@ -2,6 +2,7 @@
 using Door2DoorLib.Factories;
 using Door2DoorLib.Interfaces;
 using Door2DoorLib.Repositories;
+using Microsoft.AspNetCore.Http;
 
 namespace Door2DoorLib.Managers
 {
@@ -26,7 +27,7 @@ namespace Door2DoorLib.Managers
         /// <param name="fileName"></param>
         /// <param name="fileExtension"></param>
         /// <returns></returns>
-        public async Task<string> UploadVideoAsync(string fileName, string fileExtension)
+        public async Task<string> UploadVideoAsync(IFormFile file)
         {
             string result = _repository.UploadVideo(fileName, fileExtension).Result;
             if (result != string.Empty)

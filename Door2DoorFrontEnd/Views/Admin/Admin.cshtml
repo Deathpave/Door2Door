@@ -64,7 +64,7 @@
 
     <a onclick ="toggleform('addroute')">Tilføj rute</a>
     <div id="addroute" class="formwrapper">
-        @using (Html.BeginForm("AddRoute", "Admin", FormMethod.Post))
+        @using (Html.BeginForm("AddRoute", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken();
 @*            @Html.TextBoxFor(Model => Model.NewRouteStart, new {placeholder = "Start lokation"})
@@ -82,7 +82,7 @@
 
     <a>Fjern rute</a>
     <div id="addroute" class="formwrapper">
-        @using (Html.BeginForm("removeRoute", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("removeRoute", "Admin", FormMethod.Post))
         {
             @Html.AntiForgeryToken();
             //Get a list of all routes and select the one to delete
@@ -92,12 +92,12 @@
 
     <a onclick="toggleform('addlocation')">Tilføj lokation</a>
     <div id="addlocation" class="formwrapper">
-        @using (Html.BeginForm("AddLocation", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("AddLocation", "Admin", FormMethod.Post))
         {
             @Html.AntiForgeryToken()
             ;
             @Html.TextBoxFor(Model => Model.NewLocationName, new {placeholder = "Lokation navn"})
-            @Html.TextBoxFor(Model => Model.Video, new {  type= "file"})
+            
             <input id="button" value="Tilføj" type="submit" />
         }
     </div>

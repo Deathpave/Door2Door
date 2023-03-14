@@ -56,7 +56,7 @@ namespace Door2DoorFrontEnd.Controllers
                 //}
                 Location location = new Location(model.NewLocationName, "");
                 Admin currentadmin = new Admin(model.Username, null);
-                
+
                 _locationManager.CreateAsync(location, currentadmin);
                 return RedirectToAction("Admin", model);
             }
@@ -71,13 +71,10 @@ namespace Door2DoorFrontEnd.Controllers
         {
             try
             {
-                if (ModelState.IsValid)
-                {
-                    Door2DoorLib.DataModels.Route newroute = new Door2DoorLib.DataModels.Route(model.NewRouteVideoUrl, model.NewRouteDescription, model.SelectedStartLocation, model.SelectedEndLocation);
-                    Admin admin = new Admin(model.Username, "");
-                    string url =  _routeManager.UploadVideoAsync(model.Video.Name, model.Video.ContentType).Result;
-                    _routeManager.CreateAsync(newroute, admin);
-                }
+                string url = _routeManager.UploadVideoAsync(model.Video.Name, model.Video.ContentType).Result;
+                Door2DoorLib.DataModels.Route newroute = new Door2DoorLib.DataModels.Route(url, model.NewRouteDescription, model.SelectedStartLocation, model.SelectedEndLocation);
+                Admin admin = new Admin(model.Username, "");
+                _routeManager.CreateAsync(newroute, admin);
                 return View("Admin", model);
             }
             catch (Exception)
