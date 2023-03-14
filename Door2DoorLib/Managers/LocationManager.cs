@@ -70,7 +70,14 @@ namespace Door2DoorLib.Managers
         /// <returns></returns>
         public async Task<IEnumerable<Location>> GetAllAsync()
         {
-            return await _repository.GetAllAsync();
+            try
+            {
+                return await _repository.GetAllAsync();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
         }
         #endregion
 
@@ -82,7 +89,15 @@ namespace Door2DoorLib.Managers
         /// <returns></returns>
         public async Task<Location> GetByIdAsync(long id)
         {
-            return await _repository.GetByIdAsync(id);
+            try
+            {
+                return await _repository.GetByIdAsync(id);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
         #endregion
 

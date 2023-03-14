@@ -93,7 +93,15 @@ namespace Door2DoorLib.Managers
         /// <returns></returns>
         public async Task<IEnumerable<Route>> GetAllAsync()
         {
-            return await _repository.GetAllAsync();
+            try
+            {
+                return await _repository.GetAllAsync();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
         #endregion
 
@@ -105,7 +113,15 @@ namespace Door2DoorLib.Managers
         /// <returns></returns>
         public async Task<Route> GetByIdAsync(long id)
         {
-            return await _repository.GetByIdAsync(id);
+            try
+            {
+                return await _repository.GetByIdAsync(id);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
         #endregion
 
@@ -118,7 +134,15 @@ namespace Door2DoorLib.Managers
         /// <returns></returns>
         public async Task<Route> GetByLocationsAsync(long startLocation, long endLocation)
         {
-            return await _repository.GetByLocationsAsync(startLocation, endLocation);
+            try
+            {
+                return await _repository.GetByLocationsAsync(startLocation, endLocation);
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
         #endregion
         #endregion
