@@ -55,8 +55,8 @@ namespace Door2DoorFrontEnd.Controllers
                 //{
                 //    //add new admin to database here
                 //}
-                Location location = new Location(0,model.NewLocationName,"");
-                Admin currentadmin = new Admin(0,model.Username,null);
+                Location location = new Location(model.NewLocationName,"");
+                Admin currentadmin = new Admin(model.Username,null);
                 _locationManager.CreateAsync(location,currentadmin);
                 return RedirectToAction("Admin", model);
             }
