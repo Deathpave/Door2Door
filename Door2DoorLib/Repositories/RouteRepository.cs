@@ -28,7 +28,7 @@ namespace Door2DoorLib.Repositories
             {
                 using var stream = File.OpenWrite($"C:\\Door2Door\\Videos\\{file.FileName}");
                 await file.CopyToAsync(stream);
-                return await Task.FromResult($"ftp://10.13.0.125//Videos/{file.FileName}");
+                return await Task.FromResult($"http://10.13.0.125//Videos/{file.FileName}");
             }
             catch (Exception)
             {
