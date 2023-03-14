@@ -11,7 +11,7 @@ namespace Door2DoorLibTester.Setup
             var inMemorySettings = new Dictionary<string, string?>
             {
                 {
-                    "ConnectionStrings:DefaultConnection", 
+                    "ConnectionStrings:DefaultConnection",
                     "Server=127.0.0.1;" +
                     "Database=door2doordb;" +
                     "Uid=root;Pwd=123;"
