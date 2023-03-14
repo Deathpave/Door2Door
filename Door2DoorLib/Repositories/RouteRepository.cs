@@ -27,12 +27,14 @@ namespace Door2DoorLib.Repositories
         {
             try
             {
-                using (WebClient client = new WebClient())
-                {
-                    client.Credentials = new NetworkCredential("Administrator", "Kode1234!");
-                    client.UploadFile($"ftp://10.13.0.125//Videos/{fileName}.{fileExtension}", fileName+fileExtension);
-                    return Task.FromResult($"ftp://10.13.0.125//Videos/{fileName}.{fileExtension}");
-                }
+                file.CopyTo(File.OpenWrite($"ftp://10.13.0.125//Videos/{file.Name}"));
+                //using (WebClient client = new WebClient())
+                //{
+                //    client.Credentials = new NetworkCredential("Administrator", "Kode1234!");
+                //    client.UploadFile($"ftp://10.13.0.125//Videos/{fileName}.{fileExtension}", fileName+fileExtension);
+                //    return Task.FromResult($"ftp://10.13.0.125//Videos/{fileName}.{fileExtension}");
+                //}
+                return Task.FromResult($"ftp://10.13.0.125//Videos/{file.Name}");
             }
             catch (Exception)
             {
