@@ -86,7 +86,7 @@ namespace Door2DoorLib.Repositories
         {
             DbCommand sqlCommand = new SqlCommand("spDeleteRoute");
             sqlCommand.CommandType = CommandType.StoredProcedure;
-            int returnValue = 0;
+            int affectedRows = 0;
 
             IDictionary<string, object> sqlParams = new Dictionary<string, object>
             {
@@ -94,11 +94,10 @@ namespace Door2DoorLib.Repositories
             };
 
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
-
             dataReader.Read();
-            returnValue = dataReader.RecordsAffected;
+            affectedRows = dataReader.RecordsAffected;
 
-            if (returnValue != 0)
+            if (affectedRows != 0)
             {
                 return true;
             }
@@ -118,12 +117,11 @@ namespace Door2DoorLib.Repositories
         {
             DbCommand sqlCommand = new SqlCommand("spGetAllRoutes");
             sqlCommand.CommandType = CommandType.StoredProcedure;
+            List<Route> result = new List<Route>();
 
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand);
 
             if (dataReader.HasRows == false) return new List<Route>();
-
-            List<Route> result = new List<Route>();
 
             while (await dataReader.ReadAsync())
             {
@@ -147,11 +145,11 @@ namespace Door2DoorLib.Repositories
 
             IDictionary<string, object> sqlParams = new Dictionary<string, object>
             {
-                { "@id", id }
+                { "@routeId", id }
             };
             Route result = null;
 
-            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand);
+            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
 
             if (dataReader.HasRows == false) return result;
 
@@ -173,22 +171,28 @@ namespace Door2DoorLib.Repositories
         {
             DbCommand sqlCommand = new SqlCommand("spUpdateRoute");
             sqlCommand.CommandType = CommandType.StoredProcedure;
+            int affectedRows = 0;
 
             IDictionary<string, object> sqlParams = new Dictionary<string, object>
             {
+                { "@routeId", updateEntity.StartLocation },
                 { "@startId", updateEntity.StartLocation },
-                {"@endId", updateEntity.EndLocation },
+                { "@endId", updateEntity.EndLocation },
                 { "@newText", updateEntity.Description},
                 { "@videourl", updateEntity.VideoUrl}
             };
 
-            if (_database.ExecuteQueryAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
+            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
+            dataReader.Read();
+            affectedRows = dataReader.RecordsAffected;
+
+            if (affectedRows != 0)
             {
-                return await Task.FromResult(true);
+                return true;
             }
             else
             {
-                return await Task.FromResult(false);
+                return false;
             }
         }
         #endregion

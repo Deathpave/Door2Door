@@ -112,11 +112,11 @@ DELIMITER ;
 
 -- Update operation
 DELIMITER //
-CREATE PROCEDURE `spUpdateRoute` (IN routeId INT, IN startId INT, IN endID INT, IN newText VARCHAR(255), IN videourl VARCHAR(255))
+CREATE PROCEDURE `spUpdateRoute` (IN routeId INT, IN startId INT, IN endId INT, IN newText VARCHAR(255), IN videourl VARCHAR(255))
 BEGIN
 	UPDATE routes SET 
-		startLocation = newStart, 
-		endLocation = newEnd, 
+		startLocation = startId, 
+		endLocation = endId, 
 		text = newText, 
 		videoUrl = videourl 
 		WHERE id = routeId;

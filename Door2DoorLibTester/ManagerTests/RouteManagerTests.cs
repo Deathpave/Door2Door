@@ -21,7 +21,7 @@ namespace Door2DoorLibTester.ManagerTests
         public async Task CreateAsync_CreatesARoute_IfArgumentsAreValid()
         {
             //Arrange
-            Route testRoute = CreateTestObject();
+            Route testRoute = await CreateTestObject();
             Admin testUser = CreateTestUser();
 
             //Act
@@ -31,7 +31,7 @@ namespace Door2DoorLibTester.ManagerTests
 
             //Assert
             Assert.IsTrue(result);
-            //Assert.IsTrue(cleanupRouteTest);
+            Assert.IsTrue(cleanupRouteTest);
         }
 
         [Test]
@@ -56,7 +56,7 @@ namespace Door2DoorLibTester.ManagerTests
         {
             //Arrange
             Route requestedRoute;
-            Route testRoute = CreateTestObject();
+            Route testRoute = await CreateTestObject();
             Admin testUser = CreateTestUser();
 
             await _routeManager.CreateAsync(testRoute, testUser);
@@ -72,15 +72,15 @@ namespace Door2DoorLibTester.ManagerTests
             Assert.AreEqual(testRoute.VideoUrl, requestedRoute.VideoUrl);
             Assert.AreEqual(testRoute.StartLocation, requestedRoute.StartLocation);
             Assert.AreEqual(testRoute.EndLocation,requestedRoute.EndLocation);
-            //Assert.IsTrue(cleanupRouteTest);
+            Assert.IsTrue(cleanupRouteTest);
         }
 
         [Test]
         public async Task UpdateAsync_UpdatesExistingObject_IfArgumentsAreValid()
         {
             //Arrange
-            Route testRoute = CreateTestObject();
-            Route updatedRoute = CreateUpdatedTestObject();
+            Route testRoute = await CreateTestObject();
+            Route updatedRoute = await CreateUpdatedTestObject();
             Admin testUser = CreateTestUser();
 
             await _routeManager.CreateAsync(testRoute, testUser);
@@ -92,14 +92,14 @@ namespace Door2DoorLibTester.ManagerTests
 
             //Assert
             Assert.IsTrue(result);
-            //Assert.IsTrue(cleanupTestRoute);
+            Assert.IsTrue(cleanupTestRoute);
         }
 
         [Test]
         public async Task RemoveObjectAsync_RemovesExistingObject_IfArgumentsAreValid()
         {
             //Arrange
-            Route testRoute = CreateTestObject();
+            Route testRoute = await CreateTestObject();
             Admin testUser = CreateTestUser();
 
             await _routeManager.CreateAsync(testRoute, testUser);
@@ -117,15 +117,19 @@ namespace Door2DoorLibTester.ManagerTests
             return admin;
         }
 
-        private static Route CreateTestObject()
+        private async Task<Route> CreateTestObject()
         {
-            Route route = new Route(101, "", "", 1, 2);
+            List<Route> routes = (List<Route>)await _routeManager.GetAllAsync();
+
+            Route route = new Route(routes.Count + 1, " ", " ", 1, 2);
             return route;
         }
 
-        private static Route CreateUpdatedTestObject()
+        private async Task<Route> CreateUpdatedTestObject()
         {
-            Route route = new Route(101, "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "Lav en U-vending", 1, 2);
+            List<Route> routes = (List<Route>)await _routeManager.GetAllAsync();
+
+            Route route = new Route(routes.Count + 1, "https://www.youtube.com/watch?v=dQw4w9WgXcQ", "Lav en U-vending", 1, 2);
             return route;
         }
 
