@@ -49,13 +49,6 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<bool> CreateAsync(Route createEntity)
         {
-            //MySqlCommand sqlCommand = new MySqlCommand("spCreateRoute");
-            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            //sqlCommand.Parameters.Add(new MySqlParameter("@newText", createEntity.Description));
-            //sqlCommand.Parameters.Add(new MySqlParameter("@videourl", createEntity.VideoUrl));
-            //sqlCommand.Parameters.Add(new MySqlParameter("@startId", createEntity.StartLocation));
-            //sqlCommand.Parameters.Add(new MySqlParameter("@endId", createEntity.EndLocation));
-
             DbCommand sqlCommand = new SqlCommand("spCreateRoute");
             sqlCommand.CommandType = CommandType.StoredProcedure;
             int affectedRows = 0;
@@ -91,10 +84,6 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<bool> DeleteAsync(Route deleteEntity)
         {
-            //MySqlCommand sqlCommand = new MySqlCommand("spDeleteRoute");
-            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            //sqlCommand.Parameters.Add(new MySqlParameter("@routeId", deleteEntity.Id));
-
             DbCommand sqlCommand = new SqlCommand("spDeleteRoute");
             sqlCommand.CommandType = CommandType.StoredProcedure;
             int returnValue = 0;
@@ -127,9 +116,6 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<Route>> GetAllAsync()
         {
-            //MySqlCommand sqlCommand = new MySqlCommand("spGetAllRoutes");
-            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-
             DbCommand sqlCommand = new SqlCommand("spGetAllRoutes");
             sqlCommand.CommandType = CommandType.StoredProcedure;
 
