@@ -212,7 +212,7 @@ namespace Door2DoorLib.Repositories
             IDictionary<string, object> sqlParams = new Dictionary<string, object>
             {
                 { "@startId", startLocation },
-                {"@endId", endLocation },
+                { "@endId", endLocation }
             };
 
             Route result = null;
