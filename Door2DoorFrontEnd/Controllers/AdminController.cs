@@ -29,19 +29,19 @@ namespace Door2DoorFrontEnd.Controllers
         [HttpPost]
         public async Task<IActionResult> AddAdmin(AdminModel model)
         {
+            AdminModel adminModel = new AdminModel();
             try
             {
-                AdminModel adminModel = new AdminModel();
                 //if (ModelState.IsValid)
                 //{
                 //    //add new admin to database here
                 //}
-                _routeManager.UploadVideoAsync(model.Video.Name,model.Video.ContentType);
-                return RedirectToAction("Admin",model);
+                await _routeManager.UploadVideoAsync(model.Video.Name,model.Video.ContentType);
+                return RedirectToAction("Admin", adminModel);
             }
             catch (Exception)
             {
-                return View("Admin");
+                return View("Admin",adminModel);
             }
         }
 
