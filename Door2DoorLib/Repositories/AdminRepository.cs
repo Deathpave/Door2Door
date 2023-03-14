@@ -1,6 +1,7 @@
 ﻿using Door2DoorLib.DataModels;
 using Door2DoorLib.Factories;
 using Door2DoorLib.Interfaces;
+using Door2DoorLib.Security;
 using MySql.Data.MySqlClient;
 using System.Data;
 using System.Data.Common;
@@ -37,8 +38,8 @@ namespace Door2DoorLib.Repositories
 
             DbCommand sqlCommand = new SqlCommand("spCreateAdmin");
             sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            sqlCommand.Parameters.Add(new SqlParameter("@username", createEntity.UserName));
-            sqlCommand.Parameters.Add(new SqlParameter("@password", createEntity.Password));
+            sqlCommand.Parameters.Add(new SqlParameter("@username", new Encryption().EncryptString(createEntity.UserName, createEntity.UserName)));
+            sqlCommand.Parameters.Add(new SqlParameter("@password", new Hashing().Sha256Hash(new Encryption().EncryptString(createEntity.Password, createEntity.Password))));
 
             await _database.OpenConnectionAsync();
             var result = _database.ExecuteCommandAsync(sqlCommand).Status;
