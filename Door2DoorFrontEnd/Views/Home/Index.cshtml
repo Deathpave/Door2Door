@@ -66,7 +66,7 @@
             <div id="searchwrapper"> <img id="searchicon" src="~/assets/loupe.png" /><input type="text" id="searchbar" /></div>
                 @foreach (var item in Model.LocationList)
                 {
-                    <div class="items" id="@item.Id" onclick="itemClicked(@item.Id)">@item.Name</div>
+                    <div class="items" id="@item.Name" onclick="itemClicked(@item.Id)">@item.Name</div>
                 }
         </div>
 
@@ -91,6 +91,7 @@
         var div_item = document.getElementsByClassName("items");
         if (this.value != null || this.value != "") {
             for (var i = 0; i < div_item.length; i++) {
+                console.log("hej " + this.value.toUpperCase());
                 if (div_item[i].id.toUpperCase().includes(this.value.toUpperCase())) {
                     div_item[i].style.display = '';
                 } else {

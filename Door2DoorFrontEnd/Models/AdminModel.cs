@@ -1,5 +1,7 @@
 ﻿using Door2DoorLib.DataModels;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 namespace Door2DoorFrontEnd.Models
 {
     public class AdminModel
@@ -29,6 +31,11 @@ namespace Door2DoorFrontEnd.Models
         public string NewLocationName { get; set; }
 
         public IFormFile NewLocationIcon { get; set; }
+
+        public IEnumerable<SelectListItem> LocationList { get; set; }
+
+        public int SelectedStartLocation { get; set; }
+        public int SelectedEndLocation { get; set; }
 
     }
 
