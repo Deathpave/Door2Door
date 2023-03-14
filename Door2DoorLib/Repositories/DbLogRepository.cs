@@ -1,15 +1,10 @@
-﻿using Door2DoorLib.Interfaces;
+﻿using Door2DoorLib.Factories;
+using Door2DoorLib.Interfaces;
 using Door2DoorLib.Logs;
-using System;
-using System.Collections.Generic;
+using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
-using System.Data;
-using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
-using Door2DoorLib.DataModels;
-using Door2DoorLib.Factories;
 
 namespace Door2DoorLib.Repositories
 {
@@ -22,19 +17,30 @@ namespace Door2DoorLib.Repositories
             _database = database;
         }
 
-
+        /// <summary>
+        /// Creates a Log entity in the database
+        /// </summary>
+        /// <param name="createEntity"></param>
+        /// <returns></returns>
         public async Task<bool> CreateAsync(DatabaseLog createEntity)
         {
             DbCommand sqlCommand = new SqlCommand("spCreateLog");
             sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.Parameters.Add(new SqlParameter("@type", createEntity.MessageType));
-            sqlCommand.Parameters.Add(new SqlParameter("@description", createEntity.Message));
-            sqlCommand.Parameters.Add(new SqlParameter("@timestamp", DateTime.Now));
+            int affectedRows = 0;
 
-            await _database.OpenConnectionAsync();
-            var result = _database.ExecuteQueryAsync(sqlCommand).Status;
-            _database.CloseConnection();
-            if (result == TaskStatus.RanToCompletion)
+            IDictionary<string, object> sqlParams = new Dictionary<string, object>
+            {
+                { "@type", createEntity.MessageType },
+                { "@description", createEntity.Message },
+                { "@timestamp", createEntity.TimeStamp }
+            };
+
+            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
+            dataReader.Read();
+            affectedRows = dataReader.RecordsAffected;
+            await _database.CloseConnection();
+
+            if (affectedRows > 0)
             {
                 return await Task.FromResult(true);
             }
@@ -44,77 +50,99 @@ namespace Door2DoorLib.Repositories
             }
         }
 
+        /// <summary>
+        /// Deletes a Log Entity from the database
+        /// </summary>
+        /// <param name="deleteEntity"></param>
+        /// <returns></returns>
         public async Task<bool> DeleteAsync(DatabaseLog deleteEntity)
         {
             DbCommand sqlCommand = new SqlCommand("spDeleteLog");
             sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.Parameters.Add(new SqlParameter("@logId", deleteEntity.Id));
+            int affectedRows = 0;
 
-            await _database.OpenConnectionAsync();
-            var result = _database.ExecuteQueryAsync(sqlCommand).Status;
-            _database.CloseConnection();
-            if (result == TaskStatus.RanToCompletion)
+            IDictionary<string, object> sqlParams = new Dictionary<string, object>
             {
-                return await Task.FromResult(true);
+                { "@logId", deleteEntity.Id }
+            };
+
+            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
+            dataReader.Read();
+            affectedRows = dataReader.RecordsAffected;
+            await _database.CloseConnection();
+
+            if (affectedRows != 0)
+            {
+                return true;
             }
             else
             {
-                return await Task.FromResult(false);
+                return false;
             }
         }
 
+        /// <summary>
+        /// Returns all Log entities from the database
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<DatabaseLog>> GetAllAsync()
         {
             DbCommand sqlCommand = new SqlCommand("spGetAllLogs");
             sqlCommand.CommandType = CommandType.StoredProcedure;
-
             List<DatabaseLog> result = new List<DatabaseLog>();
-            await _database.OpenConnectionAsync();
-            using (DbDataReader streamReader = _database.ExecuteQueryAsync(sqlCommand).Result)
+
+            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand);
+
+            if (dataReader.HasRows == false)
             {
-                if (streamReader != null)
-                {
-                    // Create a new route from the datastream
-                    while (streamReader.Read())
-                    {
-                        DatabaseLog newLog = new DatabaseLog(streamReader.GetInt64("id"), (MessageTypes)streamReader.GetInt32("type"), streamReader.GetString("message"), streamReader.GetDateTime("timestamp"));
-                        result.Add(newLog);
-                    }
-                }
-                else
-                {
-                    LogFactory.CreateLog(LogTypes.File, "Could not get all routes async", MessageTypes.Error).WriteLog();
-                }
+                return new List<DatabaseLog>();
             }
-            _database.CloseConnection();
+
+            while (await dataReader.ReadAsync())
+            {
+                DatabaseLog newLog = new DatabaseLog(dataReader.GetInt64("id"), (MessageTypes)dataReader.GetInt32("type"), dataReader.GetString("message"), dataReader.GetDateTime("timestamp"));
+                result.Add(newLog);
+            }
+            await _database.CloseConnection();
             return await Task.FromResult(result);
         }
 
+        /// <summary>
+        /// Returns a Log Entity with a matching id
+        /// </summary>
+        /// <param name="id"></param>
+        /// <returns></returns>
         public async Task<DatabaseLog> GetByIdAsync(long id)
         {
             DbCommand sqlCommand = new SqlCommand("spGetLogById");
             sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.Parameters.Add(new SqlParameter("@logId", id));
-
             DatabaseLog result = null;
-            await _database.OpenConnectionAsync();
-            using (var streamReader = _database.ExecuteQueryAsync(sqlCommand).Result)
+
+            IDictionary<string, object> sqlParams = new Dictionary<string, object>
             {
-                if (streamReader != null)
-                {
-                    // Create a new route from the datastream
-                    streamReader.Read();
-                    result = new DatabaseLog(streamReader.GetInt64("id"), (MessageTypes)streamReader.GetInt32("type"), streamReader.GetString("message"), streamReader.GetDateTime("timestamp"));
-                }
-                else
-                {
-                    LogFactory.CreateLog(LogTypes.File, $"Could not get log by id {id}", MessageTypes.Error);
-                }
+                { "@logId", id }
+            };
+
+            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
+
+            if (dataReader.HasRows == false)
+            {
+                return result;
             }
-            _database.CloseConnection();
+
+            while (dataReader.Read())
+            {
+                result = new DatabaseLog(dataReader.GetInt64("id"), (MessageTypes)dataReader.GetInt32("type"), dataReader.GetString("message"), dataReader.GetDateTime("timestamp"));
+            }
+            await _database.CloseConnection();
             return await Task.FromResult(result);
         }
 
+        /// <summary>
+        /// Updates a Log Entity in the database
+        /// </summary>
+        /// <param name="updateEntity"></param>
+        /// <returns></returns>
         public async Task<bool> UpdateAsync(DatabaseLog updateEntity)
         {
             DbCommand sqlCommand = new SqlCommand("spUpdateLog");
@@ -123,15 +151,28 @@ namespace Door2DoorLib.Repositories
             sqlCommand.Parameters.Add(new SqlParameter("@type", updateEntity.MessageType));
             sqlCommand.Parameters.Add(new SqlParameter("@description", updateEntity.Message));
             sqlCommand.Parameters.Add(new SqlParameter("@timestamp", DateTime.Now));
+            int affectedRows = 0;
 
-
-            if (_database.ExecuteQueryAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
+            IDictionary<string, object> sqlParams = new Dictionary<string, object>
             {
-                return await Task.FromResult(true);
+                { "@logId", updateEntity.Id },
+                { "@type", updateEntity.MessageType },
+                { "@description", updateEntity.Message },
+                { "@timestamp", updateEntity.TimeStamp }
+            };
+
+            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
+            dataReader.Read();
+            affectedRows = dataReader.RecordsAffected;
+            await _database.CloseConnection();
+
+            if (affectedRows != 0)
+            {
+                return true;
             }
             else
             {
-                return await Task.FromResult(false);
+                return false;
             }
         }
     }

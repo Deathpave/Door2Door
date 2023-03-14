@@ -83,8 +83,6 @@ namespace Door2DoorLibTester.ManagerTests
             //Act
             var result = await _routeManager.UpdateAsync(updatedRoute, testUser);
 
-            var cleanupTestRoute = await _routeManager.DeleteAsync(updatedRoute, testUser);
-
             //Assert
             Assert.IsTrue(result);
         }

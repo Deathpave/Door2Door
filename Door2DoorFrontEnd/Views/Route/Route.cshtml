@@ -15,6 +15,7 @@
         -webkit-transition: .4s;
         transition: opacity .2s;
     }
+
         .slider::-webkit-slider-thumb {
             appearance: none;
             width: 40px;
@@ -29,6 +30,11 @@
             background: #04AA6D;
             cursor: pointer;
         }
+
+    .description {
+        display: none;
+    }
+
     }</style>
 <html>
 <head>
@@ -45,7 +51,32 @@
         <input class="slider" type="range" id="slider" value="0" />
     </div>
 </body>
+<body>
+    <button type="button" class="collapsible">Rute beskrivelse</button>
+    <div class="description">
+        <p style="color:white">
+            @Model.RouteList[0].Description;
+        </p>
+    </div>
+</body>
 </html>
+
+<script>
+    var coll = document.getElementsByClassName("collapsible");
+    var i;
+
+    for (i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function () {
+            this.classList.toggle("active");
+            var content = this.nextElementSibling;
+            if (content.style.display === "block") {
+                content.style.display = "none";
+            } else {
+                content.style.display = "block";
+            }
+        });
+    }
+</script>
 
 <script runat="server">
     // Get the video player and slider elements

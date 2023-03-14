@@ -1,5 +1,4 @@
 ﻿using Door2DoorLib.DataModels;
-using Door2DoorLib.Factories;
 using Door2DoorLib.Interfaces;
 using System.Data;
 using System.Data.Common;
@@ -36,13 +35,14 @@ namespace Door2DoorLib.Repositories
             IDictionary<string, object> sqlParams = new Dictionary<string, object>
             {
                 { "@newName", createEntity.Name },
-                {"@newIconUrl", createEntity.IconUrl }
+                { "@newIconUrl", createEntity.IconUrl }
             };
 
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
             dataReader.Read();
             affectedRows = dataReader.RecordsAffected;
-
+            await _database.CloseConnection();
+            
             if (affectedRows > 0)
             {
                 return await Task.FromResult(true);
@@ -72,6 +72,7 @@ namespace Door2DoorLib.Repositories
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
             dataReader.Read();
             affectedRows = dataReader.RecordsAffected;
+            await _database.CloseConnection();
 
             if (affectedRows != 0)
             {
@@ -96,13 +97,17 @@ namespace Door2DoorLib.Repositories
 
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand);
 
-            if (dataReader.HasRows == false) return new List<Location>();
+            if (dataReader.HasRows == false)
+            {
+                return new List<Location>();
+            }
 
             while (await dataReader.ReadAsync())
             {
                 Location newLocation = new Location(dataReader.GetString("name"), dataReader.GetString("iconUrl"), dataReader.GetInt64("id"));
                 result.Add(newLocation);
             }
+            await _database.CloseConnection();
             return await Task.FromResult(result);
         }
 
@@ -124,12 +129,16 @@ namespace Door2DoorLib.Repositories
 
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
 
-            if (dataReader.HasRows == false) return result;
+            if (dataReader.HasRows == false)
+            {
+                return result;
+            }
 
             while (dataReader.Read())
             {
                 result = new Location(dataReader.GetString("name"), dataReader.GetString("iconUrl"), dataReader.GetInt64("id"));
             }
+            await _database.CloseConnection();
             return await Task.FromResult(result);
         }
 
@@ -155,6 +164,7 @@ namespace Door2DoorLib.Repositories
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
             dataReader.Read();
             affectedRows = dataReader.RecordsAffected;
+            await _database.CloseConnection();
 
             if (affectedRows != 0)
             {

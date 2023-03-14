@@ -47,15 +47,23 @@ namespace Door2DoorLib.Adapters
 
         #region Close Connection
         // Closes the database connection
-        public override void CloseConnection()
+        public override async Task<bool> CloseConnection()
         {
             try
             {
-                _mySqlConnection.Close();
+                if (_mySqlConnection.State == ConnectionState.Closed)
+                {
+                    return await Task.FromResult(true);
+                }
+
+                await _mySqlConnection.CloseAsync();
+                return await Task.FromResult(true);
+
             }
             catch (Exception e)
             {
                 LogFactory.CreateLog(LogTypes.File, $"Failed to close database connection due to {e.Message}", MessageTypes.Error).WriteLog();
+                return await Task.FromResult(false);
             }
         }
         #endregion

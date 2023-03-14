@@ -8,8 +8,8 @@ namespace Door2DoorLib.Adapters
     internal abstract class Database : IDatabase
     {
         #region Fields
-        private IConfiguration _configuration;
-        private string _databaseName;
+        private readonly IConfiguration _configuration;
+        private readonly string _databaseName;
         #endregion
 
         #region Properties
@@ -28,9 +28,10 @@ namespace Door2DoorLib.Adapters
         #region Methods
         #region Close Connection
         // Default close connection method (not in use when overriding from other classes)
-        public virtual void CloseConnection()
+        public virtual Task<bool> CloseConnection()
         {
             LogFactory.CreateLog(LogTypes.Console, "Tried to close connection via abstract database class", MessageTypes.Error).WriteLog();
+            return Task.FromResult(false);
         }
         #endregion
 
