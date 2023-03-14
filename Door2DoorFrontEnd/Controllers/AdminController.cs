@@ -71,7 +71,7 @@ namespace Door2DoorFrontEnd.Controllers
         {
             try
             {
-                string url = _routeManager.UploadVideoAsync(model.Video.Name, model.Video.ContentType).Result;
+                string url = _routeManager.UploadVideoAsync(model.Video).Result;
                 Door2DoorLib.DataModels.Route newroute = new Door2DoorLib.DataModels.Route(url, model.NewRouteDescription, model.SelectedStartLocation, model.SelectedEndLocation);
                 Admin admin = new Admin(model.Username, "");
                 _routeManager.CreateAsync(newroute, admin);

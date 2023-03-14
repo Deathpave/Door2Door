@@ -29,7 +29,7 @@ namespace Door2DoorLib.Managers
         /// <returns></returns>
         public async Task<string> UploadVideoAsync(IFormFile file)
         {
-            string result = _repository.UploadVideo(fileName, fileExtension).Result;
+            string result = _repository.UploadVideo(file).Result;
             if (result != string.Empty)
             {
                 return await Task.FromResult(result);
