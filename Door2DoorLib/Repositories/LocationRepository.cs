@@ -29,11 +29,6 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<bool> CreateAsync(Location createEntity)
         {
-            //MySqlCommand sqlCommand = new MySqlCommand("spCreateLocation");
-            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            //sqlCommand.Parameters.Add(new MySqlParameter("@newName", createEntity.Name));
-            //sqlCommand.Parameters.Add(new MySqlParameter("@newIconUrl", createEntity.IconUrl));
-
             DbCommand sqlCommand = new SqlCommand("spCreateLocation");
             sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.Parameters.Add(new SqlParameter("@newName", createEntity.Name));
@@ -59,10 +54,6 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<bool> DeleteAsync(Location deleteEntity)
         {
-            //MySqlCommand sqlCommand = new MySqlCommand("spDeleteLocation");
-            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            //sqlCommand.Parameters.Add(new MySqlParameter("@locationId", deleteEntity.Id));
-
             DbCommand sqlCommand = new SqlCommand("spDeleteLocation");
             sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.Parameters.Add(new SqlParameter("@locationId", deleteEntity.Id));
@@ -86,9 +77,6 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<Location>> GetAllAsync()
         {
-            //MySqlCommand sqlCommand = new MySqlCommand("spGetAllLocations");
-            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-
             DbCommand sqlCommand = new SqlCommand("spGetAllLocations");
             sqlCommand.CommandType = CommandType.StoredProcedure;
 
@@ -101,7 +89,7 @@ namespace Door2DoorLib.Repositories
                     // Create a new route from the datastream
                     while (streamReader.Read())
                     {
-                        Location newLocation = new Location(streamReader.GetInt64("id"), streamReader.GetString("name"), streamReader.GetString("iconUrl"));
+                        Location newLocation = new Location(streamReader.GetString("name"), streamReader.GetString("iconUrl"), streamReader.GetInt64("id"));
                         result.Add(newLocation);
                     }
                 }
@@ -121,10 +109,6 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<Location> GetByIdAsync(long id)
         {
-            //MySqlCommand sqlCommand = new MySqlCommand("spGetLocationById");
-            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            //sqlCommand.Parameters.Add(new MySqlParameter("@LocationId", id));
-
             DbCommand sqlCommand = new SqlCommand("spGetLocationById");
             sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.Parameters.Add(new SqlParameter("@LocationId", id));
@@ -136,7 +120,7 @@ namespace Door2DoorLib.Repositories
                 if (streamReader != null)
                 {
                     // Create a new route from the datastream
-                    result = new Location(streamReader.GetInt64("id"), streamReader.GetString("name"), streamReader.GetString("iconUrl"));
+                    result = new Location(streamReader.GetString("name"), streamReader.GetString("iconUrl"), streamReader.GetInt64("id"));
                 }
                 else
                 {
@@ -155,12 +139,6 @@ namespace Door2DoorLib.Repositories
         /// <exception cref="NotImplementedException"></exception>
         public async Task<bool> UpdateAsync(Location updateEntity)
         {
-            //MySqlCommand sqlCommand = new MySqlCommand("spUpdateLocation");
-            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            //sqlCommand.Parameters.Add(new MySqlParameter("@routeId", updateEntity.Id));
-            //sqlCommand.Parameters.Add(new MySqlParameter("@newText", updateEntity.Name));
-            //sqlCommand.Parameters.Add(new MySqlParameter("@videourl", updateEntity.IconUrl));
-
             DbCommand sqlCommand = new SqlCommand("spUpdateLocation");
             sqlCommand.CommandType = CommandType.StoredProcedure;
             sqlCommand.Parameters.Add(new SqlParameter("@routeId", updateEntity.Id));

@@ -13,7 +13,7 @@
         #endregion
 
         #region Constructor
-        public Location(long id, string name, string iconUrl) : base(id)
+        public Location(string name, string iconUrl, long id = 0) : base(id)
         {
             _name = name;
             _iconUrl = iconUrl;
