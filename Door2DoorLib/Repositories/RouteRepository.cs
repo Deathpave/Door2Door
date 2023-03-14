@@ -30,8 +30,8 @@ namespace Door2DoorLib.Repositories
                 using (WebClient client = new WebClient())
                 {
                     client.Credentials = new NetworkCredential("Administrator", "Kode1234!");
-                    client.UploadFile($"ftp://10.13.0.125//path/{fileName}.{fileExtension}", WebRequestMethods.Ftp.UploadFile);
-                    return Task.FromResult($"ftp://10.13.0.125//path/{fileName}.{fileExtension}");
+                    client.UploadFile($"ftp://10.13.0.125//Videos/{fileName}.{fileExtension}", WebRequestMethods.Ftp.UploadFile);
+                    return Task.FromResult($"ftp://10.13.0.125//Videos/{fileName}.{fileExtension}");
                 }
             }
             catch (Exception)
