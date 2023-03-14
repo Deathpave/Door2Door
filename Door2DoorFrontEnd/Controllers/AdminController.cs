@@ -36,7 +36,6 @@ namespace Door2DoorFrontEnd.Controllers
                 //{
                 //    //add new admin to database here
                 //}
-                
                 return RedirectToAction("Admin",model);
             }
             catch (Exception)
