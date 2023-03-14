@@ -31,13 +31,19 @@ namespace Door2DoorLib.Repositories
         {
             DbCommand sqlCommand = new SqlCommand("spCreateLocation");
             sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.Parameters.Add(new SqlParameter("@newName", createEntity.Name));
-            sqlCommand.Parameters.Add(new SqlParameter("@newIconUrl", createEntity.IconUrl));
+            int affectedRows = 0;
 
-            await _database.OpenConnectionAsync();
-            var result = _database.ExecuteQueryAsync(sqlCommand).Status;
-            _database.CloseConnection();
-            if (result == TaskStatus.RanToCompletion)
+            IDictionary<string, object> sqlParams = new Dictionary<string, object>
+            {
+                { "@newName", createEntity.Name },
+                {"@newIconUrl", createEntity.IconUrl }
+            };
+
+            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
+            dataReader.Read();
+            affectedRows = dataReader.RecordsAffected;
+
+            if (affectedRows > 0)
             {
                 return await Task.FromResult(true);
             }
@@ -56,18 +62,24 @@ namespace Door2DoorLib.Repositories
         {
             DbCommand sqlCommand = new SqlCommand("spDeleteLocation");
             sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.Parameters.Add(new SqlParameter("@locationId", deleteEntity.Id));
+            int affectedRows = 0;
 
-            await _database.OpenConnectionAsync();
-            var result = _database.ExecuteQueryAsync(sqlCommand).Status;
-            _database.CloseConnection();
-            if (result == TaskStatus.RanToCompletion)
+            IDictionary<string, object> sqlParams = new Dictionary<string, object>
             {
-                return await Task.FromResult(true);
+                { "@locationId", deleteEntity.Id }
+            };
+
+            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
+            dataReader.Read();
+            affectedRows = dataReader.RecordsAffected;
+
+            if (affectedRows != 0)
+            {
+                return true;
             }
             else
             {
-                return await Task.FromResult(false);
+                return false;
             }
         }
 
@@ -81,24 +93,16 @@ namespace Door2DoorLib.Repositories
             sqlCommand.CommandType = CommandType.StoredProcedure;
 
             List<Location> result = new List<Location>();
-            await _database.OpenConnectionAsync();
-            using (DbDataReader streamReader = _database.ExecuteQueryAsync(sqlCommand).Result)
+
+            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand);
+
+            if (dataReader.HasRows == false) return new List<Location>();
+
+            while (await dataReader.ReadAsync())
             {
-                if (streamReader != null)
-                {
-                    // Create a new route from the datastream
-                    while (streamReader.Read())
-                    {
-                        Location newLocation = new Location(streamReader.GetString("name"), streamReader.GetString("iconUrl"), streamReader.GetInt64("id"));
-                        result.Add(newLocation);
-                    }
-                }
-                else
-                {
-                    LogFactory.CreateLog(LogTypes.File, "Could not get all locations async", MessageTypes.Error).WriteLog();
-                }
+                Location newLocation = new Location(dataReader.GetString("name"), dataReader.GetString("iconUrl"), dataReader.GetInt64("id"));
+                result.Add(newLocation);
             }
-            _database.CloseConnection();
             return await Task.FromResult(result);
         }
 
@@ -111,23 +115,21 @@ namespace Door2DoorLib.Repositories
         {
             DbCommand sqlCommand = new SqlCommand("spGetLocationById");
             sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.Parameters.Add(new SqlParameter("@LocationId", id));
-
             Location result = null;
-            await _database.OpenConnectionAsync();
-            using (var streamReader = _database.ExecuteQueryAsync(sqlCommand).Result)
+
+            IDictionary<string, object> sqlParams = new Dictionary<string, object>
             {
-                if (streamReader != null)
-                {
-                    // Create a new route from the datastream
-                    result = new Location(streamReader.GetString("name"), streamReader.GetString("iconUrl"), streamReader.GetInt64("id"));
-                }
-                else
-                {
-                    LogFactory.CreateLog(LogTypes.File, $"Could not get location by id {id}", MessageTypes.Error);
-                }
+                { "@locationId", id }
+            };
+
+            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
+
+            if (dataReader.HasRows == false) return result;
+
+            while (dataReader.Read())
+            {
+                result = new Location(dataReader.GetString("name"), dataReader.GetString("iconUrl"), dataReader.GetInt64("id"));
             }
-            _database.CloseConnection();
             return await Task.FromResult(result);
         }
 
@@ -141,17 +143,26 @@ namespace Door2DoorLib.Repositories
         {
             DbCommand sqlCommand = new SqlCommand("spUpdateLocation");
             sqlCommand.CommandType = CommandType.StoredProcedure;
-            sqlCommand.Parameters.Add(new SqlParameter("@routeId", updateEntity.Id));
-            sqlCommand.Parameters.Add(new SqlParameter("@newText", updateEntity.Name));
-            sqlCommand.Parameters.Add(new SqlParameter("@videourl", updateEntity.IconUrl));
+            int affectedRows = 0;
 
-            if (_database.ExecuteQueryAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
+            IDictionary<string, object> sqlParams = new Dictionary<string, object>
             {
-                return await Task.FromResult(true);
+                { "@locationId", updateEntity.Id },
+                { "@newName", updateEntity.Name },
+                { "@newIconUrl", updateEntity.IconUrl }
+            };
+
+            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
+            dataReader.Read();
+            affectedRows = dataReader.RecordsAffected;
+
+            if (affectedRows != 0)
+            {
+                return true;
             }
             else
             {
-                return await Task.FromResult(false);
+                return false;
             }
         }
 
