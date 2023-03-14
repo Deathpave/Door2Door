@@ -30,18 +30,6 @@ namespace Door2DoorFrontEnd.Controllers
             return View(model);
         }
 
-        //[HttpGet("~/navigation")]
-        //public IActionResult Navigation(int routeid)
-        //{
-        //    if (routeid > -1)
-        //    {
-        //        Door2DoorLib.DataModels.Route route = _routeManager.GetRouteById(routeid).Result;
-        //        RouteModel model = new RouteModel();
-        //        model.RouteList = new List<Door2DoorLib.DataModels.Route> { route};
-        //        return View("Route",model);
-        //    }
-        //    return View();
-        //}
         public IActionResult Privacy()
         {
             return View();
@@ -49,15 +37,7 @@ namespace Door2DoorFrontEnd.Controllers
 
         public IActionResult Guide()
         {
-            //Get Video url from video object tied to route object, based off of the selection from the index dropdown menu
-
-            //GuideViewModel temp = new GuideViewModel(
-            //    _routeManager.GetRouteAsync("insert selection from mapoverview page here").Result.VideoUrl
-            //    );
-
             GuideViewModel model = new GuideViewModel("/media/movie.mp4");
-
-
 
             return View(model);
         }
