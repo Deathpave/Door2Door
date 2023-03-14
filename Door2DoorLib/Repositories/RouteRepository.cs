@@ -23,22 +23,23 @@ namespace Door2DoorLib.Repositories
 
         #region Methods
         #region Upload Video
-        public Task<string> UploadVideo(IFormFile file)
+        public async Task<string> UploadVideo(IFormFile file)
         {
             try
             {
-                file.CopyTo(File.OpenWrite($"ftp://10.13.0.125//Videos/{file.Name}"));
+                using var stream = File.OpenWrite($"C:\\Door2Door\\Videos\\{file.Name}{file.Name}");
+                await file.CopyToAsync(stream);
                 //using (WebClient client = new WebClient())
                 //{
                 //    client.Credentials = new NetworkCredential("Administrator", "Kode1234!");
                 //    client.UploadFile($"ftp://10.13.0.125//Videos/{fileName}.{fileExtension}", fileName+fileExtension);
                 //    return Task.FromResult($"ftp://10.13.0.125//Videos/{fileName}.{fileExtension}");
                 //}
-                return Task.FromResult($"ftp://10.13.0.125//Videos/{file.Name}");
+                return await Task.FromResult($"ftp://10.13.0.125//Videos/{file.Name}");
             }
             catch (Exception)
             {
-                return Task.FromResult(string.Empty);
+                return await Task.FromResult(string.Empty);
             }
         }
         #endregion
