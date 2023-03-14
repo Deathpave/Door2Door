@@ -141,7 +141,7 @@ namespace Door2DoorLib.Repositories
 
             while (await dataReader.ReadAsync())
             {
-                Route newroute = new Route(dataReader.GetInt64("id"), dataReader.GetString("videoUrl"), dataReader.GetString("text"), dataReader.GetInt64("startLocation"), dataReader.GetInt64("endLocation"));
+                Route newroute = new Route(dataReader.GetString("videoUrl"), dataReader.GetString("text"), dataReader.GetInt64("startLocation"), dataReader.GetInt64("endLocation"), dataReader.GetInt64("id"));
                 result.Add(newroute);
             }
             return await Task.FromResult(result);
@@ -156,10 +156,6 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<Route> GetByIdAsync(long id)
         {
-            //MySqlCommand sqlCommand = new MySqlCommand("spGetRouteById");
-            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            //sqlCommand.Parameters.Add(new MySqlParameter("@routeId", id));
-
             DbCommand sqlCommand = new SqlCommand("spGetRouteById");
             sqlCommand.CommandType = CommandType.StoredProcedure;
 
@@ -175,7 +171,7 @@ namespace Door2DoorLib.Repositories
 
             while (dataReader.Read())
             {
-                result = new Route(dataReader.GetInt64("id"), dataReader.GetString("videoUrl"), dataReader.GetString("text"), dataReader.GetInt64("startLocation"), dataReader.GetInt64("endLocation"));
+                result = new Route(dataReader.GetString("videoUrl"), dataReader.GetString("text"), dataReader.GetInt64("startLocation"), dataReader.GetInt64("endLocation"), dataReader.GetInt64("id"));
             }
             return await Task.FromResult(result);
         }
@@ -189,14 +185,6 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<bool> UpdateAsync(Route updateEntity)
         {
-            //MySqlCommand sqlCommand = new MySqlCommand("spUpdateRoute");
-            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            //sqlCommand.Parameters.Add(new MySqlParameter("@routeId", updateEntity.Id));
-            //sqlCommand.Parameters.Add(new MySqlParameter("@newText", updateEntity.Description));
-            //sqlCommand.Parameters.Add(new MySqlParameter("@videourl", updateEntity.VideoUrl));
-            //sqlCommand.Parameters.Add(new MySqlParameter("@startId", updateEntity.StartLocation));
-            //sqlCommand.Parameters.Add(new MySqlParameter("@endId", updateEntity.EndLocation));
-
             DbCommand sqlCommand = new SqlCommand("spUpdateRoute");
             sqlCommand.CommandType = CommandType.StoredProcedure;
 
@@ -228,11 +216,6 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<Route> GetByLocationsAsync(long startLocation, long endLocation)
         {
-            //MySqlCommand sqlCommand = new MySqlCommand("spGetRouteByLocations");
-            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            //sqlCommand.Parameters.Add(new MySqlParameter("@startId", startLocation));
-            //sqlCommand.Parameters.Add(new MySqlParameter("@endId", endLocation));
-
             DbCommand sqlCommand = new SqlCommand("spGetRouteByLocations");
             sqlCommand.CommandType = CommandType.StoredProcedure;
 
@@ -250,7 +233,7 @@ namespace Door2DoorLib.Repositories
 
             while (dataReader.Read())
             {
-                result = new Route(dataReader.GetInt64("id"), dataReader.GetString("videoUrl"), dataReader.GetString("text"), dataReader.GetInt64("startLocation"), dataReader.GetInt64("endLocation"));
+                result = new Route(dataReader.GetString("videoUrl"), dataReader.GetString("text"), dataReader.GetInt64("startLocation"), dataReader.GetInt64("endLocation"), dataReader.GetInt64("id"));
             }
             return await Task.FromResult(result);
         }
