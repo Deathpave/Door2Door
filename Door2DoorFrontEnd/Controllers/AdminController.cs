@@ -21,20 +21,22 @@ namespace Door2DoorFrontEnd.Controllers
         {
             //Door2DoorLib.DataModels.Admin admin = _adminManager.
             AdminModel model = new AdminModel();
+            model.newadmin = new Admin(0,null,null);
+
             return View("Admin",model);
         }
 
         [HttpPost]
-        public ActionResult AddAdmin(AdminModel model)
+        public async Task<IActionResult> AddAdmin(AdminModel model)
         {
             try
             {
+                AdminModel adminModel = new AdminModel();
                 if (ModelState.IsValid)
                 {
-                    AdminModel adminModel = model;
                     //add new admin to database here
                 }
-                return View("Admin");
+                return RedirectToAction("Admin",model);
             }
             catch (Exception)
             {
@@ -53,7 +55,7 @@ namespace Door2DoorFrontEnd.Controllers
                     Admin admin = new Admin(-1, model.Username,"");
                     _routeManager.CreateAsync(model.newroute,admin);
                 }
-                return View("Admin");
+                return View("Admin",model);
             }
             catch (Exception)
             {
