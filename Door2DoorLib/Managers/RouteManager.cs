@@ -20,15 +20,16 @@ namespace Door2DoorLib.Managers
 
         #region Methods
         #region Upload Video
-        public async Task<bool> UploadVideoAsync(string fileName, string fileExtension)
+        public async Task<string> UploadVideoAsync(string fileName, string fileExtension)
         {
-            if (_repository.UploadVideo(fileName, fileExtension).Result != string.Empty)
+            string result = _repository.UploadVideo(fileName, fileExtension).Result;
+            if (result != string.Empty)
             {
-                return await Task.FromResult(true);
+                return await Task.FromResult(result);
             }
             else
             {
-                return await Task.FromResult(false);
+                return await Task.FromResult(string.Empty);
             }
         }
         #endregion
