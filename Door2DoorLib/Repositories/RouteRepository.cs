@@ -49,13 +49,6 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<bool> CreateAsync(Route createEntity)
         {
-            //MySqlCommand sqlCommand = new MySqlCommand("spCreateRoute");
-            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            //sqlCommand.Parameters.Add(new MySqlParameter("@newText", createEntity.Description));
-            //sqlCommand.Parameters.Add(new MySqlParameter("@videourl", createEntity.VideoUrl));
-            //sqlCommand.Parameters.Add(new MySqlParameter("@startId", createEntity.StartLocation));
-            //sqlCommand.Parameters.Add(new MySqlParameter("@endId", createEntity.EndLocation));
-
             DbCommand sqlCommand = new SqlCommand("spCreateRoute");
             sqlCommand.CommandType = CommandType.StoredProcedure;
             int affectedRows = 0;
@@ -91,13 +84,9 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<bool> DeleteAsync(Route deleteEntity)
         {
-            //MySqlCommand sqlCommand = new MySqlCommand("spDeleteRoute");
-            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            //sqlCommand.Parameters.Add(new MySqlParameter("@routeId", deleteEntity.Id));
-
             DbCommand sqlCommand = new SqlCommand("spDeleteRoute");
             sqlCommand.CommandType = CommandType.StoredProcedure;
-            int returnValue = 0;
+            int affectedRows = 0;
 
             IDictionary<string, object> sqlParams = new Dictionary<string, object>
             {
@@ -105,11 +94,10 @@ namespace Door2DoorLib.Repositories
             };
 
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
-
             dataReader.Read();
-            returnValue = dataReader.RecordsAffected;
+            affectedRows = dataReader.RecordsAffected;
 
-            if (returnValue != 0)
+            if (affectedRows != 0)
             {
                 return true;
             }
@@ -127,21 +115,17 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<Route>> GetAllAsync()
         {
-            //MySqlCommand sqlCommand = new MySqlCommand("spGetAllRoutes");
-            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-
             DbCommand sqlCommand = new SqlCommand("spGetAllRoutes");
             sqlCommand.CommandType = CommandType.StoredProcedure;
+            List<Route> result = new List<Route>();
 
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand);
 
             if (dataReader.HasRows == false) return new List<Route>();
 
-            List<Route> result = new List<Route>();
-
             while (await dataReader.ReadAsync())
             {
-                Route newroute = new Route(dataReader.GetInt64("id"), dataReader.GetString("videoUrl"), dataReader.GetString("text"), dataReader.GetInt64("startLocation"), dataReader.GetInt64("endLocation"));
+                Route newroute = new Route(dataReader.GetString("videoUrl"), dataReader.GetString("text"), dataReader.GetInt64("startLocation"), dataReader.GetInt64("endLocation"), dataReader.GetInt64("id"));
                 result.Add(newroute);
             }
             return await Task.FromResult(result);
@@ -156,26 +140,22 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<Route> GetByIdAsync(long id)
         {
-            //MySqlCommand sqlCommand = new MySqlCommand("spGetRouteById");
-            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            //sqlCommand.Parameters.Add(new MySqlParameter("@routeId", id));
-
             DbCommand sqlCommand = new SqlCommand("spGetRouteById");
             sqlCommand.CommandType = CommandType.StoredProcedure;
 
             IDictionary<string, object> sqlParams = new Dictionary<string, object>
             {
-                { "@id", id }
+                { "@routeId", id }
             };
             Route result = null;
 
-            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand);
+            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
 
             if (dataReader.HasRows == false) return result;
 
             while (dataReader.Read())
             {
-                result = new Route(dataReader.GetInt64("id"), dataReader.GetString("videoUrl"), dataReader.GetString("text"), dataReader.GetInt64("startLocation"), dataReader.GetInt64("endLocation"));
+                result = new Route(dataReader.GetString("videoUrl"), dataReader.GetString("text"), dataReader.GetInt64("startLocation"), dataReader.GetInt64("endLocation"), dataReader.GetInt64("id"));
             }
             return await Task.FromResult(result);
         }
@@ -189,32 +169,30 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<bool> UpdateAsync(Route updateEntity)
         {
-            //MySqlCommand sqlCommand = new MySqlCommand("spUpdateRoute");
-            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            //sqlCommand.Parameters.Add(new MySqlParameter("@routeId", updateEntity.Id));
-            //sqlCommand.Parameters.Add(new MySqlParameter("@newText", updateEntity.Description));
-            //sqlCommand.Parameters.Add(new MySqlParameter("@videourl", updateEntity.VideoUrl));
-            //sqlCommand.Parameters.Add(new MySqlParameter("@startId", updateEntity.StartLocation));
-            //sqlCommand.Parameters.Add(new MySqlParameter("@endId", updateEntity.EndLocation));
-
             DbCommand sqlCommand = new SqlCommand("spUpdateRoute");
             sqlCommand.CommandType = CommandType.StoredProcedure;
+            int affectedRows = 0;
 
             IDictionary<string, object> sqlParams = new Dictionary<string, object>
             {
+                { "@routeId", updateEntity.StartLocation },
                 { "@startId", updateEntity.StartLocation },
-                {"@endId", updateEntity.EndLocation },
+                { "@endId", updateEntity.EndLocation },
                 { "@newText", updateEntity.Description},
                 { "@videourl", updateEntity.VideoUrl}
             };
 
-            if (_database.ExecuteQueryAsync(sqlCommand).Status == TaskStatus.RanToCompletion)
+            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
+            dataReader.Read();
+            affectedRows = dataReader.RecordsAffected;
+
+            if (affectedRows != 0)
             {
-                return await Task.FromResult(true);
+                return true;
             }
             else
             {
-                return await Task.FromResult(false);
+                return false;
             }
         }
         #endregion
@@ -228,11 +206,6 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<Route> GetByLocationsAsync(long startLocation, long endLocation)
         {
-            //MySqlCommand sqlCommand = new MySqlCommand("spGetRouteByLocations");
-            //sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-            //sqlCommand.Parameters.Add(new MySqlParameter("@startId", startLocation));
-            //sqlCommand.Parameters.Add(new MySqlParameter("@endId", endLocation));
-
             DbCommand sqlCommand = new SqlCommand("spGetRouteByLocations");
             sqlCommand.CommandType = CommandType.StoredProcedure;
 
@@ -250,7 +223,7 @@ namespace Door2DoorLib.Repositories
 
             while (dataReader.Read())
             {
-                result = new Route(dataReader.GetInt64("id"), dataReader.GetString("videoUrl"), dataReader.GetString("text"), dataReader.GetInt64("startLocation"), dataReader.GetInt64("endLocation"));
+                result = new Route(dataReader.GetString("videoUrl"), dataReader.GetString("text"), dataReader.GetInt64("startLocation"), dataReader.GetInt64("endLocation"), dataReader.GetInt64("id"));
             }
             return await Task.FromResult(result);
         }

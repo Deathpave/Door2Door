@@ -95,7 +95,7 @@ namespace Door2DoorLib.Repositories
                 if (streamReader != null)
                 {
                     // Create a new route from the datastream
-                    result = new Admin(streamReader.GetInt64("id"), streamReader.GetString("username"), streamReader.GetString("password"));
+                    result = new Admin(streamReader.GetString("username"), streamReader.GetString("password"), streamReader.GetInt64("id"));
                 }
                 else
                 {
@@ -138,7 +138,7 @@ namespace Door2DoorLib.Repositories
                     // Create a new route from the datastream
                     while (streamReader.Read())
                     {
-                        result = new Admin(streamReader.GetInt64("id"), streamReader.GetString("username"), streamReader.GetString("password"));
+                        result = new Admin(streamReader.GetString("username"), streamReader.GetString("password"), streamReader.GetInt64("id"));
                     }
                 }
                 else
