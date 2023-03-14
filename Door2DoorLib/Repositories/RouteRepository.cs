@@ -1,12 +1,9 @@
 ﻿using Door2DoorLib.DataModels;
-using Door2DoorLib.Factories;
 using Door2DoorLib.Interfaces;
-using MySql.Data.MySqlClient;
 using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Net;
-using System.Xml;
 
 namespace Door2DoorLib.Repositories
 {
