@@ -74,9 +74,10 @@ namespace Door2DoorLib.Managers
             {
                 return await _repository.GetAllAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                throw;
+                LogFactory.CreateLog(LogTypes.Database, ex.Message, MessageTypes.Error).WriteLog();
+                return await Task.FromResult(new List<Location>());
             }
         }
         #endregion
@@ -93,10 +94,11 @@ namespace Door2DoorLib.Managers
             {
                 return await _repository.GetByIdAsync(id);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-
-                throw;
+                Location failed = null;
+                LogFactory.CreateLog(LogTypes.Database, ex.Message, MessageTypes.Error).WriteLog();
+                return await Task.FromResult(failed);
             }
         }
         #endregion
