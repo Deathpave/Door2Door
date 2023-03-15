@@ -43,9 +43,10 @@ namespace Door2DoorFrontEnd.Controllers
         {
             try
             {
-                Admin admin = new Admin(model.NewAdminUsername,model.NewAdminPswd);
-                Admin currentadmin = new Admin(model.Username,"");
-                await _adminManager.CreateAsync(admin,currentadmin);
+                model = SetLists(model);
+                Admin admin = new Admin(model.NewAdminUsername, model.NewAdminPswd);
+                Admin currentadmin = new Admin(model.Username, "");
+                await _adminManager.CreateAsync(admin, currentadmin);
                 model.NewAdminUsername = "";
                 model.NewAdminPswd = "";
                 return View("Admin", model);
@@ -61,6 +62,7 @@ namespace Door2DoorFrontEnd.Controllers
         {
             try
             {
+                model = SetLists(model);
                 Admin admin = new Admin(model.Username, "");
                 Admin deleteadmin = new Admin(model.DeleteAdmin, model.Username);
 
@@ -78,10 +80,7 @@ namespace Door2DoorFrontEnd.Controllers
         {
             try
             {
-                //if (ModelState.IsValid)
-                //{
-                //    //add new admin to database here
-                //}
+                model = SetLists(model);
                 Location location = new Location(model.NewLocationName, "");
                 Admin currentadmin = new Admin(model.Username, null);
 
@@ -99,6 +98,7 @@ namespace Door2DoorFrontEnd.Controllers
         {
             try
             {
+                model = SetLists(model);
                 string url = _routeManager.UploadVideoAsync(model.Video).Result;
                 Door2DoorLib.DataModels.Route newroute = new Door2DoorLib.DataModels.Route(url, model.NewRouteDescription, model.SelectedStartLocation, model.SelectedEndLocation, 66);
                 Admin admin = new Admin(model.Username, "");
@@ -116,15 +116,29 @@ namespace Door2DoorFrontEnd.Controllers
         {
             try
             {
-                Door2DoorLib.DataModels.Route route = new Door2DoorLib.DataModels.Route("","",0,0,model.DeleteRoute);
+                model = SetLists(model);
+                Door2DoorLib.DataModels.Route route = new Door2DoorLib.DataModels.Route("", "", 0, 0, model.DeleteRoute);
                 Admin admin = new Admin(model.Username, "");
-                await _routeManager.DeleteAsync(route,admin);
+                await _routeManager.DeleteAsync(route, admin);
                 return View("Admin", model);
             }
             catch (Exception)
             {
                 return View("Admin");
             }
+        }
+
+        private AdminModel SetLists(AdminModel model)
+        {
+            if (model.LocationList == null || model.LocationList.Count() == 0)
+            {
+                model.LocationList = _locationManager.GetAllAsync().Result.ToList();
+            }
+            if (model.RouteList == null || model.RouteList.Count() == 0)
+            {
+                model.RouteList = _routeManager.GetAllAsync().Result.ToList();
+            }
+            return model;
         }
     }
 }
