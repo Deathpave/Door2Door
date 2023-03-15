@@ -86,13 +86,13 @@ namespace Door2DoorLibTester.ManagerTests
 
         private Admin CreateTestUser()
         {
-            Admin admin = new("TestUser", "123", 1337);
+            Admin admin = new("TestUser", "123", 1000);
             return admin;
         }
 
         private Admin CreateUpdatedTestUser()
         {
-            Admin admin = new("updatedTestUser", "321", 1337);
+            Admin admin = new("updatedTestUser", "321", 1000);
             return admin;
         }
     }
