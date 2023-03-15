@@ -129,7 +129,22 @@ namespace Door2DoorLib.Repositories
         /// <returns></returns>
         public async Task<IEnumerable<Admin>> GetAllAsync()
         {
-            throw new NotImplementedException("This is not allowed");
+            DbCommand sqlCommand = new SqlCommand("spGetAllAdmins");
+            sqlCommand.CommandType = CommandType.StoredProcedure;
+            List<Admin> result = new List<Admin>();
+
+            using var dataReader = await _database.ExecuteQueryAsync(sqlCommand);
+
+            if (dataReader.HasRows == false) return new List<Admin>();
+
+            while (await dataReader.ReadAsync())
+            {
+                Admin newroute = new Admin(dataReader.GetString("username"), dataReader.GetString("password"), dataReader.GetInt64("id"));
+                result.Add(newroute);
+            }
+
+            await _database.CloseConnection();
+            return await Task.FromResult(result);
         }
         #endregion
 

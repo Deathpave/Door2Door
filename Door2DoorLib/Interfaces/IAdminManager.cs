@@ -20,6 +20,8 @@ namespace Door2DoorLib.Interfaces
         /// <returns></returns>
         Task<bool> CreateAsync(Admin newAdmin, Admin admin);
 
+        Task<IEnumerable<Admin>> GetAllAsync();
+
         /// <summary>
         /// deletes the delete admin, and logs the admin who did it
         /// </summary>

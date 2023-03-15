@@ -64,6 +64,19 @@ namespace Door2DoorLib.Managers
         }
         #endregion
 
+        public async Task<IEnumerable<Admin>> GetAllAsync()
+        {
+            try
+            {
+                return await _repository.GetAllAsync();
+            }
+            catch (Exception ex)
+            {
+                LogFactory.CreateLog(LogTypes.Database, ex.Message, MessageTypes.Error).WriteLog();
+                return await Task.FromResult(new List<Admin>());
+            }
+        }
+
         #region Delete Admin Async
         /// <summary>
         /// deletes the delete admin, and logs the admin who did it
