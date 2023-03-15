@@ -1,12 +1,4 @@
 /*####################################################
-			## Insert Test data ##
-####################################################*/
-INSERT INTO `locations` (name) VALUES ('Test1');
-INSERT INTO `locations` (name) VALUES ('Test2');
-CALL `door2doordb`.`spCreateRoute`(1, 2, 'Kør til Cph', 'https://www.Dinmor.dk');
-
-
-/*####################################################
 			## Insert dummy/static data ##
 ####################################################*/
 INSERT INTO `locations` (name) VALUES ('A1.17');
@@ -83,3 +75,9 @@ INSERT INTO `locations` (name) VALUES ('H.07');
 INSERT INTO `locations` (name) VALUES ('H.11');
 INSERT INTO `locations` (name) VALUES ('I.04');
 INSERT INTO `locations` (name) VALUES ('I.06');
+
+/*####################################################
+			## Insert Test data ##
+####################################################*/
+CALL `door2doordb`.`spCreateRoute`(0, 1, 2, 'Kør til Cph', 'C:/Videos/download.jpg');
+CALL `door2doordb`.`spCreateRoute`(0, 1, 5, 'HEJ', 'http://10.13.0.125//Videos/IMG_3358.mp4');
