@@ -96,7 +96,8 @@
         {
             @Html.AntiForgeryToken()
             ;
-            @Html.DropDownListFor(o=>o.DeleteRoute, new SelectList(Model.RouteLocationList, "id","start","end" ))
+
+            @Html.DropDownListFor(o=>o.DeleteRoute, new SelectList(Model.RouteLocationList, "Value", "Text"))
             // Need to see what the locations are and not the id
             <input id="button" value="Slet rute" type="submit" />
         }
