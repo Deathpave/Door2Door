@@ -99,6 +99,7 @@ namespace Door2DoorFrontEnd.Controllers
         {
             try
             {
+                model.Username = "TestUser";
                 model = SetLists(model);
                 string url = _routeManager.UploadVideoAsync(model.Video).Result;
                 Door2DoorLib.DataModels.Route newroute = new Door2DoorLib.DataModels.Route(url, model.NewRouteDescription, model.SelectedStartLocation, model.SelectedEndLocation, 66);

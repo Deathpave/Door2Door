@@ -142,7 +142,7 @@ namespace Door2DoorLibTester.ManagerTests
 
         private Route CreateTestRoute()
         {
-            Route route = new("Test", "Test", 6, 7, 1000));
+            Route route = new("Test", "Test", 6, 7, 1000);
             return route;
         }
 
