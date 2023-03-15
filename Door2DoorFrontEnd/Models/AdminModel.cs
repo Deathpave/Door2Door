@@ -22,6 +22,8 @@ namespace Door2DoorFrontEnd.Models
 
         public string DeleteRoute { get; set; }
 
+        public string DeleteAdmin { get;set; }
+
         public IFormFile Video { get; set; }
 
         public string FileName { get; set; }
@@ -33,6 +35,10 @@ namespace Door2DoorFrontEnd.Models
         public IFormFile NewLocationIcon { get; set; }
 
         public IEnumerable<Location> LocationList { get; set; }
+
+        public IEnumerable<Door2DoorLib.DataModels.Route> RouteList { get; set; }
+
+        public List<SelectListItem> RouteLocationList { get; set; }
 
         public int SelectedStartLocation { get; set; }
         public int SelectedEndLocation { get; set; }
