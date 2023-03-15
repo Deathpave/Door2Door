@@ -41,17 +41,18 @@ namespace Door2DoorFrontEnd.Controllers
         [HttpPost]
         public async Task<IActionResult> AddAdmin(AdminModel model)
         {
-            AdminModel newmodel = new AdminModel();
             try
             {
-                Admin admin = new Admin(model.Username,model.NewAdminPswd);
+                Admin admin = new Admin(model.NewAdminUsername,model.NewAdminPswd);
                 Admin currentadmin = new Admin(model.Username,"");
                 await _adminManager.CreateAsync(admin,currentadmin);
-                return View("Admin", newmodel);
+                model.NewAdminUsername = "";
+                model.NewAdminPswd = "";
+                return View("Admin", model);
             }
             catch (Exception)
             {
-                return View("Admin", newmodel);
+                return View("Admin", model);
             }
         }
 
