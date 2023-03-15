@@ -24,16 +24,17 @@ namespace Door2DoorFrontEnd.Controllers
         {
             //Door2DoorLib.DataModels.Admin admin = _adminManager.
             AdminModel model = new AdminModel();
-            model.LocationList = _locationManager.GetAllAsync().Result.ToList();
-            model.RouteList = _routeManager.GetAllAsync().Result.ToList();
-            List<SelectListItem> routes = new List<SelectListItem>();
-            SelectListItem t = new SelectListItem();
-            foreach (var item in model.RouteList)
-            {
-                routes.Add(new SelectListItem() { Value = item.Id.ToString(), Text = model.LocationList.Where(x => x.Id == item.StartLocation).FirstOrDefault().Name + "-" + model.LocationList.Where(x => x.Id == item.EndLocation).FirstOrDefault().Name });
-                //routes.Add(new string[] { item.Id.ToString(), model.LocationList.Where(x => x.Id == item.StartLocation).FirstOrDefault().Name, model.LocationList.Where(x => x.Id == item.EndLocation).FirstOrDefault().Name });
-            }
-            model.RouteLocationList = routes;
+            //model.LocationList = _locationManager.GetAllAsync().Result.ToList();
+            //model.RouteList = _routeManager.GetAllAsync().Result.ToList();
+            //List<SelectListItem> routes = new List<SelectListItem>();
+            //SelectListItem t = new SelectListItem();
+            //foreach (var item in model.RouteList)
+            //{
+            //    routes.Add(new SelectListItem() { Value = item.Id.ToString(), Text = model.LocationList.Where(x => x.Id == item.StartLocation).FirstOrDefault().Name + "-" + model.LocationList.Where(x => x.Id == item.EndLocation).FirstOrDefault().Name });
+            //    //routes.Add(new string[] { item.Id.ToString(), model.LocationList.Where(x => x.Id == item.StartLocation).FirstOrDefault().Name, model.LocationList.Where(x => x.Id == item.EndLocation).FirstOrDefault().Name });
+            //}
+            //model.RouteLocationList = routes;
+            model = SetLists(model);
 
             return View("Admin", model);
         }
@@ -138,6 +139,17 @@ namespace Door2DoorFrontEnd.Controllers
             if (model.RouteList == null || model.RouteList.Count() == 0)
             {
                 model.RouteList = _routeManager.GetAllAsync().Result.ToList();
+            }
+            if (model.RouteLocationList == null || model.RouteLocationList.Count() == 0)
+            {
+                List<SelectListItem> routeLocationList = new List<SelectListItem>();
+                SelectListItem t = new SelectListItem();
+                foreach (var item in model.RouteList)
+                {
+                    routeLocationList.Add(new SelectListItem() { Value = item.Id.ToString(), Text = model.LocationList.Where(x => x.Id == item.StartLocation).FirstOrDefault().Name + "-" + model.LocationList.Where(x => x.Id == item.EndLocation).FirstOrDefault().Name });
+                    //routes.Add(new string[] { item.Id.ToString(), model.LocationList.Where(x => x.Id == item.StartLocation).FirstOrDefault().Name, model.LocationList.Where(x => x.Id == item.EndLocation).FirstOrDefault().Name });
+                }
+                model.RouteLocationList = routeLocationList;
             }
             return model;
         }
