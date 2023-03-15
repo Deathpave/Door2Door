@@ -52,9 +52,7 @@
             @Html.AntiForgeryToken()
             ;
             @Html.TextBoxFor(Model => Model.NewAdminUsername, new {placeholder="Brugernavn"})
-            //TODO
             @Html.TextBoxFor(Model => Model.NewAdminPswd,new {type="password", placeholder="Kodeord"})
-            //hash the password
 
             <input id="button" value="Tilføj" type="submit" />
         }
@@ -78,9 +76,6 @@
         {
             @Html.AntiForgeryToken()
             ;
-            @*            @Html.TextBoxFor(Model => Model.NewRouteStart, new {placeholder = "Start lokation"})
-        @Html.TextBoxFor(Model => Model.NewRouteStart, new {placeholder = "slut lokation"})*@
-            //@Html.TextBoxFor(Model => Model.NewRouteDescription, new {placeholder = "Beskrivelse"})
             @Html.TextBoxFor(Model => Model.Video, new {  type= "file"})
             <p style="color:white;">Start lokation</p>
             @Html.DropDownListFor(o=>o.SelectedStartLocation, new SelectList(Model.LocationList, "Id", "Name"))
@@ -101,9 +96,7 @@
         {
             @Html.AntiForgeryToken()
             ;
-
-
-            @Html.DropDownListFor(o=>o.DeleteRoute, new SelectList(Model.RouteLocationList))
+            @Html.DropDownListFor(o=>o.DeleteRoute, new SelectList(Model.RouteLocationList, "id","start","end" ))
             // Need to see what the locations are and not the id
             <input id="button" value="Slet rute" type="submit" />
         }
