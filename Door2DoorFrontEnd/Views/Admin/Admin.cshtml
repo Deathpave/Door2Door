@@ -92,7 +92,7 @@
 
     <a onclick="toggleform('removeroute')">Fjern rute</a>
     <div id="removeroute" class="formwrapper">
-        @using (Html.BeginForm("removeRoute", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("RemoveRoute", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
             ;
