@@ -8,13 +8,13 @@ namespace Door2DoorLibTester.ManagerTests
 {
     internal class RouteManagerTests
     {
-        private IRouteManager _routeManager;
+        private IRouteManager _manager;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void Setup()
         {
             var db = SqlConfigurationSetup.SetupDB();
-            _routeManager = new RouteManager(db);
+            _manager = new RouteManager(db);
         }
 
         [Test]
@@ -22,8 +22,8 @@ namespace Door2DoorLibTester.ManagerTests
         public async Task GetAllAsync_HasData_IfCollectionIsNotNull()
         {
             //Act
-            var routes = await _routeManager.GetAllAsync();
-            AsyncTestDelegate getAllAction = async () => await _routeManager.GetAllAsync();
+            var routes = await _manager.GetAllAsync();
+            AsyncTestDelegate getAllAction = async () => await _manager.GetAllAsync();
 
             //Assert
             Assert.IsNotNull(routes);
@@ -41,10 +41,10 @@ namespace Door2DoorLibTester.ManagerTests
             Admin testUser = CreateTestUser();
 
             //Act
-            bool result = await _routeManager.CreateAsync(testRoute, testUser);
+            bool result = await _manager.CreateAsync(testRoute, testUser);
 
             //Cleanup
-            await _routeManager.DeleteAsync(testRoute, testUser);
+            await _manager.DeleteAsync(testRoute, testUser);
 
             //Assert
             Assert.IsTrue(result);
@@ -58,13 +58,13 @@ namespace Door2DoorLibTester.ManagerTests
             Route requestedRoute;
             Route testRoute = CreateTestRoute();
             Admin testUser = CreateTestUser();
-            await _routeManager.CreateAsync(testRoute, testUser);
+            await _manager.CreateAsync(testRoute, testUser);
 
             //Act
-            requestedRoute = await _routeManager.GetByIdAsync(testRoute.Id);
+            requestedRoute = await _manager.GetByIdAsync(testRoute.Id);
 
             //Cleanup
-            await _routeManager.DeleteAsync(testRoute, testUser);
+            await _manager.DeleteAsync(testRoute, testUser);
 
             //Assert
             Assert.AreEqual(testRoute.Id, requestedRoute.Id);
@@ -82,13 +82,13 @@ namespace Door2DoorLibTester.ManagerTests
             Route requestedRoute;
             Route testRoute = CreateTestRoute();
             Admin testUser = CreateTestUser();
-            await _routeManager.CreateAsync(testRoute, testUser);
+            await _manager.CreateAsync(testRoute, testUser);
 
             //Act
-            requestedRoute = await _routeManager.GetByLocationsAsync(testRoute.StartLocation, testRoute.EndLocation);
+            requestedRoute = await _manager.GetByLocationsAsync(testRoute.StartLocation, testRoute.EndLocation);
 
             //cleanup
-            await _routeManager.DeleteAsync(testRoute, testUser);
+            await _manager.DeleteAsync(testRoute, testUser);
 
             //Assert
             Assert.AreEqual(testRoute.Id, requestedRoute.Id);
@@ -106,13 +106,13 @@ namespace Door2DoorLibTester.ManagerTests
             Route testRoute = CreateTestRoute();
             Route updatedRoute = CreateUpdatedTestObject();
             Admin testUser = CreateTestUser();
-            await _routeManager.CreateAsync(testRoute, testUser);
+            await _manager.CreateAsync(testRoute, testUser);
 
             //Act
-            var result = await _routeManager.UpdateAsync(updatedRoute, testUser);
+            var result = await _manager.UpdateAsync(updatedRoute, testUser);
 
             //Cleanup
-            await _routeManager.DeleteAsync(updatedRoute, testUser);
+            await _manager.DeleteAsync(updatedRoute, testUser);
 
             //Assert
             Assert.IsTrue(result);
@@ -125,13 +125,10 @@ namespace Door2DoorLibTester.ManagerTests
             //Arrange
             Route testRoute = CreateTestRoute();
             Admin testUser = CreateTestUser();
-            await _routeManager.CreateAsync(testRoute, testUser);
+            await _manager.CreateAsync(testRoute, testUser);
 
             //Act
-            var result = await _routeManager.DeleteAsync(testRoute, testUser);
-
-            //Cleanup
-            await _routeManager.DeleteAsync(testRoute, testUser);
+            var result = await _manager.DeleteAsync(testRoute, testUser);
 
             //Assert
             Assert.IsTrue(result);
@@ -139,7 +136,7 @@ namespace Door2DoorLibTester.ManagerTests
 
         private int GetTestId()
         {
-            List<Route> routes = (List<Route>)_routeManager.GetAllAsync().Result;
+            List<Route> routes = (List<Route>)_manager.GetAllAsync().Result;
 
             return (int)routes.Last().Id + 1;
         }

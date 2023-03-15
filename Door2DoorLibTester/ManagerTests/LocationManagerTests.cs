@@ -8,13 +8,13 @@ namespace Door2DoorLibTester.ManagerTests
 {
     internal class LocationManagerTests
     {
-        private ILocationManager _locationManager;
+        private ILocationManager _manager;
 
-        [OneTimeSetUp]
+        [SetUp]
         public void Setup()
         {
             var db = SqlConfigurationSetup.SetupDB();
-            _locationManager = new LocationManager(db);
+            _manager = new LocationManager(db);
         }
 
         [Test]
@@ -22,8 +22,8 @@ namespace Door2DoorLibTester.ManagerTests
         public async Task GetAllAsync_HasData_IfCollectionIsNotNull()
         {
             //Act
-            var locations = await _locationManager.GetAllAsync();
-            AsyncTestDelegate getAllAction = async () => await _locationManager.GetAllAsync();
+            var locations = await _manager.GetAllAsync();
+            AsyncTestDelegate getAllAction = async () => await _manager.GetAllAsync();
 
             //Assert
             Assert.IsNotNull(locations);
@@ -41,10 +41,10 @@ namespace Door2DoorLibTester.ManagerTests
             Admin testUser = CreateTestUser();
 
             //Act
-            bool result = await _locationManager.CreateAsync(testLocation, testUser);
+            bool result = await _manager.CreateAsync(testLocation, testUser);
 
             //Cleanup
-            await _locationManager.DeleteAsync(testLocation, testUser);
+            await _manager.DeleteAsync(testLocation, testUser);
 
             //Arrange
             Assert.IsTrue(result);
@@ -58,13 +58,13 @@ namespace Door2DoorLibTester.ManagerTests
             Location requestedLocation;
             Location testLocation = CreateTestLocation();
             Admin testUser = CreateTestUser();
-            await _locationManager.CreateAsync(testLocation, testUser);
+            await _manager.CreateAsync(testLocation, testUser);
 
             //Act
-            requestedLocation = await _locationManager.GetByIdAsync(testLocation.Id);
+            requestedLocation = await _manager.GetByIdAsync(testLocation.Id);
 
             //Cleanup
-            await _locationManager.DeleteAsync(testLocation, testUser);
+            await _manager.DeleteAsync(testLocation, testUser);
 
             //Assert
             Assert.AreEqual(testLocation.Id, requestedLocation.Id);
@@ -80,13 +80,13 @@ namespace Door2DoorLibTester.ManagerTests
             Location testLocation = CreateTestLocation();
             Location updatedRoute = CreateUpdatedTestObject();
             Admin testUser = CreateTestUser();
-            await _locationManager.CreateAsync(testLocation, testUser);
+            await _manager.CreateAsync(testLocation, testUser);
 
             //Act
-            var result = await _locationManager.UpdateAsync(updatedRoute, testUser);
+            var result = await _manager.UpdateAsync(updatedRoute, testUser);
 
             //Cleanup
-            await _locationManager.DeleteAsync(updatedRoute, testUser);
+            await _manager.DeleteAsync(updatedRoute, testUser);
 
             //Assert
             Assert.IsTrue(result);
@@ -99,13 +99,10 @@ namespace Door2DoorLibTester.ManagerTests
             //Arrange
             Location testLocation = CreateTestLocation();
             Admin testUser = CreateTestUser();
-            await _locationManager.CreateAsync(testLocation, testUser);
+            await _manager.CreateAsync(testLocation, testUser);
 
             //Act
-            var result = await _locationManager.DeleteAsync(testLocation, testUser);
-
-            //Cleanup
-            await _locationManager.DeleteAsync(testLocation, testUser);
+            var result = await _manager.DeleteAsync(testLocation, testUser);
 
             //Assert
             Assert.IsTrue(result);
@@ -113,7 +110,7 @@ namespace Door2DoorLibTester.ManagerTests
 
         private int GetTestId()
         {
-            List<Location> locations = (List<Location>)_locationManager.GetAllAsync().Result;
+            List<Location> locations = (List<Location>)_manager.GetAllAsync().Result;
 
             return (int)locations.Last().Id + 1;
         }
