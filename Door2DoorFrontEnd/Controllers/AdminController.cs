@@ -85,7 +85,7 @@ namespace Door2DoorFrontEnd.Controllers
                 Admin currentadmin = new Admin(model.Username, null);
 
                 _locationManager.CreateAsync(location, currentadmin);
-                return RedirectToAction("Admin", model);
+                return View("Admin", model);
             }
             catch (Exception)
             {
@@ -102,6 +102,22 @@ namespace Door2DoorFrontEnd.Controllers
                 Door2DoorLib.DataModels.Route newroute = new Door2DoorLib.DataModels.Route(url, model.NewRouteDescription, model.SelectedStartLocation, model.SelectedEndLocation, 66);
                 Admin admin = new Admin(model.Username, "");
                 _routeManager.CreateAsync(newroute, admin);
+                return View("Admin", model);
+            }
+            catch (Exception)
+            {
+                return View("Admin");
+            }
+        }
+
+        [HttpPost]
+        public async Task<ActionResult> RemoveRoute(AdminModel model)
+        {
+            try
+            {
+                Door2DoorLib.DataModels.Route route = new Door2DoorLib.DataModels.Route("","",0,0,model.DeleteRoute);
+                Admin admin = new Admin(model.Username, "");
+                await _routeManager.DeleteAsync(route,admin);
                 return View("Admin", model);
             }
             catch (Exception)

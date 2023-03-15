@@ -20,7 +20,7 @@ namespace Door2DoorFrontEnd.Models
 
         public string NewRouteVideoUrl { get; set; }
 
-        public string DeleteRoute { get; set; }
+        public long DeleteRoute { get; set; }
 
         public string DeleteAdmin { get;set; }
 
