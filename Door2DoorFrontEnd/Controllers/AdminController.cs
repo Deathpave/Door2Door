@@ -24,6 +24,14 @@ namespace Door2DoorFrontEnd.Controllers
             //Door2DoorLib.DataModels.Admin admin = _adminManager.
             AdminModel model = new AdminModel();
             model.LocationList = _locationManager.GetAllAsync().Result.ToList();
+            model.RouteList = _routeManager.GetAllAsync().Result.ToList();
+            List<string[]> routes = new List<string[]>();
+            foreach (var item in model.RouteList)
+            {
+                routes.Add(new string[] { item.Id.ToString(), model.LocationList.Where(x => x.Id == item.StartLocation).FirstOrDefault().Name, model.LocationList.Where(x => x.Id == item.EndLocation).FirstOrDefault().Name });
+                
+            }
+            model.RouteLocationList = routes;
 
             return View("Admin", model);
         }
@@ -38,6 +46,23 @@ namespace Door2DoorFrontEnd.Controllers
                 //    //add new admin to database here
                 //}
                 return RedirectToAction("Admin", model);
+            }
+            catch (Exception)
+            {
+                return View("Admin", model);
+            }
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> RemoveAdmin(AdminModel model)
+        {
+            try
+            {
+                Admin admin = new Admin(model.Username,"");
+                Admin deleteadmin = new Admin(model.DeleteAdmin, model.Username);
+
+                await _adminManager.DeleteAsync(deleteadmin,admin);
+                return View("Admin", model);
             }
             catch (Exception)
             {
@@ -72,7 +97,7 @@ namespace Door2DoorFrontEnd.Controllers
             try
             {
                 string url = _routeManager.UploadVideoAsync(model.Video).Result;
-                Door2DoorLib.DataModels.Route newroute = new Door2DoorLib.DataModels.Route(url, model.NewRouteDescription, model.SelectedStartLocation, model.SelectedEndLocation);
+                Door2DoorLib.DataModels.Route newroute = new Door2DoorLib.DataModels.Route(url, model.NewRouteDescription, model.SelectedStartLocation, model.SelectedEndLocation,66);
                 Admin admin = new Admin(model.Username, "");
                 _routeManager.CreateAsync(newroute, admin);
                 return View("Admin", model);

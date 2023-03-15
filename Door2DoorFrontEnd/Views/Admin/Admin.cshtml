@@ -3,23 +3,25 @@
     ViewData["Title"] = "Admin";
 }
 <style>
-    .adminmenu{
-        text-align:center;
+    .adminmenu {
+        text-align: center;
     }
-    .adminmenu a{
-        top:50%;
-        display:flex;
-        justify-content:space-evenly;
-        margin-bottom:20px;
-        background-color:#01161E;
-        color:white !important;
-        font-weight:bold;
-        height:40px;
-        cursor:pointer;
-    }
-    .formwrapper{
-        display:none;
-        flex-direction:column;
+
+        .adminmenu a {
+            top: 50%;
+            display: flex;
+            justify-content: space-evenly;
+            margin-bottom: 20px;
+            background-color: #01161E;
+            color: white !important;
+            font-weight: bold;
+            height: 40px;
+            cursor: pointer;
+        }
+
+    .formwrapper {
+        display: none;
+        flex-direction: column;
     }
 
     #button {
@@ -31,12 +33,14 @@
         border-radius: 10px;
         border: black;
     }
-    .actionform{
-        display:none;
-        flex-direction:column;
+
+    .actionform {
+        display: none;
+        flex-direction: column;
     }
-    #hiden{
-        display:none;
+
+    #hiden {
+        display: none;
     }
 </style>
 <div class="adminmenu">
@@ -45,30 +49,37 @@
     <div id="addadmin" class="formwrapper">
         @using (Html.BeginForm("AddAdmin", "Admin", FormMethod.Post))
         {
-            @Html.AntiForgeryToken();
+            @Html.AntiForgeryToken()
+            ;
             @Html.TextBoxFor(Model => Model.NewAdminUsername, new {placeholder="Brugernavn"})
             //TODO
-            @Html.TextBoxFor(Model => Model.NewAdminPswd,new {type="password", placeholder="Kodeord"})//hash the password
-            
-            <input id="button" value="Tilføj" type="submit"/>
+            @Html.TextBoxFor(Model => Model.NewAdminPswd,new {type="password", placeholder="Kodeord"})
+            //hash the password
+
+            <input id="button" value="Tilføj" type="submit" />
         }
     </div>
 
     <a onclick="toggleform('removeadmin')">Fjern admin</a>
     <div id="removeadmin" class="formwrapper">
-        <form class="actionform">
-            <input type="text" />
-            <input id="button" value="Fjern" type="submit" />
-        </form>
+        @using (Html.BeginForm("RemoveAdmin", "Admin", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            ;
+            @Html.TextBoxFor(Model => Model.DeleteAdmin, new {placeholder="Brugernavn"})
+
+            <input id="button" value="Tilføj" type="submit" />
+        }
     </div>
 
-    <a onclick ="toggleform('addroute')">Tilføj rute</a>
+    <a onclick="toggleform('addroute')">Tilføj rute</a>
     <div id="addroute" class="formwrapper">
         @using (Html.BeginForm("AddRoute", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-            @Html.AntiForgeryToken();
-@*            @Html.TextBoxFor(Model => Model.NewRouteStart, new {placeholder = "Start lokation"})
-            @Html.TextBoxFor(Model => Model.NewRouteStart, new {placeholder = "slut lokation"})*@
+            @Html.AntiForgeryToken()
+            ;
+            @*            @Html.TextBoxFor(Model => Model.NewRouteStart, new {placeholder = "Start lokation"})
+        @Html.TextBoxFor(Model => Model.NewRouteStart, new {placeholder = "slut lokation"})*@
             //@Html.TextBoxFor(Model => Model.NewRouteDescription, new {placeholder = "Beskrivelse"})
             @Html.TextBoxFor(Model => Model.Video, new {  type= "file"})
             <p style="color:white;">Start lokation</p>
@@ -76,17 +87,25 @@
             <p style="color:white;">Slut lokation</p>
             @Html.DropDownListFor(o=>o.SelectedEndLocation, new SelectList(Model.LocationList, "Id", "Name"))
             <br />
-            <input id="button" value="Tilføj" type="submit"/>
+            <p style="color:white;">Rute beskrivelse</p>
+            @Html.TextBoxFor(Model => Model.NewRouteDescription)
+            ;
+            <br />
+            <input id="button" value="Tilføj" type="submit" />
         }
     </div>
 
-    <a>Fjern rute</a>
-    <div id="addroute" class="formwrapper">
-        @using (Html.BeginForm("removeRoute", "Admin", FormMethod.Post))
+    <a onclick="toggleform('removeroute')">Fjern rute</a>
+    <div id="removeroute" class="formwrapper">
+        @using (Html.BeginForm("removeRoute", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-            @Html.AntiForgeryToken();
-            //Get a list of all routes and select the one to delete
-            <input id="button" value="Tilføj" type="submit" />
+            @Html.AntiForgeryToken()
+            ;
+
+
+            @Html.DropDownListFor(o=>o.DeleteRoute, new SelectList(Model.RouteLocationList))
+            // Need to see what the locations are and not the id
+            <input id="button" value="Slet rute" type="submit" />
         }
     </div>
 
@@ -97,7 +116,7 @@
             @Html.AntiForgeryToken()
             ;
             @Html.TextBoxFor(Model => Model.NewLocationName, new {placeholder = "Lokation navn"})
-            
+
             <input id="button" value="Tilføj" type="submit" />
         }
     </div>
