@@ -8,8 +8,7 @@ namespace Door2DoorLibTester.ManagerTests
 {
     internal class RouteManagerTests
     {
-        private IRouteManager? _routeManager;
-        private int testId = 0;
+        private IRouteManager _routeManager;
 
         [OneTimeSetUp]
         public void Setup()
@@ -53,7 +52,7 @@ namespace Door2DoorLibTester.ManagerTests
 
         [Test]
         [Order(3)]
-        public async Task GetByIdAsync_ReturnsAValidObject_IfArgumentIsValid()
+        public async Task GetByIdAsync_ReturnsAValidObject_IfArgumentAreValid()
         {
             //Arrange
             Route requestedRoute;
