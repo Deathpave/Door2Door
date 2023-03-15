@@ -8,6 +8,7 @@
     }
 
         .adminmenu a {
+            user-select:none;
             top: 50%;
             display: flex;
             justify-content: space-evenly;
@@ -24,7 +25,7 @@
         flex-direction: column;
     }
 
-    #button {
+    .button {
         min-height: 35px;
         min-width: 60px;
         background-color: #598392;
@@ -54,7 +55,7 @@
             @Html.TextBoxFor(Model => Model.NewAdminUsername, new {placeholder="Brugernavn"})
             @Html.TextBoxFor(Model => Model.NewAdminPswd,new {type="password", placeholder="Kodeord"})
 
-            <input id="button" value="Tilføj" type="submit" />
+            <input class="button" value="Tilføj" type="submit" />
         }
     </div>
 
@@ -66,17 +67,17 @@
             ;
             @Html.TextBoxFor(Model => Model.DeleteAdmin, new {placeholder="Brugernavn"})
 
-            <input id="button" value="Tilføj" type="submit" />
+            <input class="button" value="Tilføj" type="submit" />
         }
     </div>
 
     <a onclick="toggleform('addroute')">Tilføj rute</a>
     <div id="addroute" class="formwrapper">
+        <button class="button" onclick="document.getElementById('upload').click()">Uploade video</button>
         @using (Html.BeginForm("AddRoute", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
-            @Html.AntiForgeryToken()
-            ;
-            @Html.TextBoxFor(Model => Model.Video, new {  type= "file"})
+            @Html.AntiForgeryToken();
+            @Html.TextBoxFor(Model => Model.Video, new {style="display:none;", id="upload",  type= "file", value="Vælg video"})
             <p style="color:white;">Start lokation</p>
             @Html.DropDownListFor(o=>o.SelectedStartLocation, new SelectList(Model.LocationList, "Id", "Name"))
             <p style="color:white;">Slut lokation</p>
@@ -86,7 +87,7 @@
             @Html.TextBoxFor(Model => Model.NewRouteDescription)
             ;
             <br />
-            <input id="button" value="Tilføj" type="submit" />
+            <input class="button" value="Tilføj" type="submit" />
         }
     </div>
 
@@ -111,7 +112,7 @@
             ;
             @Html.TextBoxFor(Model => Model.NewLocationName, new {placeholder = "Lokation navn"})
 
-            <input id="button" value="Tilføj" type="submit" />
+            <input class="button" value="Tilføj" type="submit" />
         }
     </div>
 </div>
