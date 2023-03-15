@@ -116,14 +116,14 @@ namespace Door2DoorLibTester.ManagerTests
 
         private Location CreateTestLocation()
         {
-            Location location = new("Test", "Test", 1337);
+            Location location = new("Test", "Test", 1000);
 
             return location;
         }
 
         private Location CreateUpdatedTestObject()
         {
-            Location location = new("Testing", "Testing", 1337);
+            Location location = new("Testing", "Testing", 1000);
             return location;
         }
     }
