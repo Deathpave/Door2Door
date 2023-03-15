@@ -31,12 +31,15 @@ namespace Door2DoorLib.Repositories
             DbCommand sqlCommand = new SqlCommand("spCreateAdmin");
             sqlCommand.CommandType = CommandType.StoredProcedure;
             int affectedRows = 0;
+            IDictionary<string, object> sqlParams = new Dictionary<string, object>();
 
-            IDictionary<string, object> sqlParams = new Dictionary<string, object>
+            sqlParams = new Dictionary<string, object>
             {
+                {"@adminId", createEntity.Id },
                 {"@username", createEntity.UserName },
                 {"@password", createEntity.Password }
             };
+
 
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
             dataReader.Read();

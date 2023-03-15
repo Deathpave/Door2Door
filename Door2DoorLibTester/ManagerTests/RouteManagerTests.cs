@@ -143,19 +143,19 @@ namespace Door2DoorLibTester.ManagerTests
 
         private Admin CreateTestUser()
         {
-            Admin admin = new Admin("TestUser", "123");
+            Admin admin = new("TestUser", "123");
             return admin;
         }
 
         private Route CreateTestRoute()
         {
-            Route route = new Route("Test", "Test", 6, 7, GetTestId());
+            Route route = new("Test", "Test", 6, 7, GetTestId());
             return route;
         }
 
         private Route CreateUpdatedTestObject()
         {
-            Route route = new Route("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "Lav en U-vending", 10, 12, GetTestId());
+            Route route = new("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "Lav en U-vending", 10, 12, GetTestId());
             return route;
         }
 

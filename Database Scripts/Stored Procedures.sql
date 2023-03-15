@@ -12,10 +12,16 @@ DROP PROCEDURE IF EXISTS `spGetAllLocations`;
 
 -- Create operation
 DELIMITER //
-CREATE PROCEDURE `spCreateLocation` (IN newName VARCHAR(255), IN newIconUrl VARCHAR(255))
+CREATE PROCEDURE `spCreateLocation` (IN locationId INT, IN newName VARCHAR(255), IN newIconUrl VARCHAR(255))
 BEGIN
-	INSERT INTO locations (name, iconUrl) 
-    VALUES (newName, newIconUrl);
+	IF (locationId IS NOT NULL OR 0)
+    THEN
+		INSERT INTO locations (id, name, iconUrl) 
+		VALUES (locationId, newName, newIconUrl);
+	ELSE
+		INSERT INTO locations (name, iconUrl) 
+		VALUES (newName, newIconUrl);
+	END IF;
 END //
 DELIMITER ;
 
@@ -77,10 +83,16 @@ DROP PROCEDURE IF EXISTS `spGetAllRoutes`;
 
 -- Create operation
 DELIMITER //
-CREATE PROCEDURE `spCreateRoute` (IN startId INT, IN endId INT, IN newText VARCHAR(255), IN videourl VARCHAR(255))
+CREATE PROCEDURE `spCreateRoute` (IN routeId INT, IN startId INT, IN endId INT, IN newText VARCHAR(255), IN videourl VARCHAR(255))
 BEGIN
-	INSERT INTO routes (startLocation, endLocation, text, videoUrl) 
-    VALUES (startId, endId, newText, videourl);
+	IF(routeId IS NOT NULL OR 0)
+    THEN
+		INSERT INTO routes (id, startLocation, endLocation, text, videoUrl) 
+		VALUES (routeId, startId, endId, newText, videourl);
+	ELSE
+		INSERT INTO routes (startLocation, endLocation, text, videoUrl) 
+		VALUES (startId, endId, newText, videourl);
+	END IF;
 END //
 DELIMITER ;
 
@@ -140,14 +152,21 @@ DROP PROCEDURE IF EXISTS `spCreateAdmin`;
 DROP PROCEDURE IF EXISTS `spUpdateAdmin`;
 DROP PROCEDURE IF EXISTS `spDeleteAdmin`;
 DROP PROCEDURE IF EXISTS `spGetAdminById`;
+DROP PROCEDURE IF EXISTS `spGetAdminByName`;
 DROP PROCEDURE IF EXISTS `spGetAllAdmins`;
 
 -- Create operation
 DELIMITER //
-CREATE PROCEDURE `spCreateAdmin` (IN username VARCHAR(255), IN password VARCHAR(255))
+CREATE PROCEDURE `spCreateAdmin` (IN adminId INT, IN username VARCHAR(255), IN password VARCHAR(255))
 BEGIN
-	INSERT INTO admin (username, password) 
-    VALUES (username, password);
+	IF(adminId IS NOT NULL OR 0) 
+    THEN
+		INSERT INTO admin (id, username, password) 
+		VALUES (adminId, username, password);
+    ELSE
+		INSERT INTO admin (username, password) 
+		VALUES (username, password);
+	END IF;   
 END //
 DELIMITER ;
 
@@ -208,10 +227,16 @@ DROP PROCEDURE IF EXISTS `spGetAllLogs`;
 
 -- Create operation
 DELIMITER //
-CREATE PROCEDURE `spCreateLog` (IN type INT, IN description VARCHAR(255), IN timestamp DATETIME)
+CREATE PROCEDURE `spCreateLog` (IN logId INT, IN type INT, IN description VARCHAR(255), IN timestamp DATETIME)
 BEGIN
-	INSERT INTO log (type, description, timestamp) 
-    VALUES (type, description, timestamp);
+	IF(logId IS NOT NULL OR 0)
+    THEN
+		INSERT INTO log (id, type, description, timestamp) 
+		VALUES (logId, type, description, timestamp);
+	ELSE
+		INSERT INTO log (type, description, timestamp) 
+		VALUES (type, description, timestamp);
+	END IF;
 END //
 DELIMITER ;
 
@@ -265,10 +290,16 @@ DROP PROCEDURE IF EXISTS `spGetAllLogTypes`;
 
 -- Create operation
 DELIMITER //
-CREATE PROCEDURE `spCreateLogType` (IN errorCodes VARCHAR(255))
+CREATE PROCEDURE `spCreateLogType` (IN logTypeId INT, IN errorCodes VARCHAR(255))
 BEGIN
-	INSERT INTO logTypes (errorCodes) 
-    VALUES (errorCodes);
+	IF(logTypeId IS NOT NULL OR 0)
+    THEN
+		INSERT INTO logTypes (id, errorCodes) 
+		VALUES (logTypeId, errorCodes);
+	ELSE
+		INSERT INTO logTypes (errorCodes) 
+		VALUES (errorCodes);
+	END IF;
 END //
 DELIMITER ;
 
