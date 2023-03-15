@@ -108,28 +108,22 @@ namespace Door2DoorLibTester.ManagerTests
             Assert.IsTrue(result);
         }
 
-        private int GetTestId()
-        {
-            List<Location> locations = (List<Location>)_manager.GetAllAsync().Result;
-
-            return (int)locations.Last().Id + 1;
-        }
-
         private Admin CreateTestUser()
         {
-            Admin admin = new Admin("TestUser", "123");
+            Admin admin = new("TestUser", "123");
             return admin;
         }
 
         private Location CreateTestLocation()
         {
-            Location location = new Location("Test", "Test", GetTestId());
+            Location location = new("Test", "Test", 1337);
+
             return location;
         }
 
         private Location CreateUpdatedTestObject()
         {
-            Location location = new Location("Testing", "Testing", GetTestId());
+            Location location = new("Testing", "Testing", 1337);
             return location;
         }
     }

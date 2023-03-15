@@ -84,29 +84,15 @@ namespace Door2DoorLibTester.ManagerTests
             Assert.IsTrue(result);
         }
 
-        private int GetTestId()
-        {
-            List<Admin> admins = (List<Admin>)_manager.GetAllAsync().Result;
-
-            if (admins.Count() != 0)
-            {
-                return (int)admins.Last().Id + 1;
-            }
-            else
-            {
-                return 1;
-            }
-        }
-
         private Admin CreateTestUser()
         {
-            Admin admin = new Admin("TestUser", "123", GetTestId());
+            Admin admin = new("TestUser", "123", 1337);
             return admin;
         }
 
         private Admin CreateUpdatedTestUser()
         {
-            Admin admin = new Admin("updatedTestUser", "321", GetTestId());
+            Admin admin = new("updatedTestUser", "321", 1337);
             return admin;
         }
     }

@@ -30,6 +30,7 @@ namespace Door2DoorLib.Repositories
 
             IDictionary<string, object> sqlParams = new Dictionary<string, object>
             {
+                {"@logId", createEntity.Id },
                 { "@type", createEntity.MessageType },
                 { "@description", createEntity.Message },
                 { "@timestamp", createEntity.TimeStamp }

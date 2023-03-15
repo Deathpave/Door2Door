@@ -34,6 +34,7 @@ namespace Door2DoorLib.Repositories
 
             IDictionary<string, object> sqlParams = new Dictionary<string, object>
             {
+                {"@locationId", createEntity.Id },
                 { "@newName", createEntity.Name },
                 { "@newIconUrl", createEntity.IconUrl }
             };
