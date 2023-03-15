@@ -201,8 +201,8 @@ namespace Door2DoorLib.Repositories
             IDictionary<string, object> sqlParams = new Dictionary<string, object>
             {
                 { "@adminId", updateEntity.Id },
-                { "@username", updateEntity.UserName },
-                { "@password", updateEntity.Password }
+                { "@newUsername", updateEntity.UserName },
+                { "@newPassword", updateEntity.Password }
             };
 
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);

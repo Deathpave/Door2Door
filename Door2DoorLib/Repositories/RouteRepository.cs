@@ -177,7 +177,7 @@ namespace Door2DoorLib.Repositories
 
             IDictionary<string, object> sqlParams = new Dictionary<string, object>
             {
-                { "@routeId", updateEntity.StartLocation },
+                { "@routeId", updateEntity.Id },
                 { "@startId", updateEntity.StartLocation },
                 { "@endId", updateEntity.EndLocation },
                 { "@newText", updateEntity.Description},
