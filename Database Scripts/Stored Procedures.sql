@@ -29,7 +29,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE `spGetLocationById` (IN locationId INT)
 BEGIN
-SELECT * FROM locations WHERE id = locatoinId;
+SELECT * FROM locations WHERE id = locationId;
 END //
 DELIMITER ;
 
@@ -127,10 +127,10 @@ DELIMITER //
 CREATE PROCEDURE `spUpdateRoute` (IN routeId INT, IN startId INT, IN endId INT, IN newText VARCHAR(255), IN videourl VARCHAR(255))
 BEGIN
 	UPDATE routes SET 
-		startLocation = startId, 
-		endLocation = endId, 
-		text = newText, 
-		videoUrl = videourl 
+		`startLocation` = startId, 
+		`endLocation` = endId, 
+		`text` = newText, 
+		`videoUrl` = videourl 
 		WHERE id = routeId;
 END //
 DELIMITER ;
