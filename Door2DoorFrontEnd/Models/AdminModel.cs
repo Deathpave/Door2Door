@@ -38,7 +38,7 @@ namespace Door2DoorFrontEnd.Models
 
         public IEnumerable<Door2DoorLib.DataModels.Route> RouteList { get; set; }
 
-        public List<string[]> RouteLocationList { get; set; }
+        public List<SelectListItem> RouteLocationList { get; set; }
 
         public int SelectedStartLocation { get; set; }
         public int SelectedEndLocation { get; set; }

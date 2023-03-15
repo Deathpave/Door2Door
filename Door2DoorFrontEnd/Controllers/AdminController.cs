@@ -2,6 +2,7 @@
 using Door2DoorLib.DataModels;
 using Door2DoorLib.Interfaces;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Door2DoorFrontEnd.Controllers
 {
@@ -25,11 +26,12 @@ namespace Door2DoorFrontEnd.Controllers
             AdminModel model = new AdminModel();
             model.LocationList = _locationManager.GetAllAsync().Result.ToList();
             model.RouteList = _routeManager.GetAllAsync().Result.ToList();
-            List<string[]> routes = new List<string[]>();
+            List<SelectListItem> routes = new List<SelectListItem>();
+            SelectListItem t = new SelectListItem();
             foreach (var item in model.RouteList)
             {
-                routes.Add(new string[] { item.Id.ToString(), model.LocationList.Where(x => x.Id == item.StartLocation).FirstOrDefault().Name, model.LocationList.Where(x => x.Id == item.EndLocation).FirstOrDefault().Name });
-                
+                routes.Add(new SelectListItem() { Value = item.Id.ToString(), Text = model.LocationList.Where(x => x.Id == item.StartLocation).FirstOrDefault().Name + "-" + model.LocationList.Where(x => x.Id == item.EndLocation).FirstOrDefault().Name })
+                //routes.Add(new string[] { item.Id.ToString(), model.LocationList.Where(x => x.Id == item.StartLocation).FirstOrDefault().Name, model.LocationList.Where(x => x.Id == item.EndLocation).FirstOrDefault().Name });
             }
             model.RouteLocationList = routes;
 
@@ -58,10 +60,10 @@ namespace Door2DoorFrontEnd.Controllers
         {
             try
             {
-                Admin admin = new Admin(model.Username,"");
+                Admin admin = new Admin(model.Username, "");
                 Admin deleteadmin = new Admin(model.DeleteAdmin, model.Username);
 
-                await _adminManager.DeleteAsync(deleteadmin,admin);
+                await _adminManager.DeleteAsync(deleteadmin, admin);
                 return View("Admin", model);
             }
             catch (Exception)
@@ -97,7 +99,7 @@ namespace Door2DoorFrontEnd.Controllers
             try
             {
                 string url = _routeManager.UploadVideoAsync(model.Video).Result;
-                Door2DoorLib.DataModels.Route newroute = new Door2DoorLib.DataModels.Route(url, model.NewRouteDescription, model.SelectedStartLocation, model.SelectedEndLocation,66);
+                Door2DoorLib.DataModels.Route newroute = new Door2DoorLib.DataModels.Route(url, model.NewRouteDescription, model.SelectedStartLocation, model.SelectedEndLocation, 66);
                 Admin admin = new Admin(model.Username, "");
                 _routeManager.CreateAsync(newroute, admin);
                 return View("Admin", model);
