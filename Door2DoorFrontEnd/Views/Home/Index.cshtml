@@ -5,6 +5,7 @@
 
 <style>
     .dropdown {
+        display:flex;
         max-width: fit-content;
         color: black;
         border: none;
@@ -17,7 +18,7 @@
     }
 
     #button {
-        min-height: 35px;
+        height: 35px;
         min-width: 60px;
         background-color: #598392;
         color: white;
@@ -41,7 +42,6 @@
     #searchicon {
         border-right:1px black solid;
         width: 30px;
-        /*background-color: cornflowerblue;*/
     }
     #searchbar{
         outline:none;
@@ -69,6 +69,7 @@
                     <div class="items" id="@item.Name" onclick="itemClicked(@item.Id)">@item.Name</div>
                 }
         </div>
+        
 
     </div>
 </div>

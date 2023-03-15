@@ -119,8 +119,9 @@
 <script>
 
     function toggleform(id) {
+        document.getElementById(id).focus();
         var item = document.getElementById(id);
-        if (item.style.display == "none") {
+        if (item.style.display == "none" || !item.style.display) {
             item.style.display = "flex";
             console.log("flex");
         } else {
