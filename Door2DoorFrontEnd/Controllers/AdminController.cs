@@ -109,5 +109,21 @@ namespace Door2DoorFrontEnd.Controllers
                 return View("Admin");
             }
         }
+
+        [HttpPost]
+        public async Task<ActionResult> RemoveRoute(AdminModel model)
+        {
+            try
+            {
+                Door2DoorLib.DataModels.Route route = new Door2DoorLib.DataModels.Route("","",0,0,model.DeleteRoute);
+                Admin admin = new Admin(model.Username, "");
+                _routeManager.DeleteAsync(route,admin);
+                return View("Admin", model);
+            }
+            catch (Exception)
+            {
+                return View("Admin");
+            }
+        }
     }
 }
