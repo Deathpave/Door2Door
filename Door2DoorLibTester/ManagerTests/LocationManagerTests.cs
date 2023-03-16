@@ -117,14 +117,14 @@ namespace Door2DoorLibTester.ManagerTests
 
         private Location CreateTestLocation()
         {
-            Location location = new("Test", "Test", 1000);
+            Location location = LocationFactory.CreateLocation("Test", "Test", 1000);
 
             return location;
         }
 
         private Location CreateUpdatedTestObject()
         {
-            Location location = new("Testing", "Testing", 1000);
+            Location location = LocationFactory.CreateLocation("Testing", "Testing", 1000);
             return location;
         }
     }
