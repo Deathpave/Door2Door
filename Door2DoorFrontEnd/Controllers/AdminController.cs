@@ -91,7 +91,7 @@ namespace Door2DoorFrontEnd.Controllers
                 model.Username = "TestUser";
                 model = SetLists(model);
                 string url = _routeManager.UploadVideoAsync(model.Video).Result;
-                Door2DoorLib.DataModels.Route newroute = new Door2DoorLib.DataModels.Route(url, model.NewRouteDescription, model.SelectedStartLocation, model.SelectedEndLocation, 66);
+                Door2DoorLib.DataModels.Route newroute = RouteFactory.CreateRoute(url, model.NewRouteDescription, model.SelectedStartLocation, model.SelectedEndLocation, 66);
                 Admin admin = AdminFactory.CreateAdmin(model.Username);
                 _routeManager.CreateAsync(newroute, admin);
                 return View("Admin", model);
@@ -108,7 +108,7 @@ namespace Door2DoorFrontEnd.Controllers
             try
             {
                 model = SetLists(model);
-                Door2DoorLib.DataModels.Route route = new Door2DoorLib.DataModels.Route("", "", 0, 0, model.DeleteRoute);
+                Door2DoorLib.DataModels.Route route = RouteFactory.CreateRoute("", "", 0, 0, model.DeleteRoute);
                 Admin admin = AdminFactory.CreateAdmin(model.Username);
                 await _routeManager.DeleteAsync(route, admin);
                 return View("Admin", model);
