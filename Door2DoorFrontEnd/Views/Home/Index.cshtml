@@ -5,7 +5,7 @@
 
 <style>
     .dropdown {
-        display:flex;
+        display: flex;
         max-width: fit-content;
         color: black;
         border: none;
@@ -23,33 +23,35 @@
         background-color: #598392;
         color: white;
         font-weight: bold;
-        border-radius:10px;
-        border:black;
+        border-radius: 10px;
+        border: black;
     }
 
-    #button:hover {
+        #button:hover {
             color: #AEC3B0;
-    }
+        }
 
-    #searchwrapper{
-        display:flex;
-        flex-direction:row;
-        border:solid black 2px;
-        background-color:white;
-        width:fit-content;
+    #searchwrapper {
+        display: flex;
+        flex-direction: row;
+        border: solid black 2px;
+        background-color: white;
+        width: fit-content;
     }
 
     #searchicon {
-        border-right:1px black solid;
+        border-right: 1px black solid;
         width: 30px;
     }
-    #searchbar{
-        outline:none;
-        border:none;
+
+    #searchbar {
+        outline: none;
+        border: none;
     }
-    .items{
-        width:fit;
-        cursor:pointer;
+
+    .items {
+        width: fit;
+        cursor: pointer;
     }
 
 </style>
@@ -64,12 +66,12 @@
         </button>
         <div id="itemlist" class="dropdownitems" style="display:none;">
             <div id="searchwrapper"> <img id="searchicon" src="~/assets/loupe.png" /><input type="text" id="searchbar" /></div>
-                @foreach (var item in Model.LocationList)
-                {
-                    <div class="items" id="@item.Name" onclick="itemClicked(@item.Id)">@item.Name</div>
-                }
+            @foreach (var item in Model.LocationList)
+            {
+                <div class="items" id="@item.Name" onclick="itemClicked(@item.Id)">@item.Name</div>
+            }
         </div>
-        
+
 
     </div>
 </div>
@@ -84,8 +86,7 @@
         }
     }
     function itemClicked(item) {
-        //window.history.pushState({}, document.title, "?route="+item);
-        window.location.href = "/navigation?startid="+@Model.StartId+"&endid="+item;
+        window.location.href = "/navigation?startid=" + @Model.StartId+"&endid=" + item;
     }
     document.getElementById('searchbar').addEventListener('keyup', search);
     function search(evt) {

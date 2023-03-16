@@ -1,0 +1,134 @@
+﻿@model Door2DoorFrontEnd.Models.AdminModel
+@{
+    ViewData["Title"] = "Admin";
+}
+<style>
+    .adminmenu {
+        text-align: center;
+    }
+
+        .adminmenu a {
+            user-select: none;
+            top: 50%;
+            display: flex;
+            justify-content: space-evenly;
+            margin-bottom: 20px;
+            background-color: #01161E;
+            color: white !important;
+            font-weight: bold;
+            height: 40px;
+            cursor: pointer;
+        }
+
+    .formwrapper {
+        display: none;
+        flex-direction: column;
+    }
+
+    .button {
+        min-height: 35px;
+        min-width: 60px;
+        background-color: #598392;
+        color: white;
+        font-weight: bold;
+        border-radius: 10px;
+        border: black;
+    }
+
+    .actionform {
+        display: none;
+        flex-direction: column;
+    }
+
+    #hiden {
+        display: none;
+    }
+</style>
+<div class="adminmenu">
+
+    <a onclick="toggleform('addadmin')">Tilføj admin</a>
+    <div id="addadmin" class="formwrapper">
+        @using (Html.BeginForm("AddAdmin", "Admin", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            ;
+            @Html.TextBoxFor(Model => Model.NewAdminUsername, new {placeholder="Brugernavn"})
+            @Html.TextBoxFor(Model => Model.NewAdminPswd,new {type="password", placeholder="Kodeord"})
+
+            <input class="button" value="Tilføj" type="submit" />
+        }
+    </div>
+
+    <a onclick="toggleform('removeadmin')">Fjern admin</a>
+    <div id="removeadmin" class="formwrapper">
+        @using (Html.BeginForm("RemoveAdmin", "Admin", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            ;
+            @Html.TextBoxFor(Model => Model.DeleteAdmin, new {placeholder="Brugernavn"})
+
+            <input class="button" value="Tilføj" type="submit" />
+        }
+    </div>
+
+    <a onclick="toggleform('addroute')">Tilføj rute</a>
+    <div id="addroute" class="formwrapper">
+        <button class="button" onclick="document.getElementById('upload').click()">Uploade video</button>
+        @using (Html.BeginForm("AddRoute", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            ;
+            @Html.TextBoxFor(Model => Model.Video, new {style="display:none;", id="upload",  type= "file", value="Vælg video"})
+            <p style="color:white;">Start lokation</p>
+            @Html.DropDownListFor(o=>o.SelectedStartLocation, new SelectList(Model.LocationList, "Id", "Name"))
+            <p style="color:white;">Slut lokation</p>
+            @Html.DropDownListFor(o=>o.SelectedEndLocation, new SelectList(Model.LocationList, "Id", "Name"))
+            <br />
+            <p style="color:white;">Rute beskrivelse</p>
+            @Html.TextBoxFor(Model => Model.NewRouteDescription)
+            ;
+            <br />
+            <input class="button" value="Tilføj" type="submit" />
+        }
+    </div>
+
+    <a onclick="toggleform('removeroute')">Fjern rute</a>
+    <div id="removeroute" class="formwrapper">
+        @using (Html.BeginForm("RemoveRoute", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            ;
+
+            @Html.DropDownListFor(o=>o.DeleteRoute, new SelectList(Model.RouteLocationList, "Value", "Text"))
+            // Need to see what the locations are and not the id
+            <input id="button" value="Slet rute" type="submit" />
+        }
+    </div>
+
+    <a onclick="toggleform('addlocation')">Tilføj lokation</a>
+    <div id="addlocation" class="formwrapper">
+        @using (Html.BeginForm("AddLocation", "Admin", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            ;
+            @Html.TextBoxFor(Model => Model.NewLocationName, new {placeholder = "Lokation navn"})
+
+            <input class="button" value="Tilføj" type="submit" />
+        }
+    </div>
+</div>
+
+<script>
+
+    function toggleform(id) {
+        document.getElementById(id).focus();
+        var item = document.getElementById(id);
+        if (item.style.display == "none" || !item.style.display) {
+            item.style.display = "flex";
+            console.log("flex");
+        } else {
+            item.style.display = "none";
+        }
+    }
+
+</script>

@@ -3,6 +3,7 @@ using Door2DoorLib.DataModels;
 using Door2DoorLib.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using MySqlX.XDevAPI;
 
 namespace Door2DoorFrontEnd.Controllers
 {
@@ -20,23 +21,36 @@ namespace Door2DoorFrontEnd.Controllers
             _locationManager = locationmanager;
         }
         [HttpGet("/admin")]
-        public IActionResult AdminMenu()
+        public IActionResult Admin()
         {
-            //Door2DoorLib.DataModels.Admin admin = _adminManager.
             AdminModel model = new AdminModel();
-            //model.LocationList = _locationManager.GetAllAsync().Result.ToList();
-            //model.RouteList = _routeManager.GetAllAsync().Result.ToList();
-            //List<SelectListItem> routes = new List<SelectListItem>();
-            //SelectListItem t = new SelectListItem();
-            //foreach (var item in model.RouteList)
-            //{
-            //    routes.Add(new SelectListItem() { Value = item.Id.ToString(), Text = model.LocationList.Where(x => x.Id == item.StartLocation).FirstOrDefault().Name + "-" + model.LocationList.Where(x => x.Id == item.EndLocation).FirstOrDefault().Name });
-            //    //routes.Add(new string[] { item.Id.ToString(), model.LocationList.Where(x => x.Id == item.StartLocation).FirstOrDefault().Name, model.LocationList.Where(x => x.Id == item.EndLocation).FirstOrDefault().Name });
-            //}
-            //model.RouteLocationList = routes;
             model = SetLists(model);
 
             return View("Admin", model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult Login(Auth model)
+        {
+            if (!ModelState.IsValid)
+            {
+                if (model !=null)
+                {
+                    //set session
+                }
+            }
+            return View("Admin", model);
+        }
+
+
+        [HttpGet("/admin/menu")]
+        public IActionResult AdminMenu()
+        {
+            AdminModel model = new AdminModel();
+            model = SetLists(model);
+
+            return View("AdminMenu", model);
         }
 
         [HttpPost]
@@ -54,7 +68,7 @@ namespace Door2DoorFrontEnd.Controllers
             }
             catch (Exception)
             {
-                return View("Admin", model);
+                return View("AdminMenu", model);
             }
         }
 
@@ -72,7 +86,7 @@ namespace Door2DoorFrontEnd.Controllers
             }
             catch (Exception)
             {
-                return View("Admin", model);
+                return View("AdminMenu", model);
             }
         }
 
@@ -90,7 +104,7 @@ namespace Door2DoorFrontEnd.Controllers
             }
             catch (Exception)
             {
-                return View("Admin", model);
+                return View("AdminMenu", model);
             }
         }
 
@@ -109,7 +123,7 @@ namespace Door2DoorFrontEnd.Controllers
             }
             catch (Exception)
             {
-                return View("Admin");
+                return View("AdminMenu");
             }
         }
 
@@ -126,7 +140,7 @@ namespace Door2DoorFrontEnd.Controllers
             }
             catch (Exception)
             {
-                return View("Admin");
+                return View("AdminMenu");
             }
         }
 
@@ -147,7 +161,6 @@ namespace Door2DoorFrontEnd.Controllers
                 foreach (var item in model.RouteList)
                 {
                     routeLocationList.Add(new SelectListItem() { Value = item.Id.ToString(), Text = model.LocationList.Where(x => x.Id == item.StartLocation).FirstOrDefault().Name + "-" + model.LocationList.Where(x => x.Id == item.EndLocation).FirstOrDefault().Name });
-                    //routes.Add(new string[] { item.Id.ToString(), model.LocationList.Where(x => x.Id == item.StartLocation).FirstOrDefault().Name, model.LocationList.Where(x => x.Id == item.EndLocation).FirstOrDefault().Name });
                 }
                 model.RouteLocationList = routeLocationList;
             }

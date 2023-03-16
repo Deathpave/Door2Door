@@ -16,11 +16,11 @@ namespace Door2DoorFrontEnd.Controllers
         }
 
         [HttpGet("~/navigation")]
-        public IActionResult Route(int startid,int endid)
+        public IActionResult Route(int startid, int endid)
         {
             if (startid > -1 && endid > -1)
             {
-                Door2DoorLib.DataModels.Route route = _routeManager.GetByLocationsAsync(startid,endid).Result;
+                Door2DoorLib.DataModels.Route route = _routeManager.GetByLocationsAsync(startid, endid).Result;
                 RouteModel model = new RouteModel();
                 model.RouteList = new List<Door2DoorLib.DataModels.Route> { route };
                 return View("Route", model);
@@ -28,6 +28,6 @@ namespace Door2DoorFrontEnd.Controllers
             return View();
         }
 
-       
+
     }
 }

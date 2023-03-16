@@ -22,7 +22,7 @@ namespace Door2DoorFrontEnd.Models
 
         public long DeleteRoute { get; set; }
 
-        public string DeleteAdmin { get;set; }
+        public string DeleteAdmin { get; set; }
 
         public IFormFile Video { get; set; }
 
