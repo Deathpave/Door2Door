@@ -1,4 +1,5 @@
 ﻿using Door2DoorLib.DataModels;
+using Door2DoorLib.Factories;
 using Door2DoorLib.Interfaces;
 using Door2DoorLib.Managers;
 using Door2DoorLibTester.Setup;
@@ -86,13 +87,13 @@ namespace Door2DoorLibTester.ManagerTests
 
         private Admin CreateTestUser()
         {
-            Admin admin = new("TestUser", "123", 1000);
+            Admin admin = AdminFactory.CreateAdmin("TestUser", "123", 1000);
             return admin;
         }
 
         private Admin CreateUpdatedTestUser()
         {
-            Admin admin = new("updatedTestUser", "321", 1000);
+            Admin admin = AdminFactory.CreateAdmin("updatedTestUser", "321", 1000);
             return admin;
         }
     }

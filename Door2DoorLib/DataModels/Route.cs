@@ -17,7 +17,7 @@
         #endregion
 
         #region Constructor
-        public Route(string videoUrl, string description, long startLocationId, long endLocationId, long id = 0) : base(id)
+        internal Route(string videoUrl, string description, long startLocationId, long endLocationId, long id = 0) : base(id)
         {
             _videoUrl = videoUrl;
             _description = description;

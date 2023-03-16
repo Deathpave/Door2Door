@@ -51,7 +51,8 @@ namespace Door2DoorLib.Managers
         /// <returns></returns>
         public async Task<bool> CreateAsync(Admin newAdmin, Admin admin)
         {
-            if (_repository.CreateAsync(newAdmin).Result)
+            Admin encryptedAdmin = AdminFactory.CreateAdmin(new Encryption().EncryptString(newAdmin.UserName, newAdmin.UserName), new Hashing().Sha256Hash(new Encryption().EncryptString(newAdmin.Password, newAdmin.Password)));
+            if (_repository.CreateAsync(encryptedAdmin).Result)
             {
                 LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} created a new admin user {newAdmin.UserName}", MessageTypes.Added).WriteLog();
                 return await Task.FromResult(true);
@@ -64,6 +65,11 @@ namespace Door2DoorLib.Managers
         }
         #endregion
 
+        #region Get All Async
+        /// <summary>
+        /// Gets all admins
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<Admin>> GetAllAsync()
         {
             try
@@ -76,6 +82,7 @@ namespace Door2DoorLib.Managers
                 return await Task.FromResult(new List<Admin>());
             }
         }
+        #endregion
 
         #region Delete Admin Async
         /// <summary>

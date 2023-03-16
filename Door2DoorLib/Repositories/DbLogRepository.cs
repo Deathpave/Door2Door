@@ -10,13 +10,19 @@ namespace Door2DoorLib.Repositories
 {
     internal class DbLogRepository : IDbLogRepository
     {
+        #region Fields
         private readonly IDatabase _database;
+        #endregion
 
+        #region Constructor
         public DbLogRepository(IDatabase database)
         {
             _database = database;
         }
+        #endregion
 
+        #region Methods
+        #region Create Async
         /// <summary>
         /// Creates a Log entity in the database
         /// </summary>
@@ -50,7 +56,9 @@ namespace Door2DoorLib.Repositories
                 return await Task.FromResult(false);
             }
         }
+        #endregion
 
+        #region Delete Async
         /// <summary>
         /// Deletes a Log Entity from the database
         /// </summary>
@@ -81,7 +89,9 @@ namespace Door2DoorLib.Repositories
                 return false;
             }
         }
+        #endregion
 
+        #region Get All Async
         /// <summary>
         /// Returns all Log entities from the database
         /// </summary>
@@ -107,7 +117,9 @@ namespace Door2DoorLib.Repositories
             await _database.CloseConnection();
             return await Task.FromResult(result);
         }
+        #endregion
 
+        #region Get By Id Async
         /// <summary>
         /// Returns a Log Entity with a matching id
         /// </summary>
@@ -138,7 +150,9 @@ namespace Door2DoorLib.Repositories
             await _database.CloseConnection();
             return await Task.FromResult(result);
         }
+        #endregion
 
+        #region Update Async
         /// <summary>
         /// Updates a Log Entity in the database
         /// </summary>
@@ -176,5 +190,7 @@ namespace Door2DoorLib.Repositories
                 return false;
             }
         }
+        #endregion
+        #endregion
     }
 }

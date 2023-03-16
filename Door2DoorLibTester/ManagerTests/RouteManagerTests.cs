@@ -1,4 +1,5 @@
 ﻿using Door2DoorLib.DataModels;
+using Door2DoorLib.Factories;
 using Door2DoorLib.Interfaces;
 using Door2DoorLib.Managers;
 using Door2DoorLibTester.Setup;
@@ -136,19 +137,19 @@ namespace Door2DoorLibTester.ManagerTests
 
         private Admin CreateTestUser()
         {
-            Admin admin = new("TestUser", "123");
+            Admin admin = AdminFactory.CreateAdmin("TestUser", "123");
             return admin;
         }
 
         private Route CreateTestRoute()
         {
-            Route route = new("Test", "Test", 6, 7, 1000);
+            Route route = RouteFactory.CreateRoute("Test", "Test", 6, 7, 1000);
             return route;
         }
 
         private Route CreateUpdatedTestObject()
         {
-            Route route = new("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "Lav en U-vending", 10, 12, 1000);
+            Route route = RouteFactory.CreateRoute("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "Lav en U-vending", 10, 12, 1000);
             return route;
         }
 

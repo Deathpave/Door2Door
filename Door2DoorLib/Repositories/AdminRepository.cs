@@ -1,4 +1,5 @@
 ﻿using Door2DoorLib.DataModels;
+using Door2DoorLib.Factories;
 using Door2DoorLib.Interfaces;
 using System.Data;
 using System.Data.Common;
@@ -117,7 +118,7 @@ namespace Door2DoorLib.Repositories
 
             while (dataReader.Read())
             {
-                result = new Admin(dataReader.GetString("username"), dataReader.GetString("password"));
+                result = AdminFactory.CreateAdmin(dataReader.GetString("username"), dataReader.GetString("password"));
             }
             await _database.CloseConnection();
 
@@ -142,7 +143,7 @@ namespace Door2DoorLib.Repositories
 
             while (await dataReader.ReadAsync())
             {
-                Admin newroute = new Admin(dataReader.GetString("username"), dataReader.GetString("password"), dataReader.GetInt64("id"));
+                Admin newroute = AdminFactory.CreateAdmin(dataReader.GetString("username"), dataReader.GetString("password"), dataReader.GetInt64("id"));
                 result.Add(newroute);
             }
 
@@ -177,7 +178,7 @@ namespace Door2DoorLib.Repositories
 
             while (dataReader.Read())
             {
-                result = new Admin(dataReader.GetString("username"), dataReader.GetString("password"));
+                result = AdminFactory.CreateAdmin(dataReader.GetString("username"), dataReader.GetString("password"));
             }
             await _database.CloseConnection();
 
@@ -201,8 +202,8 @@ namespace Door2DoorLib.Repositories
             IDictionary<string, object> sqlParams = new Dictionary<string, object>
             {
                 { "@adminId", updateEntity.Id },
-                { "@username", updateEntity.UserName },
-                { "@password", updateEntity.Password }
+                { "@newUsername", updateEntity.UserName },
+                { "@newPassword", updateEntity.Password }
             };
 
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
