@@ -18,6 +18,8 @@ namespace Door2DoorLib.Managers
         }
         #endregion
 
+        #region Methods
+        #region Create Async
         public async Task<bool> CreateAsync(DatabaseLog createEntity)
         {
             if (_repository.CreateAsync(createEntity).Result)
@@ -30,5 +32,7 @@ namespace Door2DoorLib.Managers
                 return await Task.FromResult(false);
             }
         }
+        #endregion
+        #endregion
     }
 }

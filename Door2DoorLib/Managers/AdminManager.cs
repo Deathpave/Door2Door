@@ -51,7 +51,7 @@ namespace Door2DoorLib.Managers
         /// <returns></returns>
         public async Task<bool> CreateAsync(Admin newAdmin, Admin admin)
         {
-            Admin encryptedAdmin = new Admin(new Encryption().EncryptString(newAdmin.UserName, newAdmin.UserName), new Hashing().Sha256Hash(new Encryption().EncryptString(newAdmin.Password, newAdmin.Password)));
+            Admin encryptedAdmin = AdminFactory.CreateAdmin(new Encryption().EncryptString(newAdmin.UserName, newAdmin.UserName), new Hashing().Sha256Hash(new Encryption().EncryptString(newAdmin.Password, newAdmin.Password)));
             if (_repository.CreateAsync(encryptedAdmin).Result)
             {
                 LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} created a new admin user {newAdmin.UserName}", MessageTypes.Added).WriteLog();
