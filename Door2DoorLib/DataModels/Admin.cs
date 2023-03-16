@@ -13,7 +13,7 @@
         #endregion
 
         #region Constructor
-        public Admin(string username, string password, long id = 0) : base(id)
+        internal Admin(string username, string password, long id = 0) : base(id)
         {
             _username = username;
             _password = password;
