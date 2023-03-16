@@ -3,7 +3,6 @@ using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
 using System.Data.Common;
 using System.Data;
-using System.Xml;
 
 namespace Door2DoorLib.Adapters
 {

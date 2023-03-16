@@ -25,9 +25,12 @@ namespace Door2DoorLib.Logs
         }
         #endregion
 
+        #region Methods
+        #region Write Log
         public void WriteLog()
         {
-            
         }
+        #endregion
+        #endregion
     }
 }

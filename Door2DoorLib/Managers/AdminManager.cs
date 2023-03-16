@@ -65,6 +65,11 @@ namespace Door2DoorLib.Managers
         }
         #endregion
 
+        #region Get All Async
+        /// <summary>
+        /// Gets all admins
+        /// </summary>
+        /// <returns></returns>
         public async Task<IEnumerable<Admin>> GetAllAsync()
         {
             try
@@ -77,6 +82,7 @@ namespace Door2DoorLib.Managers
                 return await Task.FromResult(new List<Admin>());
             }
         }
+        #endregion
 
         #region Delete Admin Async
         /// <summary>
