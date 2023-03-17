@@ -49,7 +49,7 @@ namespace Door2DoorFrontEnd.Controllers
         public IActionResult AdminMenu()
         {
             AdminModel model = new AdminModel();
-            AdminModel model = new AdminModel();
+            //AdminModel model = new AdminModel();
             //model.LocationList = _locationManager.GetAllAsync().Result.ToList();
             //model.RouteList = _routeManager.GetAllAsync().Result.ToList();
             //List<SelectListItem> routes = new List<SelectListItem>();
@@ -60,7 +60,7 @@ namespace Door2DoorFrontEnd.Controllers
             //    //routes.Add(new string[] { item.Id.ToString(), model.LocationList.Where(x => x.Id == item.StartLocation).FirstOrDefault().Name, model.LocationList.Where(x => x.Id == item.EndLocation).FirstOrDefault().Name });
             //}
             //model.RouteLocationList = routes;
-            AdminModel model = new AdminModel();
+            //AdminModel model = new AdminModel();
             //model.LocationList = _locationManager.GetAllAsync().Result.ToList();
             //model.RouteList = _routeManager.GetAllAsync().Result.ToList();
             //List<SelectListItem> routes = new List<SelectListItem>();
