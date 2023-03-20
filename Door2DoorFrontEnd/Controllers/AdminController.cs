@@ -60,14 +60,14 @@ namespace Door2DoorFrontEnd.Controllers
             return View("AdminMenu", model);
         }
 
-        [HttpPost("/admin/AddAdmin")]
+        [HttpPost("/admin/addadmin")]
         public async Task<IActionResult> AddAdmin(AdminModel model)
         {
             try
             {
                 model = SetLists(model);
                 Admin newAdmin = AdminFactory.CreateAdmin(model.NewAdminUsername, model.NewAdminPswd);
-                Admin currentAdmin = AdminFactory.CreateAdmin(model.Username);
+                Admin currentAdmin = AdminFactory.CreateAdmin(model.auth.Username);
                 await _adminManager.CreateAsync(newAdmin, currentAdmin);
                 model.NewAdminUsername = "";
                 model.NewAdminPswd = "";
