@@ -24,24 +24,31 @@ namespace Door2DoorFrontEnd.Controllers
         [HttpGet("/admin")]
         public IActionResult Admin()
         {
-            AdminModel model = new AdminModel();
-            model = SetLists(model);
+            Auth model = new Auth();
 
             return View("Admin", model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Login(Auth model)
+        public async Task<IActionResult> Login(Auth model)
         {
-            if (!ModelState.IsValid)
+            AdminModel adminModel = new AdminModel();
+            if (model != null)
             {
-                if (model !=null)
+                if (await _adminManager.CheckLoginAsync(model.Username, model.Password))
                 {
-                    //set session
+                    model.Authenticated = true;
+                    adminModel.Username = model.Username;
+                    adminModel = SetLists(adminModel);
+                }
+                else
+                {
+                    model.Authenticated = false;
+                    return View("Login", model);
                 }
             }
-            return View("Admin", model);
+            return View("AdminMenu", adminModel);
         }
 
 

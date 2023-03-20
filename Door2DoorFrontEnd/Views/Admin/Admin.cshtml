@@ -2,10 +2,24 @@
 @{
     ViewData["Title"] = "Login";
 }
+<style>
+    .clear {
+        height:200px;
+    }
 
-@using (Html.BeginForm("Login","Admin", FormMethod.Post))
+    .loginform {
+        background-color: #01161E;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+        top: 30%;
+    }
+</style>
+<div class="clear">
+</div>
+@using (Html.BeginForm("Login", "Admin", FormMethod.Post))
 {
-    <div>
+    <div class="loginform">
         @Html.TextBoxFor(Model => Model.Username, new {type="username"})
         @Html.TextBoxFor(Model => Model.Password, new {type="password"})
         <button type="submit">Login</button>
