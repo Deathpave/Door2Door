@@ -17,16 +17,16 @@
 </style>
 <div class="clear">
 </div>
-@if (Model.auth.Authenticated == 0)
+@if (Model.Auth.Authenticated == 0)
 {
     <p style="color:red;">Wrong Credentials!</p>
 }
 @using (Html.BeginForm("Login", "Admin", FormMethod.Post))
 {
-    @Html.HiddenFor(Model => Model.auth.Authenticated);
+    @Html.HiddenFor(Model => Model.Auth.Authenticated);
     <div class="loginform">
-        @Html.TextBoxFor(Model => Model.auth.Username, new {type="username"})
-        @Html.TextBoxFor(Model => Model.auth.Password, new {type="password"})
+        @Html.TextBoxFor(Model => Model.Auth.Username, new {type="username"})
+        @Html.TextBoxFor(Model => Model.Auth.Password, new {type="password"})
         <button class="button" type="submit">Login</button>
     </div>
 }

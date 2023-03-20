@@ -2,48 +2,6 @@
 @{
     ViewData["Title"] = "Admin";
 }
-<style>
-    /*.adminmenu {
-                    text-align: center;
-                }
-
-                    .adminmenu a {
-                        user-select: none;
-                        top: 50%;
-                        display: flex;
-                        justify-content: space-evenly;
-                        margin-bottom: 20px;
-                        background-color: #01161E;
-                        color: white !important;
-                        font-weight: bold;
-                        height: 40px;
-                        cursor: pointer;
-                    }
-
-                .formwrapper {
-                    display: none;
-                    flex-direction: column;
-                }
-
-                .button {
-                    min-height: 35px;
-                    min-width: 60px;
-                    background-color: #598392;
-                    color: white;
-                    font-weight: bold;
-                    border-radius: 10px;
-                    border: black;
-                }
-
-                .actionform {
-                    display: none;
-                    flex-direction: column;
-                }
-
-                #hiden {
-                    display: none;
-                }*/
-</style>
 <div class="adminmenu">
 
     <a onclick="toggleform('addadmin')">Tilføj admin</a>
@@ -51,7 +9,7 @@
         @using (Html.BeginForm("AddAdmin", "Admin", FormMethod.Post))
         {
             @Html.AntiForgeryToken()
-            @Html.Hidden("Authusr",Model.auth.Username)
+            @Html.Hidden("Authusr",Model.Auth.Username)
             ;
             @Html.TextBoxFor(Model => Model.NewAdminUsername, new {type = "username", placeholder="Brugernavn"})
             @Html.TextBoxFor(Model => Model.NewAdminPswd,new {type="password", placeholder="Kodeord"})
@@ -80,9 +38,9 @@
             ;
             @Html.TextBoxFor(Model => Model.File.Video, new {style="display:none;", id="upload",  type= "file", value="Vælg video"})
             <p style="color:white;">Start lokation</p>
-            @Html.DropDownListFor(o=>o.RouteModel.LocationModel.StartId, new SelectList(Model.RouteModel.LocationModel.SelectLocationList, "Id", "Name"))
+            @Html.DropDownListFor(o=>o.RouteModel.LocationModel.StartId, new SelectList(Model.RouteModel.LocationModel.SelectLocationList, "Value", "Text"))
             <p style="color:white;">Slut lokation</p>
-            @Html.DropDownListFor(o=>o.RouteModel.LocationModel.EndId, new SelectList(Model.RouteModel.LocationModel.SelectLocationList, "Id", "Name"))
+            @Html.DropDownListFor(o=>o.RouteModel.LocationModel.EndId, new SelectList(Model.RouteModel.LocationModel.SelectLocationList, "Value", "Text"))
             <br />
             <p style="color:white;">Rute beskrivelse</p>
             @Html.TextBoxFor(Model => Model.RouteModel.RouteDescription)
