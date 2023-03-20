@@ -4,6 +4,7 @@ using Door2DoorLib.Factories;
 using Door2DoorLib.Interfaces;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Extensions.Primitives;
 using MySqlX.XDevAPI;
 
 namespace Door2DoorFrontEnd.Controllers
@@ -61,13 +62,16 @@ namespace Door2DoorFrontEnd.Controllers
         }
 
         [HttpPost("/admin/addadmin")]
-        public async Task<IActionResult> AddAdmin(AdminModel model)
+        public async Task<IActionResult> AddAdmin(AdminModel model,IFormCollection collection)
         {
             try
             {
+                collection.TryGetValue("Authusr",out StringValues values);
+                model.auth = new Auth();
+                model.auth.Username = values.ToString();
                 model = SetLists(model);
                 Admin newAdmin = AdminFactory.CreateAdmin(model.NewAdminUsername, model.NewAdminPswd);
-                Admin currentAdmin = AdminFactory.CreateAdmin(model.auth.Username);
+                Admin currentAdmin = AdminFactory.CreateAdmin(model.Username);
                 await _adminManager.CreateAsync(newAdmin, currentAdmin);
                 model.NewAdminUsername = "";
                 model.NewAdminPswd = "";

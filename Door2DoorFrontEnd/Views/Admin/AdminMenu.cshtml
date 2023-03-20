@@ -4,45 +4,45 @@
 }
 <style>
     /*.adminmenu {
-        text-align: center;
-    }
-
-        .adminmenu a {
-            user-select: none;
-            top: 50%;
-            display: flex;
-            justify-content: space-evenly;
-            margin-bottom: 20px;
-            background-color: #01161E;
-            color: white !important;
-            font-weight: bold;
-            height: 40px;
-            cursor: pointer;
+            text-align: center;
         }
 
-    .formwrapper {
-        display: none;
-        flex-direction: column;
-    }
+            .adminmenu a {
+                user-select: none;
+                top: 50%;
+                display: flex;
+                justify-content: space-evenly;
+                margin-bottom: 20px;
+                background-color: #01161E;
+                color: white !important;
+                font-weight: bold;
+                height: 40px;
+                cursor: pointer;
+            }
 
-    .button {
-        min-height: 35px;
-        min-width: 60px;
-        background-color: #598392;
-        color: white;
-        font-weight: bold;
-        border-radius: 10px;
-        border: black;
-    }
+        .formwrapper {
+            display: none;
+            flex-direction: column;
+        }
 
-    .actionform {
-        display: none;
-        flex-direction: column;
-    }
+        .button {
+            min-height: 35px;
+            min-width: 60px;
+            background-color: #598392;
+            color: white;
+            font-weight: bold;
+            border-radius: 10px;
+            border: black;
+        }
 
-    #hiden {
-        display: none;
-    }*/
+        .actionform {
+            display: none;
+            flex-direction: column;
+        }
+
+        #hiden {
+            display: none;
+        }*/
 </style>
 <div class="adminmenu">
 
@@ -51,15 +51,9 @@
         @using (Html.BeginForm("AddAdmin", "Admin", FormMethod.Post))
         {
             @Html.AntiForgeryToken()
-            ;
-            @if(Model.Username != string.Empty || Model.auth != null){
-                @Html.HiddenFor(Model => Model.Username);
-                @Html.HiddenFor(Model => Model.auth);
-            }
-            
+            @Html.Hidden("Authusr",Model.auth.Username);
             @Html.TextBoxFor(Model => Model.NewAdminUsername, new {type = "username", placeholder="Brugernavn"})
             @Html.TextBoxFor(Model => Model.NewAdminPswd,new {type="password", placeholder="Kodeord"})
-
             <input class="button" value="Tilføj" type="submit" />
         }
     </div>
