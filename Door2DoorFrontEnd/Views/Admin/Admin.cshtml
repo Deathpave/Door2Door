@@ -3,7 +3,7 @@
     ViewData["Title"] = "Login";
 }
 <style>
-    .clear {
+/*    .clear {
         height:200px;
     }
 
@@ -13,7 +13,7 @@
         flex-direction: column;
         justify-content: space-around;
         top: 30%;
-    }
+    }*/
 </style>
 <div class="clear">
 </div>
@@ -27,6 +27,6 @@
     <div class="loginform">
         @Html.TextBoxFor(Model => Model.auth.Username, new {type="username"})
         @Html.TextBoxFor(Model => Model.auth.Password, new {type="password"})
-        <button type="submit">Login</button>
+        <button class="button" type="submit">Login</button>
     </div>
 }
