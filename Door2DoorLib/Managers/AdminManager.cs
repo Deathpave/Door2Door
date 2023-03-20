@@ -30,13 +30,20 @@ namespace Door2DoorLib.Managers
         public async Task<bool> CheckLoginAsync(string username, string pswd)
         {
             Admin admin = _repository.GetByNameAsync(new Encryption().EncryptString(username, username)).Result;
-            if (admin.Password == new Hashing().Sha256Hash(new Encryption().EncryptString(pswd, pswd)))
+            if (admin != null)
             {
-                return await Task.FromResult(true);
+                if (admin.Password == new Hashing().Sha256Hash(new Encryption().EncryptString(pswd, pswd)))
+                {
+                    return await Task.FromResult(true);
+                }
+                else
+                {
+                    LogFactory.CreateLog(LogTypes.Database, $"Failed login with username {username}", MessageTypes.Error);
+                    return await Task.FromResult(false);
+                }
             }
             else
             {
-                LogFactory.CreateLog(LogTypes.Database, $"Failed login with username {username}", MessageTypes.Error);
                 return await Task.FromResult(false);
             }
         }
