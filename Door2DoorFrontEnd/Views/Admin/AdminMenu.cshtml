@@ -52,10 +52,12 @@
         {
             @Html.AntiForgeryToken()
             ;
-            @Html.HiddenFor(Model => Model.Username);
-            @Html.HiddenFor(Model => Model.auth)
-            ;
-            @Html.TextBoxFor(Model => Model.NewAdminUsername, new {placeholder="Brugernavn"})
+            @if(Model.Username != string.Empty || Model.auth != null){
+                @Html.HiddenFor(Model => Model.Username);
+                @Html.HiddenFor(Model => Model.auth);
+            }
+            
+            @Html.TextBoxFor(Model => Model.NewAdminUsername, new {type = "username", placeholder="Brugernavn"})
             @Html.TextBoxFor(Model => Model.NewAdminPswd,new {type="password", placeholder="Kodeord"})
 
             <input class="button" value="Tilføj" type="submit" />
