@@ -59,7 +59,7 @@ namespace Door2DoorFrontEnd.Controllers
             //    //routes.Add(new string[] { item.Id.ToString(), model.LocationList.Where(x => x.Id == item.StartLocation).FirstOrDefault().Name, model.LocationList.Where(x => x.Id == item.EndLocation).FirstOrDefault().Name });
             //}
             //model.RouteLocationList = routes;
-            AdminModel model = new AdminModel();
+            //AdminModel model = new AdminModel();
             //model.LocationList = _locationManager.GetAllAsync().Result.ToList();
             //model.RouteList = _routeManager.GetAllAsync().Result.ToList();
             //List<SelectListItem> routes = new List<SelectListItem>();
@@ -121,7 +121,7 @@ namespace Door2DoorFrontEnd.Controllers
                 Location location = LocationFactory.CreateLocation(model.NewLocationName);
                 Admin currentadmin = AdminFactory.CreateAdmin(model.Username);
 
-                _locationManager.CreateAsync(location, currentadmin);
+                await _locationManager.CreateAsync(location, currentadmin);
                 return View("Admin", model);
             }
             catch (Exception)
@@ -140,7 +140,7 @@ namespace Door2DoorFrontEnd.Controllers
                 string url = _routeManager.UploadVideoAsync(model.Video).Result;
                 Door2DoorLib.DataModels.Route newroute = RouteFactory.CreateRoute(url, model.NewRouteDescription, model.SelectedStartLocation, model.SelectedEndLocation, 66);
                 Admin admin = AdminFactory.CreateAdmin(model.Username);
-                _routeManager.CreateAsync(newroute, admin);
+                await _routeManager.CreateAsync(newroute, admin);
                 return View("Admin", model);
             }
             catch (Exception)
