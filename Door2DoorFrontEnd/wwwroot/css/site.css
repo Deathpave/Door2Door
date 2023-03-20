@@ -62,7 +62,7 @@ main {
     font-weight: bold;
 }
 
-#button {
+button {
     height: 35px;
     min-width: 60px;
     background-color: #598392;
