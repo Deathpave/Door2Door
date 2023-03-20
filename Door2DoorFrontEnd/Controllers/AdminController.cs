@@ -26,7 +26,7 @@ namespace Door2DoorFrontEnd.Controllers
         public IActionResult Admin()
         {
             AdminModel model = new AdminModel();
-            model.auth = new Auth();
+            model.auth = new AuthModel();
             model.auth.Authenticated = 3;
             return View("Admin", model);
         }
@@ -67,7 +67,7 @@ namespace Door2DoorFrontEnd.Controllers
             try
             {
                 collection.TryGetValue("Authusr",out StringValues values);
-                model.auth = new Auth();
+                model.auth = new AuthModel();
                 model.auth.Username = values.ToString();
                 model = SetLists(model);
                 Admin newAdmin = AdminFactory.CreateAdmin(model.NewAdminUsername, model.NewAdminPswd);

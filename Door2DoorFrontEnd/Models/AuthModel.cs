@@ -1,6 +1,6 @@
 ﻿namespace Door2DoorFrontEnd.Models
 {
-    public class Auth
+    public class AuthModel
     {
         public string Username { get; set; }
 
