@@ -6,6 +6,6 @@
 
         public string Password { get; set; }
 
-        public bool Authenticated { get; set; }
+        public int Authenticated { get; set; }
     }
 }

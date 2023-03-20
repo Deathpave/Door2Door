@@ -6,6 +6,7 @@ namespace Door2DoorFrontEnd.Models
 {
     public class AdminModel
     {
+        public Auth? auth { get; set; }
         public string Username { get; set; }
 
         public string NewAdminUsername { get; set; }

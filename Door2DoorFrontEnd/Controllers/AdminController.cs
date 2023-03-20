@@ -24,38 +24,37 @@ namespace Door2DoorFrontEnd.Controllers
         [HttpGet("/admin")]
         public IActionResult Admin()
         {
-            Auth model = new Auth();
-
+            AdminModel model = new AdminModel();
+            model.auth = new Auth();
+            model.auth.Authenticated = 3;
             return View("Admin", model);
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Login(Auth model)
+        public async Task<IActionResult> Login(AdminModel model)
         {
-            AdminModel adminModel = new AdminModel();
             if (model != null)
             {
-                if (await _adminManager.CheckLoginAsync(model.Username, model.Password))
+                if (await _adminManager.CheckLoginAsync(model.auth.Username, model.auth.Password))
                 {
-                    model.Authenticated = true;
-                    adminModel.Username = model.Username;
-                    adminModel = SetLists(adminModel);
+                    model.auth.Authenticated = 1;
+                    model.auth.Username = model.auth.Username;
+                    model = SetLists(model);
                 }
                 else
                 {
-                    model.Authenticated = false;
-                    return View("Login", model);
+                    model.auth.Authenticated = 0;
+                    return View("Admin", model);
                 }
             }
-            return View("AdminMenu", adminModel);
+            return View("AdminMenu", model);
         }
 
 
         [HttpGet("/admin/menu")]
-        public IActionResult AdminMenu()
+        public IActionResult AdminMenu(AdminModel model)
         {
-            AdminModel model = new AdminModel();
             //model.LocationList = _locationManager.GetAllAsync().Result.ToList();
             //model.RouteList = _routeManager.GetAllAsync().Result.ToList();
             //List<SelectListItem> routes = new List<SelectListItem>();
@@ -79,10 +78,10 @@ namespace Door2DoorFrontEnd.Controllers
             //model.RouteLocationList = routes;
             model = SetLists(model);
 
-            return View("Admin", model);
+            return View("AdminMenu", model);
         }
 
-        [HttpPost]
+        [HttpGet("/admin/addadmin")]
         public async Task<IActionResult> AddAdmin(AdminModel model)
         {
             try
@@ -93,7 +92,7 @@ namespace Door2DoorFrontEnd.Controllers
                 await _adminManager.CreateAsync(newAdmin, currentAdmin);
                 model.NewAdminUsername = "";
                 model.NewAdminPswd = "";
-                return View("Admin", model);
+                return View("AdminMenu", model);
             }
             catch (Exception)
             {
@@ -101,7 +100,7 @@ namespace Door2DoorFrontEnd.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet("/admin/removeadmin")]
         public async Task<IActionResult> RemoveAdmin(AdminModel model)
         {
             try
@@ -111,7 +110,7 @@ namespace Door2DoorFrontEnd.Controllers
                 Admin deleteAdmin = AdminFactory.CreateAdmin(model.DeleteAdmin, model.Username);
 
                 await _adminManager.DeleteAsync(deleteAdmin, admin);
-                return View("Admin", model);
+                return View("AdminMenu", model);
             }
             catch (Exception)
             {
@@ -119,7 +118,7 @@ namespace Door2DoorFrontEnd.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet("/admin/addlocation")]
         public async Task<IActionResult> AddLocation(AdminModel model)
         {
             try
@@ -129,20 +128,21 @@ namespace Door2DoorFrontEnd.Controllers
                 Admin currentadmin = AdminFactory.CreateAdmin(model.Username);
 
                 await _locationManager.CreateAsync(location, currentadmin);
-                return View("Admin", model);
+                return View("AdminMenu", model);
             }
             catch (Exception)
             {
+                //_logger.LogError();
                 return View("AdminMenu", model);
             }
         }
 
-        [HttpPost]
+        [HttpGet("/admin/addroute")]
         public async Task<ActionResult> AddRoute(AdminModel model)
         {
             try
             {
-                model.Username = "TestUser";
+                //model.Username = "TestUser";
                 model = SetLists(model);
                 string url = _routeManager.UploadVideoAsync(model.Video).Result;
                 Door2DoorLib.DataModels.Route newroute = RouteFactory.CreateRoute(url, model.NewRouteDescription, model.SelectedStartLocation, model.SelectedEndLocation, 66);
@@ -156,7 +156,7 @@ namespace Door2DoorFrontEnd.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpGet("/admin/removeroute")]
         public async Task<ActionResult> RemoveRoute(AdminModel model)
         {
             try

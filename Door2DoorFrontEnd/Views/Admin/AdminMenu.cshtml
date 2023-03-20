@@ -52,6 +52,9 @@
         {
             @Html.AntiForgeryToken()
             ;
+            @Html.HiddenFor(Model => Model.Username);
+            @Html.HiddenFor(Model => Model.auth)
+            ;
             @Html.TextBoxFor(Model => Model.NewAdminUsername, new {placeholder="Brugernavn"})
             @Html.TextBoxFor(Model => Model.NewAdminPswd,new {type="password", placeholder="Kodeord"})
 
