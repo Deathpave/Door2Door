@@ -77,14 +77,14 @@
         {
             @Html.AntiForgeryToken()
             ;
-            @Html.TextBoxFor(Model => Model.Video, new {style="display:none;", id="upload",  type= "file", value="Vælg video"})
+            @Html.TextBoxFor(Model => Model.File.Video, new {style="display:none;", id="upload",  type= "file", value="Vælg video"})
             <p style="color:white;">Start lokation</p>
-            @Html.DropDownListFor(o=>o.SelectedStartLocation, new SelectList(Model.LocationList, "Id", "Name"))
+            @Html.DropDownListFor(o=>o.RouteModel.StartLocation, new SelectList(Model.LocationModel.LocationList, "Id", "Name"))
             <p style="color:white;">Slut lokation</p>
-            @Html.DropDownListFor(o=>o.SelectedEndLocation, new SelectList(Model.LocationList, "Id", "Name"))
+            @Html.DropDownListFor(o=>o.RouteModel.EndLocation, new SelectList(Model.LocationModel.LocationList, "Id", "Name"))
             <br />
             <p style="color:white;">Rute beskrivelse</p>
-            @Html.TextBoxFor(Model => Model.NewRouteDescription)
+            @Html.TextBoxFor(Model => Model.RouteModel.NewRouteDescription)
             ;
             <br />
             <input class="button" value="Tilføj" type="submit" />
@@ -98,7 +98,7 @@
             @Html.AntiForgeryToken()
             ;
 
-            @Html.DropDownListFor(o=>o.DeleteRoute, new SelectList(Model.RouteLocationList, "Value", "Text"))
+            @Html.DropDownListFor(o=>o.RouteModel.DeleteRoute, new SelectList(Model.RouteModel.RouteLocationList, "Value", "Text"))
             // Need to see what the locations are and not the id
             <input id="button" value="Slet rute" type="submit" />
         }

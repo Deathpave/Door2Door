@@ -26,7 +26,7 @@ namespace Door2DoorFrontEnd.Controllers
         public IActionResult Admin()
         {
             AdminModel model = new AdminModel();
-            model.auth = new Auth("", 3);
+            model.auth = new AuthModel("", 3);
             return View("Admin", model);
         }
 
@@ -65,10 +65,7 @@ namespace Door2DoorFrontEnd.Controllers
         {
             try
             {
-                collection.TryGetValue("Authusr",out StringValues values);
-                model.auth = new Auth();
-                model.auth.Username = values.ToString();
-                model = SetLists(model);
+                SetData(model, collection);
                 Admin newAdmin = AdminFactory.CreateAdmin(model.NewAdminUsername, model.NewAdminPswd);
                 Admin currentAdmin = AdminFactory.CreateAdmin(model.Username);
                 await _adminManager.CreateAsync(newAdmin, currentAdmin);
@@ -125,8 +122,8 @@ namespace Door2DoorFrontEnd.Controllers
             try
             {
                 model = SetData(model, collection);
-                string url = _routeManager.UploadVideoAsync(model.Video).Result;
-                Door2DoorLib.DataModels.Route newroute = RouteFactory.CreateRoute(url, model.NewRouteDescription, model.SelectedStartLocation, model.SelectedEndLocation, 66);
+                string url = _routeManager.UploadVideoAsync(model.File.Video).Result;
+                Door2DoorLib.DataModels.Route newroute = RouteFactory.CreateRoute(url, model.RouteModel.NewRouteDescription, model.RouteModel.LocationModel.StartId, model.RouteModel.LocationModel.EndId);
                 Admin admin = AdminFactory.CreateAdmin(model.Username);
                 await _routeManager.CreateAsync(newroute, admin);
                 return View("Admin", model);
@@ -143,7 +140,7 @@ namespace Door2DoorFrontEnd.Controllers
             try
             {
                 model = SetData(model, collection);
-                Door2DoorLib.DataModels.Route route = RouteFactory.CreateRoute("", "", 0, 0, model.DeleteRoute);
+                Door2DoorLib.DataModels.Route route = RouteFactory.CreateRoute("", "", 0, 0, model.RouteModel.DeleteRoute);
                 Admin admin = AdminFactory.CreateAdmin(model.Username);
                 await _routeManager.DeleteAsync(route, admin);
                 return View("Admin", model);
@@ -156,20 +153,19 @@ namespace Door2DoorFrontEnd.Controllers
 
         private AdminModel SetData(AdminModel model, IFormCollection collection)
         {
-            model = SetLists(model);
-            model = SetAuth(model, collection);
+            model = SetData(model, collection);
             return model;
         }
 
         private AdminModel SetLists(AdminModel model)
         {
-            if (model.LocationList == null || model.LocationList.Count() == 0)
+            if (model.RouteModel.RouteList == null || model.RouteModel.RouteList.Count() == 0)
             {
-                model.LocationList = _locationManager.GetAllAsync().Result.ToList();
+                model.RouteModel.RouteList = _routeManager.GetAllAsync().Result.ToList();
             }
-            if (model.RouteList == null || model.RouteList.Count() == 0)
+            if (model.RouteModel.LocationModel.LocationList == null || model.RouteModel.LocationModel.LocationList.Count() == 0)
             {
-                model.RouteList = _routeManager.GetAllAsync().Result.ToList();
+                model.RouteModel.LocationModel.LocationList = _locationManager.GetAllAsync().Result.ToList();
             }
             if (model.RouteLocationList == null || model.RouteLocationList.Count() == 0)
             {
@@ -187,7 +183,7 @@ namespace Door2DoorFrontEnd.Controllers
         private AdminModel SetAuth(AdminModel model, IFormCollection collection)
         {
             collection.TryGetValue("Authusr", out StringValues values);
-            model.auth = new Auth(values, 1);
+            model.auth = new AuthModel(values, 1);
             return model;
         }
     }
