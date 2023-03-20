@@ -123,7 +123,7 @@ namespace Door2DoorFrontEnd.Controllers
             {
                 model = SetData(model, collection);
                 string url = _routeManager.UploadVideoAsync(model.File.Video).Result;
-                Door2DoorLib.DataModels.Route newroute = RouteFactory.CreateRoute(url, model.RouteModel.NewRouteDescription, model.RouteModel.LocationModel.StartId, model.RouteModel.LocationModel.EndId);
+                Door2DoorLib.DataModels.Route newroute = RouteFactory.CreateRoute(url, model.RouteModel.RouteDescription, model.RouteModel.LocationModel.StartId, model.RouteModel.LocationModel.EndId);
                 Admin admin = AdminFactory.CreateAdmin(model.Username);
                 await _routeManager.CreateAsync(newroute, admin);
                 return View("Admin", model);
@@ -140,7 +140,7 @@ namespace Door2DoorFrontEnd.Controllers
             try
             {
                 model = SetData(model, collection);
-                Door2DoorLib.DataModels.Route route = RouteFactory.CreateRoute("", "", 0, 0, model.RouteModel.DeleteRoute);
+                Door2DoorLib.DataModels.Route route = RouteFactory.CreateRoute("", "", 0, 0, model.RouteModel.Id);
                 Admin admin = AdminFactory.CreateAdmin(model.Username);
                 await _routeManager.DeleteAsync(route, admin);
                 return View("Admin", model);
@@ -167,15 +167,15 @@ namespace Door2DoorFrontEnd.Controllers
             {
                 model.RouteModel.LocationModel.LocationList = _locationManager.GetAllAsync().Result.ToList();
             }
-            if (model.RouteLocationList == null || model.RouteLocationList.Count() == 0)
+            if (model.RouteModel.SelectRouteList == null || model.RouteModel.SelectRouteList.Count() == 0)
             {
                 List<SelectListItem> routeLocationList = new List<SelectListItem>();
                 SelectListItem t = new SelectListItem();
-                foreach (var item in model.RouteList)
+                foreach (var item in model.RouteModel.RouteList)
                 {
-                    routeLocationList.Add(new SelectListItem() { Value = item.Id.ToString(), Text = model.LocationList.Where(x => x.Id == item.StartLocation).FirstOrDefault().Name + "-" + model.LocationList.Where(x => x.Id == item.EndLocation).FirstOrDefault().Name });
+                    routeLocationList.Add(new SelectListItem() { Value = item.Id.ToString(), Text = model.RouteModel.LocationModel.LocationList.Where(x => x.Id == item.StartLocation).FirstOrDefault().Name + "-" + model.RouteModel.LocationModel.LocationList.Where(x => x.Id == item.EndLocation).FirstOrDefault().Name });
                 }
-                model.RouteLocationList = routeLocationList;
+                model.RouteModel.SelectRouteList = routeLocationList;
             }
             return model;
         }

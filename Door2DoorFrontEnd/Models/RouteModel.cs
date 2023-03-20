@@ -1,15 +1,15 @@
 ﻿using Door2DoorLib.DataModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Door2DoorFrontEnd.Models
 {
     public class RouteModel
     {
+        public List<SelectListItem> SelectRouteList { get; set; }
         public List<Door2DoorLib.DataModels.Route> RouteList { get; set; }
         public LocationModel LocationModel { get; set; }
-        public string NewRouteStart { get; set; }
-        public string NewRouteEnd { get; set; }
-        public string NewRouteDescription { get; set; }
-        public string NewRouteVideoUrl { get; set; }
-        public long DeleteRoute { get; set; }
+        public string RouteDescription { get; set; }
+        public string VideoUrl { get; set; }
+        public long Id { get; set; }
     }
 }

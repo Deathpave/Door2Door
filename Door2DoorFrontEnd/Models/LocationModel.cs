@@ -1,9 +1,12 @@
 ﻿using Door2DoorLib.DataModels;
+using Microsoft.AspNetCore.Mvc.Rendering;
+
 namespace Door2DoorFrontEnd.Models
 {
     public class LocationModel
     {
-        public List<Location> LocationList { get; set; } = new List<Location>();
+        public List<SelectListItem> SelectLocationList { get; set; }
+        public List<Location> LocationList { get; set; }
 
         public int StartId { get; set; }
 
