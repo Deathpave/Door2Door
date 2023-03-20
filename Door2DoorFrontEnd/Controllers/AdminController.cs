@@ -26,8 +26,7 @@ namespace Door2DoorFrontEnd.Controllers
         public IActionResult Admin()
         {
             AdminModel model = new AdminModel();
-            model.auth = new AuthModel();
-            model.auth.Authenticated = 3;
+            model.auth = new Auth("", 3);
             return View("Admin", model);
         }
 
@@ -54,20 +53,20 @@ namespace Door2DoorFrontEnd.Controllers
 
 
         [HttpPost("/admin/menu")]
-        public IActionResult AdminMenu(AdminModel model)
+        public IActionResult AdminMenu(AdminModel model, IFormCollection collection)
         {
-            model = SetLists(model);
+            model = SetData(model, collection);
 
             return View("AdminMenu", model);
         }
 
         [HttpPost("/admin/addadmin")]
-        public async Task<IActionResult> AddAdmin(AdminModel model,IFormCollection collection)
+        public async Task<IActionResult> AddAdmin(AdminModel model, IFormCollection collection)
         {
             try
             {
                 collection.TryGetValue("Authusr",out StringValues values);
-                model.auth = new AuthModel();
+                model.auth = new Auth();
                 model.auth.Username = values.ToString();
                 model = SetLists(model);
                 Admin newAdmin = AdminFactory.CreateAdmin(model.NewAdminUsername, model.NewAdminPswd);
@@ -84,11 +83,11 @@ namespace Door2DoorFrontEnd.Controllers
         }
 
         [HttpPost("/admin/removeadmin")]
-        public async Task<IActionResult> RemoveAdmin(AdminModel model)
+        public async Task<IActionResult> RemoveAdmin(AdminModel model, IFormCollection collection)
         {
             try
             {
-                model = SetLists(model);
+                model = SetData(model, collection);
                 Admin admin = AdminFactory.CreateAdmin(model.Username);
                 Admin deleteAdmin = AdminFactory.CreateAdmin(model.DeleteAdmin, model.Username);
 
@@ -102,11 +101,11 @@ namespace Door2DoorFrontEnd.Controllers
         }
 
         [HttpPost("/admin/addlocation")]
-        public async Task<IActionResult> AddLocation(AdminModel model)
+        public async Task<IActionResult> AddLocation(AdminModel model, IFormCollection collection)
         {
             try
             {
-                model = SetLists(model);
+                model = SetData(model, collection);
                 Location location = LocationFactory.CreateLocation(model.NewLocationName);
                 Admin currentadmin = AdminFactory.CreateAdmin(model.Username);
 
@@ -121,12 +120,11 @@ namespace Door2DoorFrontEnd.Controllers
         }
 
         [HttpPost("/admin/addroute")]
-        public async Task<ActionResult> AddRoute(AdminModel model)
+        public async Task<ActionResult> AddRoute(AdminModel model, IFormCollection collection)
         {
             try
             {
-                //model.Username = "TestUser";
-                model = SetLists(model);
+                model = SetData(model, collection);
                 string url = _routeManager.UploadVideoAsync(model.Video).Result;
                 Door2DoorLib.DataModels.Route newroute = RouteFactory.CreateRoute(url, model.NewRouteDescription, model.SelectedStartLocation, model.SelectedEndLocation, 66);
                 Admin admin = AdminFactory.CreateAdmin(model.Username);
@@ -140,11 +138,11 @@ namespace Door2DoorFrontEnd.Controllers
         }
 
         [HttpPost("/admin/removeroute")]
-        public async Task<ActionResult> RemoveRoute(AdminModel model)
+        public async Task<ActionResult> RemoveRoute(AdminModel model, IFormCollection collection)
         {
             try
             {
-                model = SetLists(model);
+                model = SetData(model, collection);
                 Door2DoorLib.DataModels.Route route = RouteFactory.CreateRoute("", "", 0, 0, model.DeleteRoute);
                 Admin admin = AdminFactory.CreateAdmin(model.Username);
                 await _routeManager.DeleteAsync(route, admin);
@@ -154,6 +152,13 @@ namespace Door2DoorFrontEnd.Controllers
             {
                 return View("AdminMenu");
             }
+        }
+
+        private AdminModel SetData(AdminModel model, IFormCollection collection)
+        {
+            model = SetLists(model);
+            model = SetAuth(model, collection);
+            return model;
         }
 
         private AdminModel SetLists(AdminModel model)
@@ -176,6 +181,13 @@ namespace Door2DoorFrontEnd.Controllers
                 }
                 model.RouteLocationList = routeLocationList;
             }
+            return model;
+        }
+
+        private AdminModel SetAuth(AdminModel model, IFormCollection collection)
+        {
+            collection.TryGetValue("Authusr", out StringValues values);
+            model.auth = new Auth(values, 1);
             return model;
         }
     }
