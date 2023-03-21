@@ -95,7 +95,7 @@ namespace Door2DoorLibTester.ManagerTests
 
         [Test]
         [Order(5)]
-        public async Task RemoveObjectAsync_RemovesExistingObject_IfArgumentsAreValid()
+        public async Task RemoveAsync_RemovesExistingObject_IfArgumentsAreValid()
         {
             //Arrange
             Location testLocation = CreateTestLocation();
