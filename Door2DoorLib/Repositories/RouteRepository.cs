@@ -22,6 +22,11 @@ namespace Door2DoorLib.Repositories
 
         #region Methods
         #region Upload Video
+        /// <summary>
+        /// Uploads a given file to the FTP server
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns>string of the path where the file was stored</returns>
         public async Task<string> UploadVideoAsync(IFormFile file)
         {
             try
@@ -42,7 +47,7 @@ namespace Door2DoorLib.Repositories
         /// Creates a route entity in the database
         /// </summary>
         /// <param name="createEntity"></param>
-        /// <returns></returns>
+        /// <returns>true or false</returns>
         public async Task<bool> CreateAsync(Route createEntity)
         {
             DbCommand sqlCommand = new SqlCommand("spCreateRoute");
@@ -79,7 +84,7 @@ namespace Door2DoorLib.Repositories
         /// Deletes a route entity in the database
         /// </summary>
         /// <param name="deleteEntity"></param>
-        /// <returns></returns>
+        /// <returns>true or false</returns>
         public async Task<bool> DeleteAsync(Route deleteEntity)
         {
             DbCommand sqlCommand = new SqlCommand("spDeleteRoute");
@@ -109,9 +114,9 @@ namespace Door2DoorLib.Repositories
 
         #region Get All Async
         /// <summary>
-        /// Returns all Route entities from database
+        /// Get's all Route entities from the database.
         /// </summary>
-        /// <returns></returns>
+        /// <returns>all Route entities from database</returns>
         public async Task<IEnumerable<Route>> GetAllAsync()
         {
             DbCommand sqlCommand = new SqlCommand("spGetAllRoutes");
@@ -135,10 +140,10 @@ namespace Door2DoorLib.Repositories
 
         #region Get By Id Async
         /// <summary>
-        /// Returns a Route entity matching the given id
+        /// Get's a specific Route entity from the database
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>a Route matching the given id</returns>
         public async Task<Route> GetByIdAsync(long id)
         {
             DbCommand sqlCommand = new SqlCommand("spGetRouteById");
@@ -168,7 +173,7 @@ namespace Door2DoorLib.Repositories
         /// Updates a route entity in the database
         /// </summary>
         /// <param name="updateEntity"></param>
-        /// <returns></returns>
+        /// <returns>True or False</returns>
         public async Task<bool> UpdateAsync(Route updateEntity)
         {
             DbCommand sqlCommand = new SqlCommand("spUpdateRoute");
@@ -206,7 +211,7 @@ namespace Door2DoorLib.Repositories
         /// </summary>
         /// <param name="startLocation"></param>
         /// <param name="endLocation"></param>
-        /// <returns></returns>
+        /// <returns>A route object matching the location ids</returns>
         public async Task<Route> GetByLocationsAsync(long startLocation, long endLocation)
         {
             DbCommand sqlCommand = new SqlCommand("spGetRouteByLocations");
