@@ -22,7 +22,7 @@ namespace Door2DoorLib.Repositories
 
         #region Methods
         #region Upload Video
-        public async Task<string> UploadVideo(IFormFile file)
+        public async Task<string> UploadVideoAsync(IFormFile file)
         {
             try
             {
