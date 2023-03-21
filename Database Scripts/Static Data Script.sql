@@ -1,5 +1,5 @@
 /*####################################################
-			## Insert dummy/static data ##
+			## Insert Static data ##
 ####################################################*/
 INSERT INTO `locations` (name) VALUES ('A1.17');
 INSERT INTO `locations` (name) VALUES ('A1.22');
@@ -75,6 +75,15 @@ INSERT INTO `locations` (name) VALUES ('H.07');
 INSERT INTO `locations` (name) VALUES ('H.11');
 INSERT INTO `locations` (name) VALUES ('I.04');
 INSERT INTO `locations` (name) VALUES ('I.06');
+
+/*####################################################
+			## Insert Setup User ##
+####################################################*/
+/* This user is for starting the system on setup. After setup a new user can be created and this one can be manually deleted through the admin portal
+Username: TestUser
+Password: 123
+*/
+CALL `door2doordb`.`spCreateAdmin`(1,  '21Pxpy7gkhZNAPSv4WH4UQ==', '8uZl5s+QkTaRW5n8dhXlh6eT9AZc1FWxqISxEWCa5OE=');
 
 /*####################################################
 			## Insert Test data ##
