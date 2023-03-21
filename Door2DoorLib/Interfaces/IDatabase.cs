@@ -6,6 +6,6 @@ namespace Door2DoorLib.Interfaces
     {
         Task<DbDataReader> ExecuteQueryAsync(DbCommand sqlCommand, IDictionary<string, object> sqlParams = null);
         Task<bool> OpenConnectionAsync();
-        Task<bool> CloseConnection();
+        Task<bool> CloseConnectionAsync();
     }
 }
