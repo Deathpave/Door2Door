@@ -18,6 +18,10 @@ namespace Door2DoorLibTester.ManagerTests
             _manager = new RouteManager(db);
         }
 
+        /// <summary>
+        /// Tests the GetAllAsync method of the RouteManager class
+        /// </summary>
+        /// <returns></returns>
         [Test]
         [Order(1)]
         public async Task GetAllAsync_HasData_IfCollectionIsNotNull()
@@ -33,6 +37,10 @@ namespace Door2DoorLibTester.ManagerTests
             Assert.DoesNotThrowAsync(getAllAction);
         }
 
+        /// <summary>
+        /// Tests the CreateAsync method of the RouteManager class
+        /// </summary>
+        /// <returns></returns>
         [Test]
         [Order(2)]
         public async Task CreateAsync_CreatesARoute_IfArgumentsAreValid()
@@ -51,6 +59,10 @@ namespace Door2DoorLibTester.ManagerTests
             Assert.IsTrue(result);
         }
 
+        /// <summary>
+        /// Tests the GetByIdAsync method of the RouteManager class
+        /// </summary>
+        /// <returns></returns>
         [Test]
         [Order(3)]
         public async Task GetByIdAsync_ReturnsAValidObject_IfArgumentAreValid()
@@ -75,6 +87,10 @@ namespace Door2DoorLibTester.ManagerTests
             Assert.AreEqual(testRoute.EndLocation, requestedRoute.EndLocation);
         }
 
+        /// <summary>
+        /// Tests the GetByLocationsAsync method of the RouteManager class
+        /// </summary>
+        /// <returns></returns>
         [Test]
         [Order(4)]
         public async Task GetByLocationsAsync_ReturnsAValidObject_IFArgumentsAreValid()
@@ -99,6 +115,10 @@ namespace Door2DoorLibTester.ManagerTests
             Assert.AreEqual(testRoute.EndLocation, requestedRoute.EndLocation);
         }
 
+        /// <summary>
+        /// Tests the UpdateAsync method of the RouteManager class
+        /// </summary>
+        /// <returns></returns>
         [Test]
         [Order(5)]
         public async Task UpdateAsync_UpdatesExistingObject_IfArgumentsAreValid()
@@ -119,6 +139,10 @@ namespace Door2DoorLibTester.ManagerTests
             Assert.IsTrue(result);
         }
 
+        /// <summary>
+        /// Tests the RemoveObjectAsync method of the RouteManager class
+        /// </summary>
+        /// <returns></returns>
         [Test]
         [Order(6)]
         public async Task RemoveObjectAsync_RemovesExistingObject_IfArgumentsAreValid()
@@ -135,18 +159,30 @@ namespace Door2DoorLibTester.ManagerTests
             Assert.IsTrue(result);
         }
 
+        /// <summary>
+        /// Returns a test Admin object
+        /// </summary>
+        /// <returns></returns>
         private Admin CreateTestUser()
         {
             Admin admin = AdminFactory.CreateAdmin("TestUser", "123");
             return admin;
         }
 
+        /// <summary>
+        /// Returns a test route
+        /// </summary>
+        /// <returns></returns>
         private Route CreateTestRoute()
         {
             Route route = RouteFactory.CreateRoute("Test", "Test", 6, 7, 1000);
             return route;
         }
 
+        /// <summary>
+        /// Returns a test Route with different property data
+        /// </summary>
+        /// <returns></returns>
         private Route CreateUpdatedTestObject()
         {
             Route route = RouteFactory.CreateRoute("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "Lav en U-vending", 10, 12, 1000);
