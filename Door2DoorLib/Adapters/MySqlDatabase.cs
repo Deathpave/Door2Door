@@ -46,7 +46,7 @@ namespace Door2DoorLib.Adapters
 
         #region Close Connection
         // Closes the database connection
-        public override async Task<bool> CloseConnection()
+        public override async Task<bool> CloseConnectionAsync()
         {
             try
             {

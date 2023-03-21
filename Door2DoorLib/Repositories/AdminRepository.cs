@@ -45,7 +45,7 @@ namespace Door2DoorLib.Repositories
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
             dataReader.Read();
             affectedRows = dataReader.RecordsAffected;
-            await _database.CloseConnection();
+            await _database.CloseConnectionAsync();
 
             if (affectedRows > 0)
             {
@@ -78,7 +78,7 @@ namespace Door2DoorLib.Repositories
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
             dataReader.Read();
             affectedRows = dataReader.RecordsAffected;
-            await _database.CloseConnection();
+            await _database.CloseConnectionAsync();
 
             if (affectedRows != 0)
             {
@@ -120,7 +120,7 @@ namespace Door2DoorLib.Repositories
             {
                 result = AdminFactory.CreateAdmin(dataReader.GetString("username"), dataReader.GetString("password"));
             }
-            await _database.CloseConnection();
+            await _database.CloseConnectionAsync();
 
             return await Task.FromResult(result);
         }
@@ -147,7 +147,7 @@ namespace Door2DoorLib.Repositories
                 result.Add(newroute);
             }
 
-            await _database.CloseConnection();
+            await _database.CloseConnectionAsync();
             return await Task.FromResult(result);
         }
         #endregion
@@ -180,7 +180,7 @@ namespace Door2DoorLib.Repositories
             {
                 result = AdminFactory.CreateAdmin(dataReader.GetString("username"), dataReader.GetString("password"), dataReader.GetInt64("id"));
             }
-            await _database.CloseConnection();
+            await _database.CloseConnectionAsync();
 
             return await Task.FromResult(result);
 
@@ -209,7 +209,7 @@ namespace Door2DoorLib.Repositories
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
             dataReader.Read();
             affectedRows = dataReader.RecordsAffected;
-            await _database.CloseConnection();
+            await _database.CloseConnectionAsync();
 
             if (affectedRows != 0)
             {

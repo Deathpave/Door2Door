@@ -66,8 +66,10 @@ namespace Door2DoorLibTester.ManagerTests
             bool result = await _manager.UpdateAsync(updatedAdmin, updatedAdmin);
 
             //Cleanup
+            await _manager.DeleteAsync(updatedAdmin, updatedAdmin);
 
             //Assert
+            Assert.IsTrue(result);
         }
 
         [Test]
