@@ -7,7 +7,12 @@ namespace Door2DoorLib.Security
     internal class Encryption
     {
         #region Encrypt String
-        // Encrypts input string
+        /// <summary>
+        /// Returns encrypted input string
+        /// </summary>
+        /// <param name="input"></param>
+        /// <param name="encodingPassword"></param>
+        /// <returns></returns>
         public string EncryptString(string input, string encodingPassword)
         {
             // Check for null or empty inputs
