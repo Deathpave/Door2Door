@@ -1,8 +1,4 @@
-﻿using Door2DoorLib.DataModels;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Mvc.Rendering;
-
-namespace Door2DoorFrontEnd.Models
+﻿namespace Door2DoorFrontEnd.Models
 {
     public class AdminModel
     {
@@ -20,12 +16,5 @@ namespace Door2DoorFrontEnd.Models
             File = new FileModel();
             RouteModel = new RouteModel();
         }
-        //public IEnumerable<Location> LocationList { get; set; }
-        //public IEnumerable<Door2DoorLib.DataModels.Route> RouteList { get; set; }
-        //public List<SelectListItem> RouteLocationList { get; set; }
-        //public int SelectedStartLocation { get; set; }
-        //public int SelectedEndLocation { get; set; }
-
     }
-
 }
