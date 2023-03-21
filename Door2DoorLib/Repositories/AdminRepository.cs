@@ -178,7 +178,7 @@ namespace Door2DoorLib.Repositories
 
             while (dataReader.Read())
             {
-                result = AdminFactory.CreateAdmin(dataReader.GetString("username"), dataReader.GetString("password"));
+                result = AdminFactory.CreateAdmin(dataReader.GetString("username"), dataReader.GetString("password"), dataReader.GetInt64("id"));
             }
             await _database.CloseConnection();
 

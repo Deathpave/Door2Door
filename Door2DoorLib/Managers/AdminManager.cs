@@ -100,6 +100,7 @@ namespace Door2DoorLib.Managers
         /// <returns></returns>
         public async Task<bool> DeleteAsync(Admin deleteAdmin, Admin admin)
         {
+            deleteAdmin = _repository.GetByNameAsync(new Encryption().EncryptString(deleteAdmin.UserName, deleteAdmin.UserName)).Result;
             if (_repository.DeleteAsync(deleteAdmin).Result)
             {
                 LogFactory.CreateLog(LogTypes.Database, $"{admin.UserName} deleted admin user {deleteAdmin.UserName}", MessageTypes.Deleted).WriteLog();
