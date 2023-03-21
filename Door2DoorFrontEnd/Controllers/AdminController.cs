@@ -83,7 +83,7 @@ namespace Door2DoorFrontEnd.Controllers
         {
             try
             {
-                model = SetData(model, collection);
+                SetData(model, collection);
                 Admin admin = AdminFactory.CreateAdmin(model.Username);
                 Admin deleteAdmin = AdminFactory.CreateAdmin(model.DeleteAdmin, model.Username);
 

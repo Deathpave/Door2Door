@@ -10,7 +10,6 @@
         {
             @Html.AntiForgeryToken()
             @Html.Hidden("Authusr",Model.Auth.Username)
-            ;
             @Html.TextBoxFor(Model => Model.NewAdminUsername, new {type = "username", placeholder="Brugernavn"})
             @Html.TextBoxFor(Model => Model.NewAdminPswd,new {type="password", placeholder="Kodeord"})
             <input class="button" value="Tilføj" type="submit" />
@@ -22,9 +21,8 @@
         @using (Html.BeginForm("RemoveAdmin", "Admin", FormMethod.Post))
         {
             @Html.AntiForgeryToken()
-            ;
+            @Html.Hidden("username",Model.Username)
             @Html.TextBoxFor(Model => Model.DeleteAdmin, new {placeholder="Brugernavn"})
-
             <input class="button" value="Tilføj" type="submit" />
         }
     </div>
@@ -35,7 +33,6 @@
         @using (Html.BeginForm("AddRoute", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
-            ;
             @Html.TextBoxFor(Model => Model.File.Video, new {style="display:none;", id="upload",  type= "file", value="Vælg video"})
             <p style="color:white;">Start lokation</p>
             @Html.DropDownListFor(o=>o.RouteModel.LocationModel.StartId, new SelectList(Model.RouteModel.LocationModel.SelectLocationList, "Value", "Text"))
@@ -55,8 +52,6 @@
         @using (Html.BeginForm("RemoveRoute", "Admin", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
-            ;
-
             @Html.DropDownListFor(o=>o.RouteModel.Id, new SelectList(Model.RouteModel.SelectRouteList, "Value", "Text"))
             // Need to see what the locations are and not the id
             <input id="button" value="Slet rute" type="submit" />
@@ -68,7 +63,6 @@
         @using (Html.BeginForm("AddLocation", "Admin", FormMethod.Post))
         {
             @Html.AntiForgeryToken()
-            ;
             @Html.TextBoxFor(Model => Model.NewLocationName, new {placeholder = "Lokation navn"})
 
             <input class="button" value="Tilføj" type="submit" />
