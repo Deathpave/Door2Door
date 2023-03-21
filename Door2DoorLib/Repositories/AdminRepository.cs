@@ -26,7 +26,7 @@ namespace Door2DoorLib.Repositories
         /// Creates an Admin entity in the database
         /// </summary>
         /// <param name="createEntity"></param>
-        /// <returns></returns>
+        /// <returns>True or False</returns>
         public async Task<bool> CreateAsync(Admin createEntity)
         {
             DbCommand sqlCommand = new SqlCommand("spCreateAdmin");
@@ -63,7 +63,7 @@ namespace Door2DoorLib.Repositories
         /// Deletes an Admin entity from the database
         /// </summary>
         /// <param name="deleteEntity"></param>
-        /// <returns></returns>
+        /// <returns>True or False</returns>
         public async Task<bool> DeleteAsync(Admin deleteEntity)
         {
             DbCommand sqlCommand = new SqlCommand("spDeleteAdmin");
@@ -93,10 +93,10 @@ namespace Door2DoorLib.Repositories
 
         #region Get By Id
         /// <summary>
-        /// Returns an Admin entity with matching id
+        /// Get's an Admin entity with matching id
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>Admin object with matching id</returns>
         /// <exception cref="NotImplementedException"></exception>
         public async Task<Admin> GetByIdAsync(long id)
         {
@@ -128,9 +128,9 @@ namespace Door2DoorLib.Repositories
 
         #region Get All
         /// <summary>
-        /// Returns all Admin entities from the database
+        /// Get's all Admin entities from the database
         /// </summary>
-        /// <returns></returns>
+        /// <returns>All Admin objects</returns>
         public async Task<IEnumerable<Admin>> GetAllAsync()
         {
             DbCommand sqlCommand = new SqlCommand("spGetAllAdmins");
@@ -154,10 +154,10 @@ namespace Door2DoorLib.Repositories
 
         #region Get By Name Async
         /// <summary>
-        /// Returns an admin entity with matchin name
+        /// Get's an admin entity with matchin name
         /// </summary>
         /// <param name="name"></param>
-        /// <returns></returns>
+        /// <returns>An Admin with matchin name</returns>
         public async Task<Admin> GetByNameAsync(string name)
         {
             DbCommand sqlCommand = new SqlCommand("spGetAdminByName");
@@ -192,7 +192,7 @@ namespace Door2DoorLib.Repositories
         /// Updates an Admin entity in the database
         /// </summary>
         /// <param name="updateEntity"></param>
-        /// <returns></returns>
+        /// <returns>True or False</returns>
         public async Task<bool> UpdateAsync(Admin updateEntity)
         {
             DbCommand sqlCommand = new SqlCommand("spUpdateAdmin");

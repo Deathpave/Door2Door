@@ -116,7 +116,7 @@ namespace Door2DoorLib.Repositories
         /// <summary>
         /// Get's all Route entities from the database.
         /// </summary>
-        /// <returns>all Route entities from database</returns>
+        /// <returns>All Routese</returns>
         public async Task<IEnumerable<Route>> GetAllAsync()
         {
             DbCommand sqlCommand = new SqlCommand("spGetAllRoutes");
