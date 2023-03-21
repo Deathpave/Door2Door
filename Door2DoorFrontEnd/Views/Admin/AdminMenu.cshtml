@@ -23,7 +23,7 @@
             @Html.AntiForgeryToken()
             @Html.Hidden("username",Model.Username)
             @Html.TextBoxFor(Model => Model.DeleteAdmin, new {placeholder="Brugernavn"})
-            <input class="button" value="Tilføj" type="submit" />
+            <input class="button" value="Fjern" type="submit" />
         }
     </div>
 
@@ -54,7 +54,7 @@
             @Html.AntiForgeryToken()
             @Html.DropDownListFor(o=>o.RouteModel.Id, new SelectList(Model.RouteModel.SelectRouteList, "Value", "Text"))
             // Need to see what the locations are and not the id
-            <input id="button" value="Slet rute" type="submit" />
+            <input id="button" value="Fjern" type="submit" />
         }
     </div>
 
