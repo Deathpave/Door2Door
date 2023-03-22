@@ -125,7 +125,7 @@ namespace Door2DoorFrontEnd.Controllers
                 Door2DoorLib.DataModels.Route newroute = RouteFactory.CreateRoute(url, model.RouteModel.RouteDescription, model.RouteModel.LocationModel.StartId, model.RouteModel.LocationModel.EndId);
                 Admin admin = AdminFactory.CreateAdmin(model.Username);
                 await _routeManager.CreateAsync(newroute, admin);
-                return View("Admin", model);
+                return View("AdminMenu", model);
             }
             catch (Exception)
             {
@@ -153,7 +153,7 @@ namespace Door2DoorFrontEnd.Controllers
         private AdminModel SetData(AdminModel model, IFormCollection collection)
         {
             model = SetLists(model);
-            model = SetAuth(model, collection);
+            //model = SetAuth(model, collection);
             return model;
         }
 
