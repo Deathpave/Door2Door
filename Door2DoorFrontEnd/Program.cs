@@ -11,7 +11,7 @@ IConfiguration config = build.Build();
 
 //Initialize an instance of an IDatabase for manager injections
 config["door2doordb"] = config.GetConnectionString("DefaultConnection");
-var db = Door2DoorLib.Factories.DatabaseFactory.CreateDatabase(config, "door2doordb", DatabaseTypes.MySql);
+var db = DatabaseFactory.CreateDatabase(config, "door2doordb", DatabaseTypes.MySql);
 
 //Manager dependency injections
 builder.Services.AddScoped<IRouteManager, RouteManager>(manager => new RouteManager(db));

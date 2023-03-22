@@ -175,7 +175,7 @@ namespace Door2DoorLibTester.ManagerTests
         /// <returns></returns>
         private Route CreateTestRoute()
         {
-            Route route = RouteFactory.CreateRoute("Test", "Test", 6, 7, 1000);
+            Route route = RouteFactory.CreateRoute("Test", "Test", 1, 2, 1000);
             return route;
         }
 
@@ -185,7 +185,7 @@ namespace Door2DoorLibTester.ManagerTests
         /// <returns></returns>
         private Route CreateUpdatedTestObject()
         {
-            Route route = RouteFactory.CreateRoute("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "Lav en U-vending", 10, 12, 1000);
+            Route route = RouteFactory.CreateRoute("https://www.youtube.com/watch?v=dQw4w9WgXcQ", "Lav en U-vending", 3, 4, 1000);
             return route;
         }
 
