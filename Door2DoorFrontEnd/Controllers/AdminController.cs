@@ -167,7 +167,7 @@ namespace Door2DoorFrontEnd.Controllers
             {
                 model.RouteModel.LocationModel.LocationList = _locationManager.GetAllAsync().Result.ToList();
             }
-            if (model.RouteModel.LocationModel.SelectLocationList == null || model.RouteModel.LocationModel.SelectLocationList.Count() > 0)
+            if (model.RouteModel.LocationModel.SelectLocationList == null || model.RouteModel.LocationModel.SelectLocationList.Count() == 0)
             {
                 List<SelectListItem> locations = new List<SelectListItem>();
                 SelectListItem item = new SelectListItem();
@@ -177,11 +177,7 @@ namespace Door2DoorFrontEnd.Controllers
                 }
                 model.RouteModel.LocationModel.SelectLocationList = locations;
             }
-            else
-            {
-                model.RouteModel.LocationModel.SelectLocationList = new List<SelectListItem>();
-            }
-            if (model.RouteModel.SelectRouteList == null || model.RouteModel.SelectRouteList.Count() > 0)
+            if (model.RouteModel.SelectRouteList == null || model.RouteModel.SelectRouteList.Count() == 0)
             {
                 List<SelectListItem> routeLocationList = new List<SelectListItem>();
                 foreach (var route in model.RouteModel.RouteList)
@@ -189,10 +185,6 @@ namespace Door2DoorFrontEnd.Controllers
                     routeLocationList.Add(new SelectListItem() { Value = route.Id.ToString(), Text = model.RouteModel.LocationModel.LocationList.Where(x => x.Id == route.StartLocation).FirstOrDefault().Name + "-" + model.RouteModel.LocationModel.LocationList.Where(x => x.Id == route.EndLocation).FirstOrDefault().Name });
                 }
                 model.RouteModel.SelectRouteList = routeLocationList;
-            }
-            else
-            {
-                model.RouteModel.SelectRouteList = new List<SelectListItem>();
             }
             if (model.RouteModel.LocationModel.LocationList == null)
             {
