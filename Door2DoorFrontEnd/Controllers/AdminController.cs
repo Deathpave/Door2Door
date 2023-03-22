@@ -186,6 +186,14 @@ namespace Door2DoorFrontEnd.Controllers
                 }
                 model.RouteModel.SelectRouteList = routeLocationList;
             }
+            if (model.RouteModel.LocationModel.LocationList == null)
+            {
+                model.RouteModel.LocationModel.LocationList = new List<Location>();
+            }
+            if (model.RouteModel.RouteList == null)
+            {
+                model.RouteModel.RouteList = new List<Door2DoorLib.DataModels.Route>();
+            }
             return model;
         }
 
