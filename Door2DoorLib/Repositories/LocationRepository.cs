@@ -25,7 +25,7 @@ namespace Door2DoorLib.Repositories
         /// Creates a new Location entity in the database
         /// </summary>
         /// <param name="createEntity"></param>
-        /// <returns></returns>
+        /// <returns>True or False</returns>
         public async Task<bool> CreateAsync(Location createEntity)
         {
             DbCommand sqlCommand = new SqlCommand("spCreateLocation");
@@ -58,7 +58,7 @@ namespace Door2DoorLib.Repositories
         /// Deletes a Location entity from the database
         /// </summary>
         /// <param name="deleteEntity"></param>
-        /// <returns></returns>
+        /// <returns>True or False</returns>
         public async Task<bool> DeleteAsync(Location deleteEntity)
         {
             DbCommand sqlCommand = new SqlCommand("spDeleteLocation");
@@ -86,9 +86,9 @@ namespace Door2DoorLib.Repositories
         }
 
         /// <summary>
-        /// Returns all Location entities from the database
+        /// Get's all Location entities from the database
         /// </summary>
-        /// <returns></returns>
+        /// <returns>All Locations</returns>
         public async Task<IEnumerable<Location>> GetAllAsync()
         {
             DbCommand sqlCommand = new SqlCommand("spGetAllLocations");
@@ -113,10 +113,10 @@ namespace Door2DoorLib.Repositories
         }
 
         /// <summary>
-        /// Returns a given Location entity by id
+        /// Get's a specific Location from it's id
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>Location object matching the given id</returns>
         public async Task<Location> GetByIdAsync(long id)
         {
             DbCommand sqlCommand = new SqlCommand("spGetLocationById");
@@ -147,7 +147,7 @@ namespace Door2DoorLib.Repositories
         /// Updates a Location Entity in the database
         /// </summary>
         /// <param name="updateEntity"></param>
-        /// <returns></returns>
+        /// <returns>True or False</returns>
         /// <exception cref="NotImplementedException"></exception>
         public async Task<bool> UpdateAsync(Location updateEntity)
         {

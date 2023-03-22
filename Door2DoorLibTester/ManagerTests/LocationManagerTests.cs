@@ -18,6 +18,10 @@ namespace Door2DoorLibTester.ManagerTests
             _manager = new LocationManager(db);
         }
 
+        /// <summary>
+        /// Tests the GetAllAsync method of the LocationManager class
+        /// </summary>
+        /// <returns></returns>
         [Test]
         [Order(1)]
         public async Task GetAllAsync_HasData_IfCollectionIsNotNull()
@@ -33,6 +37,10 @@ namespace Door2DoorLibTester.ManagerTests
             Assert.DoesNotThrowAsync(getAllAction);
         }
 
+        /// <summary>
+        /// Tests the CreateAsync method of the LocationManager class
+        /// </summary>
+        /// <returns></returns>
         [Test]
         [Order(2)]
         public async Task CreateAsync_CreatesLocation_IfArgumentsAreValid()
@@ -51,6 +59,10 @@ namespace Door2DoorLibTester.ManagerTests
             Assert.IsTrue(result);
         }
 
+        /// <summary>
+        /// Tests the GetByIdAsync method of the LocationManager class
+        /// </summary>
+        /// <returns></returns>
         [Test]
         [Order(3)]
         public async Task GetByIdAsync_ReturnsAValidObject_IfArgumentsAreValid()
@@ -73,6 +85,10 @@ namespace Door2DoorLibTester.ManagerTests
             Assert.AreEqual(testLocation.IconUrl, requestedLocation.IconUrl);
         }
 
+        /// <summary>
+        /// Tests the UpdateAsync method of the LocationManager class
+        /// </summary>
+        /// <returns></returns>
         [Test]
         [Order(4)]
         public async Task UpdateAsync_UpdatesExisitngObject_IfArgumentsAreValid()
@@ -93,9 +109,13 @@ namespace Door2DoorLibTester.ManagerTests
             Assert.IsTrue(result);
         }
 
+        /// <summary>
+        /// Tests the RemoveAsync method of the LocationManager class
+        /// </summary>
+        /// <returns></returns>
         [Test]
         [Order(5)]
-        public async Task RemoveObjectAsync_RemovesExistingObject_IfArgumentsAreValid()
+        public async Task RemoveAsync_RemovesExistingObject_IfArgumentsAreValid()
         {
             //Arrange
             Location testLocation = CreateTestLocation();
@@ -109,12 +129,20 @@ namespace Door2DoorLibTester.ManagerTests
             Assert.IsTrue(result);
         }
 
+        /// <summary>
+        /// Returns an Admin object for testing
+        /// </summary>
+        /// <returns></returns>
         private Admin CreateTestUser()
         {
             Admin admin = AdminFactory.CreateAdmin("TestUser", "123");
             return admin;
         }
 
+        /// <summary>
+        /// Returns a location object
+        /// </summary>
+        /// <returns></returns>
         private Location CreateTestLocation()
         {
             Location location = LocationFactory.CreateLocation("Test", "Test", 1000);
@@ -122,6 +150,10 @@ namespace Door2DoorLibTester.ManagerTests
             return location;
         }
 
+        /// <summary>
+        /// Returns a location object with different properties
+        /// </summary>
+        /// <returns></returns>
         private Location CreateUpdatedTestObject()
         {
             Location location = LocationFactory.CreateLocation("Testing", "Testing", 1000);

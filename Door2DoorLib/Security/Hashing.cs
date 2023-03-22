@@ -7,7 +7,11 @@ namespace Door2DoorLib.Security
     internal class Hashing
     {
         #region Sha 256 Hash
-        // Hashes inputs string
+        /// <summary>
+        /// Returns hashed input string
+        /// </summary>
+        /// <param name="input"></param>
+        /// <returns></returns>
         public string Sha256Hash(string input)
         {
             // Check for null or empty input

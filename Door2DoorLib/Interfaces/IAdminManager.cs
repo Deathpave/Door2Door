@@ -20,6 +20,10 @@ namespace Door2DoorLib.Interfaces
         /// <returns></returns>
         Task<bool> CreateAsync(Admin newAdmin, Admin admin);
 
+        /// <summary>
+        /// Returns a collection of all Admin entities from the database
+        /// </summary>
+        /// <returns></returns>
         Task<IEnumerable<Admin>> GetAllAsync();
 
         /// <summary>

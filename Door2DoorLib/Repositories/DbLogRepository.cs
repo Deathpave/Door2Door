@@ -27,7 +27,7 @@ namespace Door2DoorLib.Repositories
         /// Creates a Log entity in the database
         /// </summary>
         /// <param name="createEntity"></param>
-        /// <returns></returns>
+        /// <returns>True or False</returns>
         public async Task<bool> CreateAsync(DatabaseLog createEntity)
         {
             DbCommand sqlCommand = new SqlCommand("spCreateLog");
@@ -63,7 +63,7 @@ namespace Door2DoorLib.Repositories
         /// Deletes a Log Entity from the database
         /// </summary>
         /// <param name="deleteEntity"></param>
-        /// <returns></returns>
+        /// <returns>True or False</returns>
         public async Task<bool> DeleteAsync(DatabaseLog deleteEntity)
         {
             DbCommand sqlCommand = new SqlCommand("spDeleteLog");
@@ -93,9 +93,9 @@ namespace Door2DoorLib.Repositories
 
         #region Get All Async
         /// <summary>
-        /// Returns all Log entities from the database
+        /// Get's all logs
         /// </summary>
-        /// <returns></returns>
+        /// <returns>all Log entities from the database</returns>
         public async Task<IEnumerable<DatabaseLog>> GetAllAsync()
         {
             DbCommand sqlCommand = new SqlCommand("spGetAllLogs");
@@ -121,10 +121,10 @@ namespace Door2DoorLib.Repositories
 
         #region Get By Id Async
         /// <summary>
-        /// Returns a Log Entity with a matching id
+        /// Get's a Log Entity with a matching id
         /// </summary>
         /// <param name="id"></param>
-        /// <returns></returns>
+        /// <returns>Log with matching id</returns>
         public async Task<DatabaseLog> GetByIdAsync(long id)
         {
             DbCommand sqlCommand = new SqlCommand("spGetLogById");
@@ -157,7 +157,7 @@ namespace Door2DoorLib.Repositories
         /// Updates a Log Entity in the database
         /// </summary>
         /// <param name="updateEntity"></param>
-        /// <returns></returns>
+        /// <returns>True or False</returns>
         public async Task<bool> UpdateAsync(DatabaseLog updateEntity)
         {
             DbCommand sqlCommand = new SqlCommand("spUpdateLog");
