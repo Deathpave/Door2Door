@@ -6,6 +6,9 @@ using System.Data.SqlClient;
 
 namespace Door2DoorLib.Repositories
 {
+    /// <summary>
+    /// Repository class for handling all database call regarding Location entities
+    /// </summary>
     internal class LocationRepository : ILocationRepository
     {
         #region Fields
