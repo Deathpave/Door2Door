@@ -14,7 +14,7 @@ namespace Door2DoorLib.Interfaces
         /// <param name="createEntity"></param>
         /// <returns></returns>
         Task<bool> CreateAsync(T createEntity);
-        
+
         /// <summary>
         /// Generic Delete CRUD operation
         /// </summary>

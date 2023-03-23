@@ -12,7 +12,7 @@ namespace Door2DoorLib.Managers
     public class RouteManager : IRouteManager
     {
         #region Fields
-        private RouteRepository _repository;
+        private readonly RouteRepository _repository;
         #endregion
 
         #region Constructor

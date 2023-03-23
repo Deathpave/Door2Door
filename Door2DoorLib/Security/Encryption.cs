@@ -24,7 +24,9 @@ namespace Door2DoorLib.Security
                 LogFactory.CreateLog(LogTypes.Console, "Input string was null or empty", MessageTypes.Error).WriteLog();
             }
             if (string.IsNullOrEmpty(encodingPassword))
+            {
                 LogFactory.CreateLog(LogTypes.Console, "Encoding password was null or empty", MessageTypes.Error).WriteLog();
+            }
 
             // input bytes as salt
             byte[] salt = Encoding.UTF8.GetBytes(input);

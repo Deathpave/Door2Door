@@ -46,7 +46,7 @@ namespace Door2DoorLib.Repositories
             dataReader.Read();
             affectedRows = dataReader.RecordsAffected;
             await _database.CloseConnectionAsync();
-            
+
             if (affectedRows > 0)
             {
                 return await Task.FromResult(true);

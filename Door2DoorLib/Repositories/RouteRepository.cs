@@ -128,7 +128,10 @@ namespace Door2DoorLib.Repositories
 
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand);
 
-            if (dataReader.HasRows == false) return new List<Route>();
+            if (dataReader.HasRows == false)
+            {
+                return new List<Route>();
+            }
 
             while (await dataReader.ReadAsync())
             {
@@ -160,7 +163,10 @@ namespace Door2DoorLib.Repositories
 
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
 
-            if (dataReader.HasRows == false) return result;
+            if (dataReader.HasRows == false)
+            {
+                return result;
+            }
 
             while (dataReader.Read())
             {
@@ -230,7 +236,10 @@ namespace Door2DoorLib.Repositories
 
             using var dataReader = await _database.ExecuteQueryAsync(sqlCommand, sqlParams);
 
-            if (dataReader.HasRows == false) return result;
+            if (dataReader.HasRows == false)
+            {
+                return result;
+            }
 
             while (dataReader.Read())
             {

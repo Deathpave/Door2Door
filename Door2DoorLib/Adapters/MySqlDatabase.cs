@@ -1,15 +1,15 @@
 ﻿using Door2DoorLib.Factories;
 using Microsoft.Extensions.Configuration;
 using MySql.Data.MySqlClient;
-using System.Data.Common;
 using System.Data;
+using System.Data.Common;
 
 namespace Door2DoorLib.Adapters
 {
     internal class MySqlDatabase : Database
     {
         #region Fields
-        private MySqlConnection _mySqlConnection;
+        private readonly MySqlConnection _mySqlConnection;
         #endregion
 
         #region Constructor

@@ -1,6 +1,4 @@
-﻿using Door2DoorLib.DataModels;
-
-namespace Door2DoorLib.Interfaces
+﻿namespace Door2DoorLib.Interfaces
 {
     public interface ILog
     {

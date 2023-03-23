@@ -2,6 +2,9 @@
 
 namespace Door2DoorLib.Factories
 {
+    /// <summary>
+    /// Factory that handles the creation of Admin objects
+    /// </summary>
     public class AdminFactory
     {
         #region Methods
