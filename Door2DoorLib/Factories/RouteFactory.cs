@@ -2,6 +2,9 @@
 
 namespace Door2DoorLib.Factories
 {
+    /// <summary>
+    /// Factory that handles the creation of Route objects
+    /// </summary>
     public class RouteFactory
     {
         #region Methods

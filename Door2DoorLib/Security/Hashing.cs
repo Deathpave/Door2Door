@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Door2DoorLib.Security
 {
+    /// <summary>
+    /// Class for hashing strings
+    /// </summary>
     internal class Hashing
     {
         #region Sha 256 Hash

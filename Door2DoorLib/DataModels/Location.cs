@@ -1,5 +1,8 @@
 ﻿namespace Door2DoorLib.DataModels
 {
+    /// <summary>
+    /// Object class for Location entities
+    /// </summary>
     public class Location : BaseEntity
     {
         #region Fields

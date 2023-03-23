@@ -2,6 +2,10 @@
 
 namespace Door2DoorLib.Interfaces
 {
+    /// <summary>
+    /// Super class for all repositories
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     internal interface IRepository<T> where T : BaseEntity
     {
         /// <summary>

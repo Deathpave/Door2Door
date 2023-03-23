@@ -1,5 +1,8 @@
 ﻿namespace Door2DoorLib.DataModels
 {
+    /// <summary>
+    /// Super class for all entities
+    /// </summary>
     public abstract class BaseEntity
     {
         #region Fields

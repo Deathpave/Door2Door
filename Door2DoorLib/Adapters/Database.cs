@@ -27,7 +27,10 @@ namespace Door2DoorLib.Adapters
 
         #region Methods
         #region Close Connection
-        // Default close connection method (not in use when overriding from other classes)
+        /// <summary>
+        /// Default close connection method (not in use when overriding from other classes)
+        /// </summary>
+        /// <returns>True or False</returns>
         public virtual Task<bool> CloseConnectionAsync()
         {
             LogFactory.CreateLog(LogTypes.Console, "Tried to close connection via abstract database class", MessageTypes.Error).WriteLog();
@@ -36,7 +39,10 @@ namespace Door2DoorLib.Adapters
         #endregion
 
         #region Open Connection Async
-        // Default open connection method (not in use when overriding from other classes)
+        /// <summary>
+        /// Default open connection method (not in use when overriding from other classes)
+        /// </summary>
+        /// <returns>True or False</returns>
         public virtual Task<bool> OpenConnectionAsync()
         {
             LogFactory.CreateLog(LogTypes.Console, "Tried to open connection via abstract database class", MessageTypes.Error).WriteLog();
@@ -45,7 +51,12 @@ namespace Door2DoorLib.Adapters
         #endregion
 
         #region Execute Command Async
-        // Default execute sql command (not in use when overriding from other classes)
+        /// <summary>
+        /// Default execute sql command (not in use when overriding from other classes)
+        /// </summary>
+        /// <param name="sqlCommand"></param>
+        /// <param name="sqlParams"></param>
+        /// <returns>DbDataReader</returns>
         public virtual Task<DbDataReader> ExecuteQueryAsync(DbCommand sqlCommand, IDictionary<string, object> sqlParams = null)
         {
             LogFactory.CreateLog(LogTypes.Console, "Tried to execute sql command via abstract database class", MessageTypes.Error).WriteLog();

@@ -4,10 +4,19 @@ using Microsoft.Extensions.Configuration;
 
 namespace Door2DoorLib.Factories
 {
+    /// <summary>
+    /// Factory that handles the creation of IDatabase objects
+    /// </summary>
     public class DatabaseFactory
     {
         #region Create Database
-        // Creates a database instance
+        /// <summary>
+        /// Creates a database instance
+        /// </summary>
+        /// <param name="configuration"></param>
+        /// <param name="databaseName"></param>
+        /// <param name="databaseType"></param>
+        /// <returns>IDatabase</returns>
         public static IDatabase CreateDatabase(IConfiguration configuration, string databaseName, DatabaseTypes databaseType)
         {
             IDatabase database = null;

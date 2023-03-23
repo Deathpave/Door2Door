@@ -3,6 +3,9 @@ using Door2DoorLib.Interfaces;
 
 namespace Door2DoorLib.Logs
 {
+    /// <summary>
+    /// Object class for the FileLog Entity
+    /// </summary>
     internal class FileLog : ILog
     {
         #region Fields
@@ -23,7 +26,9 @@ namespace Door2DoorLib.Logs
         #endregion
 
         #region Write Log
-        // Writes the file log
+        /// <summary>
+        /// Writes the file log
+        /// </summary>
         public void WriteLog()
         {
             File.AppendAllText(_logLocation, $"{_date.ToString("dd-MM-yyyy hh:mm")} - {_messageType.ToString()} - {_message}\n");

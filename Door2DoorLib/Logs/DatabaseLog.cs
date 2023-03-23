@@ -4,6 +4,9 @@ using Door2DoorLib.Interfaces;
 
 namespace Door2DoorLib.Logs
 {
+    /// <summary>
+    /// Object class for the DatabaseLog Entity
+    /// </summary>
     public class DatabaseLog : BaseEntity, ILog
     {
         #region Fields

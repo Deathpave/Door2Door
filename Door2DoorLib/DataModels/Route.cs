@@ -1,5 +1,8 @@
 ﻿namespace Door2DoorLib.DataModels
 {
+    /// <summary>
+    /// Object class for Route entities
+    /// </summary>
     public class Route : BaseEntity
     {
         #region Fields

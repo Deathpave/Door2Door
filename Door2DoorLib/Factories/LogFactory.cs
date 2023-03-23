@@ -3,6 +3,9 @@ using Door2DoorLib.Logs;
 
 namespace Door2DoorLib.Factories
 {
+    /// <summary>
+    /// Factory that handles the creation of Log objects
+    /// </summary>
     public static class LogFactory
     {
         #region Fields
@@ -10,7 +13,10 @@ namespace Door2DoorLib.Factories
         #endregion
 
         #region Initialize
-        // Sets needed data for factory
+        /// <summary>
+        /// Sets needed data for factory
+        /// </summary>
+        /// <param name="errorLogLocation"></param>
         public static void Initialize(string errorLogLocation)
         {
             _errorLogLocation = errorLogLocation;
@@ -18,7 +24,13 @@ namespace Door2DoorLib.Factories
         #endregion
 
         #region Create Log
-        // Returns a log depending on log type
+        /// <summary>
+        /// Returns a log depending on log type
+        /// </summary>
+        /// <param name="type"></param>
+        /// <param name="message"></param>
+        /// <param name="messageType"></param>
+        /// <returns></returns>
         public static ILog CreateLog(LogTypes type, string message, MessageTypes messageType)
         {
             ILog log = null;
