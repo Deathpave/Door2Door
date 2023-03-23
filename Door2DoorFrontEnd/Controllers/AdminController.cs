@@ -22,6 +22,7 @@ namespace Door2DoorFrontEnd.Controllers
             _routeManager = routemanager;
             _locationManager = locationmanager;
         }
+        // Main admin page
         [HttpGet("/admin")]
         public IActionResult Admin()
         {
@@ -30,6 +31,7 @@ namespace Door2DoorFrontEnd.Controllers
             return View("Admin", model);
         }
 
+        // Login page
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(AdminModel model, IFormCollection collection)
@@ -51,6 +53,7 @@ namespace Door2DoorFrontEnd.Controllers
         }
 
 
+        //AdminMenu
         [HttpPost("/admin/menu")]
         public IActionResult AdminMenu(AdminModel model, IFormCollection collection)
         {
@@ -59,6 +62,7 @@ namespace Door2DoorFrontEnd.Controllers
             return View("AdminMenu", model);
         }
 
+        //Adds admin posted
         [HttpPost("/admin/addadmin")]
         public async Task<IActionResult> AddAdmin(AdminModel model, IFormCollection collection)
         {
@@ -78,6 +82,7 @@ namespace Door2DoorFrontEnd.Controllers
             }
         }
 
+        //Removes admin posted
         [HttpPost("/admin/removeadmin")]
         public async Task<IActionResult> RemoveAdmin(AdminModel model, IFormCollection collection)
         {
@@ -96,6 +101,7 @@ namespace Door2DoorFrontEnd.Controllers
             }
         }
 
+        //Adds location posted
         [HttpPost("/admin/addlocation")]
         public async Task<IActionResult> AddLocation(AdminModel model, IFormCollection collection)
         {
@@ -115,6 +121,7 @@ namespace Door2DoorFrontEnd.Controllers
             }
         }
 
+        //Adds route posted
         [HttpPost("/admin/addroute")]
         public async Task<ActionResult> AddRoute(AdminModel model, IFormCollection collection)
         {
@@ -133,6 +140,7 @@ namespace Door2DoorFrontEnd.Controllers
             }
         }
 
+        //Removes route posted
         [HttpPost("/admin/removeroute")]
         public async Task<ActionResult> RemoveRoute(AdminModel model, IFormCollection collection)
         {
@@ -150,13 +158,15 @@ namespace Door2DoorFrontEnd.Controllers
             }
         }
 
+        // Sets the admin values
         private AdminModel SetData(AdminModel model, IFormCollection collection)
         {
             model = SetLists(model);
-            //model = SetAuth(model, collection);
+            model = SetAuth(model, collection);
             return model;
         }
 
+        //Sets the needed information lists to the model
         private AdminModel SetLists(AdminModel model)
         {
             if (model.RouteModel.RouteList == null || model.RouteModel.RouteList.Count() == 0)
@@ -197,6 +207,7 @@ namespace Door2DoorFrontEnd.Controllers
             return model;
         }
 
+        //Sets the auth values from a collection to the model
         private AdminModel SetAuth(AdminModel model, IFormCollection collection)
         {
             collection.TryGetValue("Authusr", out StringValues values);
