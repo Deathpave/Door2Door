@@ -9,7 +9,7 @@
 </head>
 <body>
     <div id="video-container">
-        <video muted autoplay playsinline style="max-height:660px" id="video-player" src=@videourl @*preload="auto"*@>
+        <video muted autoplay playsinline style="max-height:660px" id="video-player" src=@videourl>
             <source src=@videourl type="video/mp4">
             Your browser does not support the video tag.
         </video>
@@ -34,8 +34,8 @@
 
     for (i = 0; i < coll.length; i++) {
         coll[i].addEventListener("click", function () {
-            this.classList.toggle("active");
             var content = this.nextElementSibling;
+            //Toggle on and off here
             if (content.style.display === "block") {
                 content.style.display = "none";
             } else {
@@ -77,11 +77,8 @@
         video.currentTime = time;
     }
     document.addEventListener("DOMContentLoaded", function loadVideo() {
-        //Add whatever you want to do when the video ends here
-        //video.load();
-        //video.play(); 
+        //Had to add this in order to make it work on ios. Pauses the video when its done
+        video.play();
         video.pause();
-        //video.currentTime = 0;
-        //video.pause();
     });
 </script>

@@ -1,5 +1,6 @@
 ﻿@model Door2DoorFrontEnd.Models.LocationModel
 @{
+    //Start page to choose what route the user wants to follow
     ViewData["Title"] = "Navigation";
 }
 <div>
@@ -43,7 +44,6 @@
         var div_item = document.getElementsByClassName("items");
         if (this.value != null || this.value != "") {
             for (var i = 0; i < div_item.length; i++) {
-                console.log("hej " + this.value.toUpperCase());
                 if (div_item[i].id.toUpperCase().includes(this.value.toUpperCase())) {
                     div_item[i].style.display = '';
                 } else {
@@ -64,7 +64,6 @@
     for (let route in routes) {
         let option = document.createElement("option");
         option.setAttribute('value', data[route]);
-
         let optionText = document.createTextNode(route);
         option.appendChild(optionText);
 

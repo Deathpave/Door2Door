@@ -42,8 +42,6 @@ main {
     height: auto;
     max-width: 428px;
     max-height: 926px;
-    /*min-height: 812px;
-    min-width: 375px;*/
     overflow-y: scroll;
     overflow-x: scroll;
 }
@@ -105,7 +103,6 @@ button {
 }
 
 .loginform {
-    /*background-color: #01161E;*/
     display: flex;
     flex-direction: column;
     justify-content: space-around;
