@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Door2DoorFrontEnd.Models
 {
+    // Model to handle location data
     public class LocationModel
     {
         public List<SelectListItem> SelectLocationList { get; set; }

@@ -6,6 +6,9 @@ using Door2DoorLib.Security;
 
 namespace Door2DoorLib.Managers
 {
+    /// <summary>
+    /// Manager class for Adnin entity data handling
+    /// </summary>
     public class AdminManager : IAdminManager
     {
         #region Fields

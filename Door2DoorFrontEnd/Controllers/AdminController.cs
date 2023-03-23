@@ -76,8 +76,9 @@ namespace Door2DoorFrontEnd.Controllers
                 model.NewAdminPswd = "";
                 return View("AdminMenu", model);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                LogFactory.CreateLog(LogTypes.Database, e.Message, MessageTypes.Error);
                 return View("AdminMenu", model);
             }
         }
@@ -95,8 +96,9 @@ namespace Door2DoorFrontEnd.Controllers
                 await _adminManager.DeleteAsync(deleteAdmin, admin);
                 return View("AdminMenu", model);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                LogFactory.CreateLog(LogTypes.Database, e.Message, MessageTypes.Error);
                 return View("AdminMenu", model);
             }
         }
@@ -114,9 +116,9 @@ namespace Door2DoorFrontEnd.Controllers
                 await _locationManager.CreateAsync(location, currentadmin);
                 return View("AdminMenu", model);
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                //_logger.LogError();
+                LogFactory.CreateLog(LogTypes.Database, e.Message, MessageTypes.Error);
                 return View("AdminMenu", model);
             }
         }
@@ -134,8 +136,9 @@ namespace Door2DoorFrontEnd.Controllers
                 await _routeManager.CreateAsync(newroute, admin);
                 return View("AdminMenu", model);
             }
-            catch (Exception)
+            catch (Exception e)
             {
+                LogFactory.CreateLog(LogTypes.Database, e.Message, MessageTypes.Error);
                 return View("AdminMenu");
             }
         }

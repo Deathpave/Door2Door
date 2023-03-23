@@ -6,6 +6,9 @@ using System.Data.SqlClient;
 
 namespace Door2DoorLib.Repositories
 {
+    /// <summary>
+    /// Repository class for handling all database call regarding Location entities
+    /// </summary>
     internal class LocationRepository : ILocationRepository
     {
         #region Fields
@@ -43,7 +46,7 @@ namespace Door2DoorLib.Repositories
             dataReader.Read();
             affectedRows = dataReader.RecordsAffected;
             await _database.CloseConnectionAsync();
-            
+
             if (affectedRows > 0)
             {
                 return await Task.FromResult(true);

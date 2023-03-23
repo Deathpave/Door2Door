@@ -1,5 +1,6 @@
 ﻿namespace Door2DoorFrontEnd.Models
 {
+    // Model to handle admin user and their actions
     public class AdminModel
     {
         public AuthModel Auth { get; set; }

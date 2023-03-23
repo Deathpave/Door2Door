@@ -5,6 +5,9 @@ using Door2DoorLib.Repositories;
 
 namespace Door2DoorLib.Managers
 {
+    /// <summary>
+    /// Manager class for LocationManager entity data handling
+    /// </summary>
     public class LocationManager : ILocationManager
     {
         #region Fields

@@ -8,6 +8,9 @@ using System.Text;
 
 namespace Door2DoorLib.Repositories
 {
+    /// <summary>
+    /// Repository class for handling all database call regarding Log entities
+    /// </summary>
     internal class DbLogRepository : IDbLogRepository
     {
         #region Fields

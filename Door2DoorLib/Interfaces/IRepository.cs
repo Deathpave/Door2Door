@@ -2,6 +2,10 @@
 
 namespace Door2DoorLib.Interfaces
 {
+    /// <summary>
+    /// Super class for all repositories
+    /// </summary>
+    /// <typeparam name="T"></typeparam>
     internal interface IRepository<T> where T : BaseEntity
     {
         /// <summary>
@@ -10,7 +14,7 @@ namespace Door2DoorLib.Interfaces
         /// <param name="createEntity"></param>
         /// <returns></returns>
         Task<bool> CreateAsync(T createEntity);
-        
+
         /// <summary>
         /// Generic Delete CRUD operation
         /// </summary>

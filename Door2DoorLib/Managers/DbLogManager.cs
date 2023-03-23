@@ -5,6 +5,9 @@ using Door2DoorLib.Repositories;
 
 namespace Door2DoorLib.Managers
 {
+    /// <summary>
+    /// Manager class for Log entity data handling
+    /// </summary>
     public class DbLogManager : IDbLogManager
     {
         #region Fields
@@ -20,6 +23,11 @@ namespace Door2DoorLib.Managers
 
         #region Methods
         #region Create Async
+        /// <summary>
+        /// Creates a new Log entity in the database
+        /// </summary>
+        /// <param name="createEntity"></param>
+        /// <returns>True or False</returns>
         public async Task<bool> CreateAsync(DatabaseLog createEntity)
         {
             if (_repository.CreateAsync(createEntity).Result)

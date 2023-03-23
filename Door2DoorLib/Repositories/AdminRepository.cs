@@ -7,6 +7,9 @@ using System.Data.SqlClient;
 
 namespace Door2DoorLib.Repositories
 {
+    /// <summary>
+    /// Repository class for handling all database call regarding Admin entities
+    /// </summary>
     internal class AdminRepository : IAdminRepository
     {
         #region Fields

@@ -1,8 +1,8 @@
-﻿using Door2DoorLib.DataModels;
-using Microsoft.AspNetCore.Mvc.Rendering;
+﻿using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Door2DoorFrontEnd.Models
 {
+    // Model to handle route related data
     public class RouteModel
     {
         public List<SelectListItem>? SelectRouteList { get; set; }

@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Door2DoorLib.Security
 {
+    /// <summary>
+    /// Class for hashing strings
+    /// </summary>
     internal class Hashing
     {
         #region Sha 256 Hash
@@ -16,7 +19,9 @@ namespace Door2DoorLib.Security
         {
             // Check for null or empty input
             if (string.IsNullOrEmpty(input))
+            {
                 LogFactory.CreateLog(LogTypes.Console, "Input for hashing was null or empty", MessageTypes.Error).WriteLog();
+            }
 
             // Convert input to bytes
             byte[] inputBytes = Encoding.UTF8.GetBytes(input);
