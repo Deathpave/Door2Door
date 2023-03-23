@@ -13,12 +13,14 @@ namespace Door2DoorFrontEnd.Controllers
         private IEnumerable<Location> _locations = new List<Location>();
         private readonly ILocationManager _locationManager;
 
+        // Constructor
         public HomeController(ILogger<HomeController> logger, ILocationManager locationManager)
         {
             _logger = logger;
             _locationManager = locationManager;
         }
 
+        // Start page
         [HttpGet("~/")]
         public IActionResult Index(int startid)
         {
@@ -30,18 +32,7 @@ namespace Door2DoorFrontEnd.Controllers
             return View(model);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        public IActionResult Guide()
-        {
-            GuideViewModel model = new GuideViewModel("/media/movie.mp4");
-
-            return View(model);
-        }
-
+        // Error page
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

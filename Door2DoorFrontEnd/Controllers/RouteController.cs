@@ -9,12 +9,14 @@ namespace Door2DoorFrontEnd.Controllers
         private readonly ILogger<RouteController> _logger;
         private readonly IRouteManager _routeManager;
 
+        // Constructor
         public RouteController(ILogger<RouteController> logger, IRouteManager routeManager)
         {
             _logger = logger;
             _routeManager = routeManager;
         }
 
+        // Navigation page
         [HttpGet("~/navigation")]
         public IActionResult Route(int startid, int endid)
         {
