@@ -30,12 +30,14 @@
 <script>
     function toggleDropDown() {
         var itemlist = document.getElementById('itemlist');
+        //toggles on and off
         if (itemlist.style.display == "none") {
             itemlist.style.display = "block";
         } else {
             itemlist.style.display = "none";
         }
     }
+    //When a item in the listed is clicked it will navigate to fitted url
     function itemClicked(item) {
         window.location.href = "/navigation?startid=" + @Model.StartId+"&endid=" + item;
     }
@@ -60,7 +62,6 @@
 
     const routesDropDown = document.getElementById("routesDropDown");
     const routes = @Model;
-
     for (let route in routes) {
         let option = document.createElement("option");
         option.setAttribute('value', data[route]);
