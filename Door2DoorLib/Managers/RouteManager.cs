@@ -6,6 +6,9 @@ using Microsoft.AspNetCore.Http;
 
 namespace Door2DoorLib.Managers
 {
+    /// <summary>
+    /// Manager class for Route entity data handling
+    /// </summary>
     public class RouteManager : IRouteManager
     {
         #region Fields
