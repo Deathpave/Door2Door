@@ -1,5 +1,6 @@
 ﻿namespace Door2DoorFrontEnd.Models
 {
+    // Model to handle authentication for admins
     public class AuthModel
     {
         #region Properties

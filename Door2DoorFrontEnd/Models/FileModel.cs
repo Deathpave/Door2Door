@@ -1,5 +1,6 @@
 ﻿namespace Door2DoorFrontEnd.Models
 {
+    // Model to handle video file for upload
     public class FileModel
     {
         public IFormFile? Video { get; set; }
