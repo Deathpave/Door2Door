@@ -4,6 +4,9 @@ using System.Text;
 
 namespace Door2DoorLib.Security
 {
+    /// <summary>
+    /// Class for encrypting strings
+    /// </summary>
     internal class Encryption
     {
         #region Encrypt String

@@ -3,6 +3,9 @@ using Door2DoorLib.Interfaces;
 
 namespace Door2DoorLib.Logs
 {
+    /// <summary>
+    /// Object class for the ConsoleLog entity.
+    /// </summary>
     internal class ConsoleLog : ILog
     {
         #region Fields
@@ -21,7 +24,9 @@ namespace Door2DoorLib.Logs
         #endregion
 
         #region Write Log
-        // Prints log to console
+        /// <summary>
+        /// Prints log to console
+        /// </summary>
         public void WriteLog()
         {
             Console.WriteLine($"{_date.ToString("dd-MM-yyyy hh:mm")} - {_messageType.ToString()} - {_message}");

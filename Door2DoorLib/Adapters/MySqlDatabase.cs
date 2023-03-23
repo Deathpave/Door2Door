@@ -22,7 +22,10 @@ namespace Door2DoorLib.Adapters
 
         #region Methods
         #region Open Connection Async
-        // Opens the database connection
+        /// <summary>
+        /// Opens the database connection
+        /// </summary>
+        /// <returns>True or False</returns>
         public override async Task<bool> OpenConnectionAsync()
         {
             try
@@ -45,7 +48,10 @@ namespace Door2DoorLib.Adapters
         #endregion  
 
         #region Close Connection
-        // Closes the database connection
+        /// <summary>
+        /// Closes the database connection
+        /// </summary>
+        /// <returns>True or False</returns>
         public override async Task<bool> CloseConnectionAsync()
         {
             try
@@ -68,7 +74,12 @@ namespace Door2DoorLib.Adapters
         #endregion
 
         #region Execute Command Async
-        // Executes sql command
+        /// <summary>
+        /// Executes sql command
+        /// </summary>
+        /// <param name="sqlCommand"></param>
+        /// <param name="sqlParams"></param>
+        /// <returns>DbDataReader</returns>
         public override async Task<DbDataReader> ExecuteQueryAsync(DbCommand sqlCommand, IDictionary<string, object> sqlParams = null)
         {
             try
@@ -97,6 +108,11 @@ namespace Door2DoorLib.Adapters
         }
         #endregion
 
+        /// <summary>
+        /// Adds parameters in an IDictionary to a MySqlCommand object
+        /// </summary>
+        /// <param name="commandObj"></param>
+        /// <param name="sqlParams"></param>
         private static void AddSqlParamsToSqlCommand(MySqlCommand commandObj, IDictionary<string, object> sqlParams)
         {
             foreach (var param in sqlParams)

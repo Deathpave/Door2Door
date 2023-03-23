@@ -1,5 +1,8 @@
 ﻿namespace Door2DoorLib.DataModels
 {
+    /// <summary>
+    /// Object class for Admin users
+    /// </summary>
     public class Admin : BaseEntity
     {
         #region Fields
