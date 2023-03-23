@@ -5,6 +5,9 @@ using Door2DoorLib.Repositories;
 
 namespace Door2DoorLib.Managers
 {
+    /// <summary>
+    /// Manager class for Log entity data handling
+    /// </summary>
     public class DbLogManager : IDbLogManager
     {
         #region Fields
