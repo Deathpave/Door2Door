@@ -8,13 +8,22 @@ namespace Door2DoorLibTester.Setup
     {
         public static IDatabase SetupDB()
         {
+            //var inMemorySettings = new Dictionary<string, string?>
+            //{
+            //    {
+            //        "ConnectionStrings:DefaultConnection",
+            //        "Server=10.13.0.125;" +
+            //        "Database=door2doordb;" +
+            //        "Uid=root;Pwd=123;"
+            //    },
+            //};
+
             var inMemorySettings = new Dictionary<string, string?>
             {
                 {
                     "ConnectionStrings:DefaultConnection",
-                    "Server=127.0.0.1;" +
-                    "Database=door2doordb;" +
-                    "Uid=root;Pwd=123;"
+                    "Server=(localdb)\\MSSQLLOCALDB;" +
+                    "Database=door2doordb;"
                 },
             };
 

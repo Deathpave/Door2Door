@@ -3,5 +3,6 @@
     public enum DatabaseTypes
     {
         MySql,
+        MsSql,
     }
 }
