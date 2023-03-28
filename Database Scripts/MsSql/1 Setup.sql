@@ -41,8 +41,8 @@ GO
 CREATE TABLE [routes]
 (
 [id] BIGINT NOT NULL IDENTITY,
-[startLocation] INT NOT NULL,
-[endLocation] INT NOT NULL,
+[startLocation] BIGINT NOT NULL,
+[endLocation] BIGINT NOT NULL,
 [text] VARCHAR(255) NOT NULL,
 [videoUrl] VARCHAR(255) NOT NULL
 )
@@ -56,7 +56,7 @@ GO
 
 CREATE TABLE [log](
 [id] BIGINT NOT NULL IDENTITY,
-[type] INT NOT NULL ,
+[type] BIGINT NOT NULL ,
 [description] VARCHAR(255) NOT NULL,
 [timestamp] DATETIME DEFAULT GETDATE())
 GO
