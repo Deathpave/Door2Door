@@ -23,7 +23,7 @@ namespace Door2DoorLibTester.Setup
                 {
                     "ConnectionStrings:DefaultConnection",
                     "Server=(localdb)\\MSSQLLOCALDB;" +
-                    "Database=door2doordb;"
+                    "Database=Door2DoorDB;"
                 },
             };
 
@@ -31,7 +31,8 @@ namespace Door2DoorLibTester.Setup
                 .AddInMemoryCollection(inMemorySettings)
                 .Build();
 
-            var db = DatabaseFactory.CreateDatabase(config, "door2doordb", DatabaseTypes.MySql);
+            //var db = DatabaseFactory.CreateDatabase(config, "door2doordb", DatabaseTypes.MySql);
+            var db = DatabaseFactory.CreateDatabase(config, "Door2DoorDB", DatabaseTypes.MsSql);
 
             return db;
         }
