@@ -25,7 +25,6 @@ namespace Door2DoorLib.Factories
                 case DatabaseTypes.MySql:
                     database = new MySqlDatabase(configuration, databaseName);
                     break;
-
                 case DatabaseTypes.MsSql:
                     database = new MsSqlDatabase(configuration, databaseName);
                     break;

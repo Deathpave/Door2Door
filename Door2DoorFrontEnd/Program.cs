@@ -11,7 +11,6 @@ IConfiguration config = build.Build();
 
 // Initialize an instance of an IDatabase for manager injections
 config["door2doordb"] = config.GetConnectionString("DefaultConnection");
-//var db = DatabaseFactory.CreateDatabase(config, "door2doordb", DatabaseTypes.MySql);
 var db = DatabaseFactory.CreateDatabase(config, "Door2DoorDB", DatabaseTypes.MsSql);
 
 // Manager dependency injections

@@ -1,21 +1,32 @@
 ﻿using Door2DoorLib.Factories;
 using Microsoft.Extensions.Configuration;
-using System.Data;
+using System;
+using System.Collections.Generic;
 using System.Data.Common;
+using System.Data;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using System.Data.SqlClient;
 
 namespace Door2DoorLib.Adapters
 {
     internal class MsSqlDatabase : Database
     {
-
+        #region Fields
         private readonly SqlConnection _sqlConnection;
+        #endregion
 
+        #region Constructor
         public MsSqlDatabase(IConfiguration configuration, string databaseName) : base(configuration, databaseName)
         {
+            // Creating our database connection
             _sqlConnection = new SqlConnection(configuration.GetConnectionString("DefaultConnection"));
         }
+        #endregion
 
+        #region Methods
+        #region Open Connection Async
         /// <summary>
         /// Opens the database connection
         /// </summary>
@@ -37,8 +48,11 @@ namespace Door2DoorLib.Adapters
                 LogFactory.CreateLog(LogTypes.File, $"Failed to open database connection due to {e.Message}", MessageTypes.Error).WriteLog();
                 return await Task.FromResult(false);
             }
-        }
 
+        }
+        #endregion  
+
+        #region Close Connection
         /// <summary>
         /// Closes the database connection
         /// </summary>
@@ -62,7 +76,9 @@ namespace Door2DoorLib.Adapters
                 return await Task.FromResult(false);
             }
         }
+        #endregion
 
+        #region Execute Command Async
         /// <summary>
         /// Executes sql command
         /// </summary>
@@ -95,6 +111,7 @@ namespace Door2DoorLib.Adapters
                 return await Task.FromResult<DbDataReader?>(null);
             }
         }
+        #endregion
 
         /// <summary>
         /// Adds parameters in an IDictionary to a MySqlCommand object
@@ -108,6 +125,6 @@ namespace Door2DoorLib.Adapters
                 commandObj.Parameters.AddWithValue(param.Key, param.Value);
             }
         }
-
+        #endregion
     }
 }

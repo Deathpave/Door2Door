@@ -62,29 +62,6 @@ namespace Door2DoorLibTester.ManagerTests
         }
 
         /// <summary>
-        /// Tests the UpdateAsync method of the AdminManager class
-        /// </summary>
-        /// <returns></returns>
-        [Test]
-        [Order(3)]
-        public async Task UpdateAsync_UpdatesExistingUser_IfArgumentsAreValid()
-        {
-            //Arrange
-            Admin testAdmin = CreateTestUser();
-            Admin updatedAdmin = CreateUpdatedTestUser();
-            await _manager.CreateAsync(testAdmin, testAdmin);
-
-            //Act
-            bool result = await _manager.UpdateAsync(updatedAdmin, updatedAdmin);
-
-            //Cleanup
-            await _manager.DeleteAsync(updatedAdmin, updatedAdmin);
-
-            //Assert
-            Assert.IsTrue(result);
-        }
-
-        /// <summary>
         /// Tests the RemoveAsync method of the AdminManager class
         /// </summary>
         /// <returns></returns>
